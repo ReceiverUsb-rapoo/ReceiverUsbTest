@@ -1,0 +1,2 @@
+# ReceiverUsbTest
+firmware,libusb
