@@ -47,7 +47,7 @@ bool UsbOperator::StartNewOperator()
         m_mapLDevice.clear();
     }
 
-    if(m_listDevicePort.isEmpty()){
+    if(!m_listDevicePort.isEmpty()){
         m_listDevicePort.clear();
     }
 
@@ -131,9 +131,10 @@ bool UsbOperator::FindUsbDevicePort(const uint &un_Pid,
            QString str_PortName = QString::number(libusb_get_port_number(ld_pDevice));
 
            libusb_device *ld_pDeviceParent = NULL;
+           ld_pDeviceParent = ld_pDevice;
 
             do{
-                ld_pDeviceParent = libusb_get_parent(ld_pDevice);
+                ld_pDeviceParent = libusb_get_parent(ld_pDeviceParent);
                 if(ld_pDeviceParent){
                     str_PortName += QString::number(libusb_get_port_number(ld_pDeviceParent));
                 }
@@ -160,7 +161,7 @@ void UsbOperator::run()
 {
     QTime _DieTime = QTime::currentTime().addMSecs(m_nRunTime);
     while(QTime::currentTime() < _DieTime) {
-        if(m_mapLDevice.isEmpty() || m_listDevicePort.isEmpty()){
+        if(!m_mapLDevice.isEmpty() || !m_listDevicePort.isEmpty()){
             break;
         }
 
