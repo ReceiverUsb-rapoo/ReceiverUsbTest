@@ -2,20 +2,19 @@
 #include "threadhandle.h"
 #include <QTimer>
 
-
 TcpServer::TcpServer(QObject *parent,int numConnections) :
     QTcpServer(parent)
 {
-    tcpClient = NULL;
-    pThread = NULL;
-    tcpClient = new  QHash<int, TcpSocket *>;
-    setMaxPendingConnections(numConnections);
+    m_pHashTcpClient = NULL;
+    m_pThread = NULL;
+    m_pHashTcpClient = new QHash<int, TcpSocket *>;
+    SetMaxPendingConnections(numConnections);
 
-    pThread = new QThread;
-    connect(this,&TcpServer::destroyed,
-            pThread,&QThread::deleteLater);
-    moveToThread(pThread);
-    pThread->start();
+//    m_pThread = new QThread;
+//    connect(this,&TcpServer::destroyed,
+//            m_pThread,&QThread::deleteLater);
+//    moveToThread(m_pThread);
+//    m_pThread->start();
 
 //    QTimer *time = new QTimer;
 //    connect(time,&QTimer::timeout,
@@ -27,107 +26,119 @@ TcpServer::TcpServer(QObject *parent,int numConnections) :
 
 TcpServer::~TcpServer()
 {
-    closeServer();
+    CloseListen();
+    CloseServer();
 }
 
-void TcpServer::setMaxPendingConnections(int numConnections)
+void TcpServer::SetMaxPendingConnections(int n_NumConnections)
 {
-    this->QTcpServer::setMaxPendingConnections(numConnections);//调用Qtcpsocket函数，设置最大连接数，主要是使maxPendingConnections()依然有效
-    this->maxConnections = numConnections;
+    //调用Qtcpsocket函数，设置最大连接数，主要是使maxPendingConnections()依然有效
+    this->QTcpServer::setMaxPendingConnections(n_NumConnections);
+    this->m_nMaxConnections = n_NumConnections;
 }
 
-void TcpServer::StartListen(quint16 iPort, const QString &strHostIP)
+bool TcpServer::StartListen(quint16 us_Port, const QString &str_HostIP)
 {
+    if(str_HostIP == "Any"){
+        return listen(QHostAddress::AnyIPv4, us_Port);
+    }
 
-    if(strHostIP == "Any")
-    {
-        listen(QHostAddress::AnyIPv4, iPort);
-    }
-    else
-    {
-        listen(QHostAddress(strHostIP), iPort);
-    }
-    qDebug()<<"start listen"<<serverPort()<<isListening();
+    return listen(QHostAddress(str_HostIP), us_Port);
 }
 
-void TcpServer::closeServer()
+void TcpServer::CloseListen()
 {
-
-    if(pThread != NULL)
-    {
-        clear();//暂时存放，后续会改
-
-
-        pThread->quit();
-        pThread->wait();
-        pThread->deleteLater();
-        pThread = NULL;
-    }
-
-    if(tcpClient != NULL)
-    {
-        delete tcpClient;
-        tcpClient = NULL;
+    if(this->isListening()){
+        this->close();
     }
 }
 
-void TcpServer::incomingConnection(qintptr socketDescriptor) //多线程必须在此函数里捕获新连接
+void TcpServer::CloseServer()
 {
-    if (tcpClient->size() > maxPendingConnections())//继承重写此函数后，QTcpServer默认的判断最大连接数失效，自己实现
-    {
-        QTcpSocket tcp;
-        tcp.setSocketDescriptor(socketDescriptor);
-        tcp.disconnectFromHost();
+    if(m_pThread != NULL) {
+        //暂时存放，后续会改
+        slot_Clear();
+        m_pThread->quit();
+        m_pThread->wait();
+        m_pThread->deleteLater();
+        m_pThread = NULL;
+    }
+
+    if(m_pHashTcpClient != NULL){
+        delete m_pHashTcpClient;
+        m_pHashTcpClient = NULL;
+    }
+}
+
+//多线程必须在此函数里捕获新连接
+void TcpServer::incomingConnection(qintptr socketDescriptor)
+{
+    //继承重写此函数后，QTcpServer默认的判断最大连接数失效，自己实现
+    if (m_pHashTcpClient->size() > maxPendingConnections()){
+        QTcpSocket o_QTcpSocket;
+        o_QTcpSocket.setSocketDescriptor(socketDescriptor);
+        o_QTcpSocket.disconnectFromHost();
         return;
     }
-    auto th = ThreadHandle::getClass().getThread();
-    auto tcpTemp = new TcpSocket(socketDescriptor);
-    QString ip = tcpTemp->peerAddress().toString();
-    qint16 port = tcpTemp->peerPort();
-    qDebug()<<"new ip port:"<<ip<<port<<tcpTemp->peerName();
-    m_comHash.insert(ip,socketDescriptor);
 
-    connect(tcpTemp,&TcpSocket::sockDisConnect,this,&TcpServer::sockDisConnectSlot);//NOTE:断开连接的处理，从列表移除，并释放断开的Tcpsocket，此槽必须实现，线程管理计数也是考的他
-    connect(this,&TcpServer::sentDisConnect,tcpTemp,&TcpSocket::disConTcp);//断开信号
+    QThread *p_QThread = ThreadHandle::getClass().GetThread();
+    TcpSocket *p_TcpSocket = new TcpSocket(socketDescriptor);
 
- //   connect(tcpTemp,&TcpSocket::sigReadData,this,&TcpServer::slotReadData);
-    connect(this,&TcpServer::sigSentData,tcpTemp,&TcpSocket::sigWrite);
+    QString str_Ip = p_TcpSocket->peerAddress().toString();
+    qint16 us_Port = p_TcpSocket->peerPort();
+    qDebug()<<"new ip port:"<<str_Ip<<us_Port<<p_TcpSocket->peerName();
+    m_HashCom.insert(str_Ip,socketDescriptor);
 
+    //NOTE:断开连接的处理，从列表移除，并释放断开的Tcpsocket，此槽必须实现，线程管理计数也是考的他
+    connect(p_TcpSocket, &TcpSocket::sig_SockDisConnect,
+            this, &TcpServer::slot_SockDisConnectSlot);
+    //断开信号
+    connect(this, &TcpServer::sig_SentDisConnect,
+            p_TcpSocket, &TcpSocket::slot_DisConTcp);
+    connect(p_TcpSocket, &TcpSocket::sig_ReadData,
+            this, &TcpServer::slot_ReadData);
+    connect(this, &TcpServer::sig_SentData,
+            p_TcpSocket, &TcpSocket::sig_Write);
 
-    tcpTemp->moveToThread(th);//把tcp类移动到新的线程，从线程管理类中获取
-    tcpClient->insert(socketDescriptor,tcpTemp);//插入到连接信息中
+    //把tcp类移动到新的线程，从线程管理类中获取
+    p_TcpSocket->moveToThread(p_QThread);
+    //插入到连接信息中
+    m_pHashTcpClient->insert(socketDescriptor,p_TcpSocket);
 
-
-    emit connectClient(socketDescriptor,ip,port);
+    emit sig_ConnectClient(socketDescriptor,str_Ip,us_Port);
 }
 
-void TcpServer::sockDisConnectSlot(int handle,const QString & ip, quint16 prot,QThread * th)
+void TcpServer::slot_SockDisConnectSlot(int n_Handle,
+                                        const QString & str_Ip,
+                                        quint16 us_Prot,
+                                        QThread * p_QThread)
 {
-    tcpClient->remove(handle);//连接管理中移除断开连接的socket
-    ThreadHandle::getClass().removeThread(th); //告诉线程管理类那个线程里的连接断开了
-    emit sockDisConnect(handle,ip,prot);
+    //连接管理中移除断开连接的socket
+    m_pHashTcpClient->remove(n_Handle);
+    //告诉线程管理类那个线程里的连接断开了
+    ThreadHandle::getClass().RemoveThread(p_QThread);
+    emit sig_SockDisConnect(n_Handle,str_Ip,us_Prot);
 }
 
 
-void TcpServer::clear()
+void TcpServer::slot_Clear()
 {
-    emit this->sentDisConnect(-1);
-    ThreadHandle::getClass().clear();
-    tcpClient->clear();
+    emit this->sig_SentDisConnect(-1);
+    ThreadHandle::getClass().Clear();
+    m_pHashTcpClient->clear();
 }
 
-//void TcpServer::slotReadData(STRUCT_MSGDATA d)
-//{
-////    qDebug()<<"slotReadData sigDataRecieved";
-//    emit sigDataRecieved(d);
-//}
-
-void TcpServer::slotTime()
+void TcpServer::slot_ReadData(STRUCT_TCPDATA struct_TcpData)
 {
-    foreach (int id, tcpClient->keys()) {
-        QByteArray d;
+    emit sig_DataRecieved(struct_TcpData);
+}
 
-        d.append(QString::number(tcpClient->value(id)->peerPort()));
-        emit sigSentData(d,m_comHash.key(id));
+void TcpServer::slot_SlotTime()
+{
+    foreach (int n_ID, m_pHashTcpClient->keys()) {
+        QByteArray byte_Data;
+
+        byte_Data.append(QString::number(m_pHashTcpClient->value(n_ID)->peerPort()));
+        emit sig_SentData(byte_Data,m_HashCom.key(n_ID));
     }
 }

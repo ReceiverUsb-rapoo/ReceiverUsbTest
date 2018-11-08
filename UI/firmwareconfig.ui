@@ -159,13 +159,16 @@
       </item>
       <item row="3" column="1">
        <widget class="QLineEdit" name="le_PowerChannel">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <pointsize>9</pointsize>
          </font>
         </property>
         <property name="text">
-         <string/>
+         <string>0</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -358,7 +361,7 @@
          </font>
         </property>
         <property name="text">
-         <string>单个DUT测试时间：</string>
+         <string>功率检测时间：</string>
         </property>
        </widget>
       </item>
@@ -397,6 +400,36 @@
       <string>延时（ms）</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="le_ReadRFDelay">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="le_PoweredDelay">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_2">
         <property name="font">
@@ -409,8 +442,20 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="le_PoweredDelay">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="font">
+         <font>
+          <pointsize>9</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>延时检测RF时间：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="le_DUTPowerDelay">
         <property name="font">
          <font>
           <pointsize>9</pointsize>
@@ -432,49 +477,7 @@
          </font>
         </property>
         <property name="text">
-         <string>延读取RF延时：   </string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="le_ReadRFDelay">
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>DUT功率检测延时：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="le_DUTPowerDelay">
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <string>读取RF延时：   </string>
         </property>
        </widget>
       </item>

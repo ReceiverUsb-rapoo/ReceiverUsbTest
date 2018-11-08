@@ -287,15 +287,26 @@ bool Firmware::PC_TestPowerSelfTest()
                                         1);
 }
 
-bool Firmware::PC_TestEnum(const short &s_Time)
+bool Firmware::PC_TestEnum(const ENUM_POWERONGROUP &Group,
+                           const short &s_Time)
 {
-    char cDATA[3] = {NORMAL};
+    char cDATA[4] = {NORMAL, (char)Group};
 
-    memcpy(cDATA + 1, &s_Time, 2);
+    memcpy(cDATA + 2, &s_Time, 2);
 
     return SendCommandData_ShortTimeOut(PC_TESTENUM,
                                         cDATA,
-                                        3);
+                                        4);
+}
+
+bool Firmware::PC_PowerOnSwitch(const ENUM_POWERONSWITCH &Switch,
+                                const ENUM_POWERONGROUP &Group)
+{
+    char cDATA[2] = {(char)Switch, (char)Group};
+
+    return SendCommandData_ShortTimeOut(PC_POWERONSWITCH,
+                                        cDATA,
+                                        2);
 }
 
 void Firmware::WorkSleep(ushort un_Msec)
@@ -390,7 +401,8 @@ bool Firmware::FWACKRemoveTimeOut(ENUM_FIRMWARECOMMAND FWCommand)
             FWCommand == FWACK_READPOWERDATA ||
             FWCommand == FWACK_CLEARPOWERCONFIG ||
             FWCommand == FWACK_TESTPOWERSELFTEST ||
-            FWCommand == FWACK_TESTENUM
+            FWCommand == FWACK_TESTENUM ||
+            FWCommand == FWACK_POWERONSWITCH
             ){
         if(m_mapPCCommand_ShortTimeOut.isEmpty()){
             return false;
@@ -525,6 +537,10 @@ bool Firmware::FWCMDControl(uchar &uc_Command,
     }
     case FWACK_TESTENUM:{
         FWACK_TestEnum();
+        break;
+    }
+    case FWACK_POWERONSWITCH:{
+        FWACK_PowerOnSwitch();
         break;
     }
     default:
@@ -997,6 +1013,11 @@ bool Firmware::FWACK_TestPowerSelfTest(char *p_cData,
 bool Firmware::FWACK_TestEnum()
 {
     return FWACKRemoveTimeOut(FWACK_TESTENUM);
+}
+
+bool Firmware::FWACK_PowerOnSwitch()
+{
+    return FWACKRemoveTimeOut(FWACK_POWERONSWITCH);
 }
 
 void Firmware::slot_ReceiveCommand(char c_Command,

@@ -27,7 +27,7 @@ ComDiscoverd::~ComDiscoverd()
 
 void ComDiscoverd::slot_TimerOut()
 {
-    qDebug()<<"ComDiscoverdTimerOut";
+//    qDebug()<<"ComDiscoverdTimerOut";
     bool b_DiscoverdEqual = false;
     QList<QSerialPortInfo> list_PortInfo = QSerialPortInfo::availablePorts();
 

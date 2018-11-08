@@ -1,41 +1,62 @@
 ﻿#ifndef TCPSOCKET_H
 #define TCPSOCKET_H
-
 #include <QTcpSocket>
 #include <QQueue>
 #include <QFutureWatcher>
 #include <QByteArray>
 #include <QTime>
 
+struct STRUCT_TCPDATA
+{
+    QString str_IP;
+    ushort us_Port;
+    QByteArray byte_Data;
+
+    STRUCT_TCPDATA(){
+        str_IP = "";
+        us_Port = 0;
+        byte_Data = "";
+    }
+};
 
 class TcpSocket : public QTcpSocket
 {
     Q_OBJECT
 public:
-    explicit TcpSocket(qintptr socketDescriptor, QObject *parent = 0);
+    explicit TcpSocket(qintptr p_SocketDescriptor, QObject *parent = 0);
     ~TcpSocket();
-    QByteArray handleData(QByteArray data,const QString & ip, qint16 port);//用来处理数据的函数
+
+private:
+    //用来处理数据的函数
+    QByteArray HandleData(QByteArray byte_Data,
+                          const QString & str_Ip,
+                          qint16 s_Port);
 
 signals:
-//    void sigReadData(STRUCT_MSGDATA);
-    void sigWrite(const QByteArray,const QString);
-    void sockDisConnect(const int ,const QString &,const quint16, QThread *);//NOTE:断开连接的用户信息，此信号必须发出！线程管理类根据信号计数的
+    void sig_ReadData(STRUCT_TCPDATA);
+    void sig_Write(const QByteArray,const QString);
+    //NOTE:断开连接的用户信息，此信号必须发出！线程管理类根据信号计数的
+    void sig_SockDisConnect(const int,
+                            const QString &,
+                            const quint16,
+                            QThread *);
 public slots:
-    void slotSentData(const QByteArray,const QString);//发送信号的槽
-    void disConTcp(int i);
-private slots:
-    void slot_HandleBagData(QByteArray BagData);
+    //发送信号的槽
+    void slot_SentData(const QByteArray byte_Data,
+                       const QString str_Ip);
+    void slot_DisConTcp(int n_ID);
 
 protected slots:
-    void slotReadData();//接收数据
-    void startNext();//处理下一个
+    //接收数据
+    void slot_ReadData();
+    //处理下一个
+    void slot_StartNext();
 protected:
-    QFutureWatcher<QByteArray> watcher;
-    QQueue<QByteArray> datas;
+    QFutureWatcher<QByteArray> m_FutureWatcher;
+    QQueue<QByteArray> m_QueueDatas;
 private:
-    qintptr socketID;
-    QMetaObject::Connection dis;
-//    BagDataHandle *m_BagDataHandle;
+    qintptr m_SocketID;
+    QMetaObject::Connection m_Dis;
 };
 
 #endif // TCPSOCKET_H

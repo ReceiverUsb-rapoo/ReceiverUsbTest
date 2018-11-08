@@ -1,59 +1,76 @@
 ﻿#ifndef TCPSERVER_H
 #define TCPSERVER_H
-
 #include <QTcpServer>
 #include <QHash>
 #include "tcpsocket.h"
 
-
-
-class FuzeObject :public QObject
-{
-  Q_OBJECT
-signals:
-    void sigshow();
-};
-
-
 //继承QTCPSERVER以实现多线程TCPscoket的服务器。
 //如果socket的信息处理直接处理的话，很多新建的信号和槽是用不到的
+
 class TcpServer : public QTcpServer
 {
     Q_OBJECT
-public:
+    friend class TcpServerInstanceGetter;
+private:
     explicit TcpServer(QObject *parent = 0,int numConnections = 10000);
+
+public:
     ~TcpServer();
 
-    void setMaxPendingConnections(int numConnections);              //重写设置最大连接数函数
-    void StartListen(quint16 iPort, const QString &strHostIP = "Any");
-    void closeServer();
+    //重写设置最大连接数函数
+    void SetMaxPendingConnections(int n_NumConnections);
+
+    bool StartListen(quint16 us_Port,
+                     const QString &str_HostIP = "Any");
+
+    void CloseListen();
+
+    void CloseServer();
 
 signals:
-    void sigSentData(const QByteArray, const QString);  //向scoket发送消息, 数据， ip
-//    void sigDataRecieved(STRUCT_MSGDATA);               //server接受到的数据
-signals:
-    void connectClient(const int , const QString & ,const quint16 );        //发送新用户连接信息
-    void readData(const int,const QString &, quint16, const QByteArray &);  //发送获得用户发过来的数据
-    void sockDisConnect(int ,QString ,quint16);                             //断开连接的用户信息
-    void sentDisConnect(int i);                                             //断开特定连接，并释放资源，-1为断开所有。
+    //向scoket发送消息, 数据， ip
+    void sig_SentData(QByteArray byte_Data,
+                      QString str_IP);
+    //server接受到的数据
+    void sig_DataRecieved(STRUCT_TCPDATA struct_TcpData);
 
+    //发送新用户连接信息
+    void sig_ConnectClient(int n_ID,
+                           QString str_IP,
+                           quint16 us_Port);
+    //断开连接的用户信息
+    void sig_SockDisConnect(int n_ID,
+                            QString str_IP,
+                            quint16 us_Port);
+    //断开特定连接，并释放资源，-1为断开所有。
+    void sig_SentDisConnect(int n_ID);
 
 public slots:
-    void clear();//断开所有连接，线程计数器请0
-//    void slotReadData(STRUCT_MSGDATA);
-    void slotTime();
+    //断开所有连接，线程计数器请0
+    void slot_Clear();
+
+private slots:
+    void slot_ReadData(STRUCT_TCPDATA struct_TcpData);
+
+    void slot_SlotTime();
+
 protected slots:
-    void sockDisConnectSlot(int handle,const QString & ip, quint16 prot, QThread *th);//断开连接的用户信息
+    //断开连接的用户信息
+    void slot_SockDisConnectSlot(int n_Handle,
+                                 const QString & str_Ip,
+                                 quint16 us_Prot,
+                                 QThread *p_QThread);
 
 protected:
-    void incomingConnection(qintptr socketDescriptor);//覆盖已获取多线程
+    //覆盖已获取多线程
+    void incomingConnection(qintptr socketDescriptor);
 private:
-    QHash<int,TcpSocket *> * tcpClient;//管理连接的map
-    int maxConnections;
-    QThread * pThread;
-
-    QHash<QString,qintptr> m_comHash; //端口绑定 tcpSocket的socketDescriptor
-
+    //管理连接的map
+    QHash<int,TcpSocket *> * m_pHashTcpClient;
+    int m_nMaxConnections;
+    QThread * m_pThread;
+    //端口绑定 tcpSocket的socketDescriptor
+    QHash<QString,qintptr> m_HashCom;
 };
 
 #endif // TCPSERVER_H

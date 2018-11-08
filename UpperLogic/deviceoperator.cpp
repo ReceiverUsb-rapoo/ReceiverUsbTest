@@ -41,6 +41,18 @@ bool DeviceOperator::SetFWPCConfig(const ushort &us_SequenceNumber,
     return p_FW->SetPCConfig(struct_PCConfig);
 }
 
+bool DeviceOperator::SetBoxObjectPoint(QList<Box *> &list_Box)
+{
+    m_listBox = list_Box;
+    return true;
+}
+
+bool DeviceOperator::SetCatchRobotObjectPoint(CatchRobot *&p_CatchRobot)
+{
+    m_pCatchRobot = p_CatchRobot;
+    return true;
+}
+
 //bool DeviceOperator::SetUsbControlObjectPointer(UsbControl *p_UsbControl)
 //{
 //    m_pUsbControl = p_UsbControl;
@@ -60,6 +72,7 @@ bool DeviceOperator::CreatUsbControlObject()
     }
 
     m_pUsbControl = new UsbControl;
+    m_pUsbControl->InitUsbControl();
     return true;
 }
 
@@ -68,6 +81,9 @@ bool DeviceOperator::DeleteUsbControlObject()
     if(m_pUsbControl != NULL){
         delete m_pUsbControl;
         m_pUsbControl = NULL;
+    }
+    else{
+        return false;
     }
 
     return true;
@@ -104,6 +120,28 @@ bool DeviceOperator::StartSendPowerTest()
 bool DeviceOperator::ExitUsbTest()
 {
     return m_pUsbControl->ExitUsbControl();
+}
+
+bool DeviceOperator::OpenBox(const ushort &us_SequenceNumber)
+{
+    Box *p_Box = NULL;
+    if(!GetBoxPointer(us_SequenceNumber, p_Box)){
+        return false;
+    }
+
+    p_Box->OpenBox();
+    return true;
+}
+
+bool DeviceOperator::CloseBox(const ushort &us_SequenceNumber)
+{
+    Box *p_Box = NULL;
+    if(!GetBoxPointer(us_SequenceNumber, p_Box)){
+        return false;
+    }
+
+    p_Box->CloseBox();
+    return true;
 }
 
 bool DeviceOperator::GetFWInfo(const ushort &us_SequenceNumber)
@@ -259,6 +297,7 @@ bool DeviceOperator::TestPowerSelfTest(const ushort &us_SequenceNumber)
 }
 
 bool DeviceOperator::TestEnum(const ushort &us_SequenceNumber,
+                              const ENUM_POWERONGROUP &Group,
                               const short &s_Time)
 {
     Firmware *p_FW = NULL;
@@ -266,7 +305,19 @@ bool DeviceOperator::TestEnum(const ushort &us_SequenceNumber,
         return false;
     }
 
-    return p_FW->PC_TestEnum(s_Time);
+    return p_FW->PC_TestEnum(Group,s_Time);
+}
+
+bool DeviceOperator::PowerOnSwitch(const ushort &us_SequenceNumber,
+                                   const ENUM_POWERONSWITCH &Switch,
+                                   const ENUM_POWERONGROUP &Group)
+{
+    Firmware *p_FW = NULL;
+    if(!GetFWPointer(us_SequenceNumber, p_FW)){
+        return false;
+    }
+
+    return p_FW->PC_PowerOnSwitch(Switch, Group);
 }
 
 void DeviceOperator::WorkSlepp(ushort un_Msec)
@@ -291,6 +342,25 @@ bool DeviceOperator::GetFWPointer(const ushort &us_SequenceNumber,
         p_FWPoint->GetSequenceNumber(us_FWSequence);
         if(us_FWSequence == us_SequenceNumber){
             p_FW = p_FWPoint;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool DeviceOperator::GetBoxPointer(const ushort &us_SequenceNumber,
+                                   Box * &p_Box)
+{
+    if(m_listBox.isEmpty()){
+        return false;
+    }
+
+    ushort us_BoxSequence = 0;
+
+    foreach(Box *p_BoxPoint, m_listBox){
+        p_BoxPoint->GetSequenceNumber(us_BoxSequence);
+        if(us_BoxSequence == us_SequenceNumber){
+            p_Box = p_BoxPoint;
             return true;
         }
     }

@@ -24,18 +24,37 @@ struct STRUCT_USBCONTROLCONFIG
     uint un_Vid;
     int n_Time;
     QMap<int,int> map_StationPort;
+
+    STRUCT_USBCONTROLCONFIG(){
+        un_Pid = 0;
+        un_Vid = 0;
+        n_Time = 0;
+    }
 };
 
 struct STRUCT_EQUITMENTCONFIG{
-    QList<QString> list_ConName;
+    QList<QString> list_ComName;
     uint un_ComPid;
     uint un_ComVid;
+    QString str_ComputerIP;
+    ushort us_ComputerPort;
     int n_OpemWithComName;      //0 or 1
     int n_OpemWithPidVid;       //0 or 1
     int n_BoxUnuse;              //0 or 1
     int n_RobotUnuse;            //0 or 1
     QList<QString> list_BoxIP;
     QList<QString> list_RobotIP;
+
+    STRUCT_EQUITMENTCONFIG(){
+        un_ComPid = 0;
+        un_ComVid = 0;
+        str_ComputerIP = "";
+        us_ComputerPort = 0;
+        n_OpemWithComName = 0;
+        n_OpemWithPidVid = 0;
+        n_BoxUnuse = 0;
+        n_RobotUnuse = 0;
+    }
 };
 
 #endif // DATAFILE_DEFINE_H

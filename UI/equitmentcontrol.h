@@ -3,6 +3,10 @@
 
 #include <QWidget>
 
+namespace Ui {
+class EquitmentControl;
+}
+
 class EquitmentControl : public QWidget
 {
     Q_OBJECT
@@ -11,6 +15,7 @@ public:
     ~EquitmentControl();
 
 private:
+    Ui::EquitmentControl *ui;
 };
 
 #endif // EQUITMENTCONTROL_H

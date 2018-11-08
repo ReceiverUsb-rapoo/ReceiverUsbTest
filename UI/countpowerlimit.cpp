@@ -5,13 +5,13 @@
 #include "DataFile/configfile.h"
 
 CountPowerLimit::CountPowerLimit(ushort us_SequenceNumber, QWidget *parent) :
-    QWidget(parent), m_usSequenceNumber(us_SequenceNumber),
+    QWidget(parent),
     ui(new Ui::CountPowerLimit)
 {
     ui->setupUi(this);
     m_pDeviceObserver = NULL;
     m_pDeviceOperator = NULL;
-    m_usSequenceNumber = 0;
+    m_usSequenceNumber = us_SequenceNumber;
     m_unCollectTime = 0;
 
     InitCountPowerLimit();

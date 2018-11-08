@@ -4,19 +4,23 @@
 #include <QDateTime>
 #include <QApplication>
 #include <QFileDialog>
+#include <QDebug>
 
 bool TableFile::SaveTableData_FixeAddress(const ushort &us_SequenceNumber,
                                           QTableWidget *p_QTableWidget)
 {
-    QString str_FilePath = QDir::currentPath() + TableDataPath;
+    QDateTime o_QDateTime = QDateTime::currentDateTime();
+    QString str_FilePath = QDir::currentPath() + TableDataPath + QString("/%1_%2_%3").
+            arg(o_QDateTime.date().year()).
+            arg(o_QDateTime.date().month()).
+            arg(o_QDateTime.date().day());
 
     QDir o_QDir(str_FilePath);
     if(!o_QDir.exists()){
         o_QDir.mkpath(str_FilePath);
     }
 
-    QDateTime o_QDateTime = QDateTime::currentDateTime();
-    str_FilePath += QString::number(us_SequenceNumber) + QString("_%1:%2:%3").
+    str_FilePath += "/FW" + QString::number(us_SequenceNumber) + QString("_%1_%2_%3").
             arg(o_QDateTime.time().hour()).
             arg(o_QDateTime.time().minute()).
             arg(o_QDateTime.time().second()) +
@@ -32,8 +36,9 @@ bool TableFile::SaveTableData_SelectAddress(const ushort &us_SequenceNumber,
 {
     QString str_FilePath = QFileDialog::getSaveFileName(p_QTableWidget,
                                                         "另存为",
-                                                        "D:/",
+                                                        "/home/",
                                                         "file(*.csv)");
+
     if(str_FilePath.isEmpty()){
         return false;
     }

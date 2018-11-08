@@ -31,10 +31,7 @@ SOURCES += main.cpp\
     UsbControl/usbcontrol.cpp \
     UsbControl/powertest.cpp \
     UsbControl/enumusb.cpp \
-    Robot/robot.cpp \
-    Robot/robotserver.cpp \
     Box/box.cpp \
-    Box/boxserver.cpp \
     UI/statisticaltable.cpp \
     UI/equitmentcontrol.cpp \
     UI/firmwareconfig.cpp \
@@ -64,17 +61,16 @@ SOURCES += main.cpp\
     UpperLogic/counttestresultinstancegetter.cpp \
     DataFile/tablefile.cpp \
     UI/equitmentconnectconfig.cpp \
-    UI/usbcontrolconfig.cpp
+    UI/usbcontrolconfig.cpp \
+    tcp/tcpserverinstancegetter.cpp \
+    Robot/catchrobot.cpp
 
 HEADERS  += mainwindow.h \
     Firmware/firmware.h \
     UsbControl/usbcontrol.h \
     UsbControl/powertest.h \
     UsbControl/enumusb.h \
-    Robot/robot.h \
-    Robot/robotserver.h \
     Box/box.h \
-    Box/boxserver.h \
     UI/statisticaltable.h \
     UI/equitmentcontrol.h \
     UI/firmwareconfig.h \
@@ -109,10 +105,11 @@ HEADERS  += mainwindow.h \
     UpperLogic/counttestresultinstancegetter.h \
     DataFile/tablefile.h \
     UI/equitmentconnectconfig.h \
-    UI/usbcontrolconfig.h
+    UI/usbcontrolconfig.h \
+    tcp/tcpserverinstancegetter.h \
+    Robot/catchrobot.h
 
 FORMS    += mainwindow.ui \
-    UI/equitmentcontrol.ui \
     UI/firmwareconfig.ui \
     UI/firewaredebug.ui \
     UI/resultshow.ui \
@@ -121,7 +118,8 @@ FORMS    += mainwindow.ui \
     UI/powerdebug.ui \
     UI/countpowerlimit.ui \
     UI/equitmentconnectconfig.ui \
-    UI/usbcontrolconfig.ui
+    UI/usbcontrolconfig.ui \
+    UI/equitmentcontrol.ui
 
 LIBS += -L/usr/local/lib -lusb-1.0
 INCLUDEPATH +=/usr/local/include

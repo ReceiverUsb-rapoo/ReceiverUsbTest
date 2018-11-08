@@ -1,129 +1,119 @@
 ﻿#include "threadhandle.h"
-#if 0
-#include "eventdispatcher_libev/eventdispatcher_libev.h"
-#endif
+#include <QAbstractEventDispatcher>
 
 ThreadHandle::ThreadHandle()
 {
-    initfist = false;
+    b_InitFist = false;
 }
 
-ThreadHandle::~ThreadHandle() //停止所有线程，并释放资源
+//停止所有线程，并释放资源
+ThreadHandle::~ThreadHandle()
 {
-    QThread * tmp;
-    for (auto it = threadSize.begin(); it != threadSize.end(); ++it)
-    {
-        tmp = it.key();
-        tmp->exit();
-        tmp->wait(3000);
-        delete tmp;
+    QThread * p_Thread;
+    for (auto it = m_hashThreadSize.begin(); it != m_hashThreadSize.end(); ++it){
+        p_Thread = it.key();
+        p_Thread->exit();
+        p_Thread->wait(3000);
+        delete p_Thread;
+        p_Thread= NULL;
     }
 }
 
 ThreadHandle & ThreadHandle::getClass()
 {
-    static ThreadHandle th;
-    return th;
+    static ThreadHandle o_ThreadHande;
+    return o_ThreadHande;
 }
 
-QThread *ThreadHandle::getThread()
+QThread *ThreadHandle::GetThread()
 {
-    if (!initfist)
-    {
-        initThreadType(THREADSIZE,10);
+    if (!b_InitFist){
+        InitThreadType(THREADSIZE, 10);
     }
-    if (type == THREADSIZE)
-        return findThreadSize();
+    if (m_Type == THREADSIZE)
+        return FindThreadSize();
     else
-        return findHandleSize();
+        return FindHandleSize();
 }
 
-void ThreadHandle::removeThread(QThread * thread)
+void ThreadHandle::RemoveThread(QThread * p_Thread)
 {
-    auto t = threadSize.find(thread);
-    if (t != threadSize.end())
-    {
+    auto t = m_hashThreadSize.find(p_Thread);
+    if (t != m_hashThreadSize.end()){
         t.value() --;
-        if (type == HANDLESIZE && t.value() == 0 && threadSize.size() > 1)
-        {
-            threadSize.remove(thread);
-            thread->exit();
-            thread->wait(3000);
-            delete thread;
+        if (m_Type == HANDLESIZE && t.value() == 0 && m_hashThreadSize.size() > 1){
+            m_hashThreadSize.remove(p_Thread);
+            p_Thread->exit();
+            p_Thread->wait(3000);
+            delete p_Thread;
+            p_Thread= NULL;
         }
     }
 }
 
-void ThreadHandle::initThreadType(ThreadType type, unsigned int max)
+void ThreadHandle::InitThreadType(ThreadType Type, unsigned int un_max)
 {
-    if (!initfist)
+    if (!b_InitFist)
     {
-        this->type = type;
-        this->size = max;
-        if (this->size == 0)
-        {
-            if(type == THREADSIZE)
-                this->size = 10;
+        this->m_Type = Type;
+        this->m_unSize = un_max;
+        if (this->m_unSize == 0){
+            if(Type == THREADSIZE)
+                this->m_unSize = 10;
             else
-                this->size = 1000;
+                this->m_unSize = 1000;
         }
 
-        if (type == THREADSIZE)
-            initThreadSize();
-        else
-        {
-            QThread * tmp = new QThread;
-#ifndef Q_OS_WIN
-//            tmp->setEventDispatcher(new EventDispatcherLibEv());
-#endif
-            threadSize.insert(tmp,0);
-            tmp->start();
+        if (Type == THREADSIZE)
+            InitThreadSize();
+        else{
+            QThread * p_Thread = new QThread;
+//            p_Thread->setEventDispatcher(new EventDispatcherLibEv());
+
+            m_hashThreadSize.insert(p_Thread,0);
+            p_Thread->start();
         }
     }
-    initfist = true;
+    b_InitFist = true;
 }
 
-void ThreadHandle::initThreadSize() //建立好线程并启动，
+//建立好线程并启动，
+void ThreadHandle::InitThreadSize()
 {
-    QThread * tmp;
-    for (unsigned int i = 0; i < size;++i)
-    {
-        tmp = new QThread;
-#ifndef Q_OS_WIN
-//        tmp->setEventDispatcher(new EventDispatcherLibEv());
-#endif
-        threadSize.insert(tmp,0);
-        tmp->start();
+    QThread * p_Thread;
+    for (unsigned int i = 0; i < m_unSize;++i){
+        p_Thread = new QThread;
+//        p_Thread->setEventDispatcher(new EventDispatcherLibEv());
+
+        m_hashThreadSize.insert(p_Thread,0);
+        p_Thread->start();
     }
 }
 
-QThread * ThreadHandle::findHandleSize() //查找到线程里的连接数小于最大值就返回查找到的，找不到就新建一个线程
+//查找到线程里的连接数小于最大值就返回查找到的，找不到就新建一个线程
+QThread * ThreadHandle::FindHandleSize()
 {
-    for (auto it  = threadSize.begin();it != threadSize.end() ;++it)
-    {
-        if (it.value() < size)
-        {
+    for(auto it  = m_hashThreadSize.begin();it != m_hashThreadSize.end() ;++it){
+        if (it.value() < m_unSize){
             it.value() ++;
             return it.key();
         }
     }
-    QThread * tmp = new QThread;
-#ifndef Q_OS_WIN
-//    tmp->setEventDispatcher(new EventDispatcherLibEv());
-#endif
-    threadSize.insert(tmp,1);
-    tmp->start();
-    return tmp;
+    QThread * p_Thread = new QThread;
+//    p_Thread->setEventDispatcher(new EventDispatcherLibEv());
+
+    m_hashThreadSize.insert(p_Thread,1);
+    p_Thread->start();
+    return p_Thread;
 }
 
-QThread *ThreadHandle::findThreadSize() //遍历查找所有线程中连接数最小的那个，返回
+//遍历查找所有线程中连接数最小的那个，返回
+QThread *ThreadHandle::FindThreadSize()
 {
-    auto it = threadSize.begin();
-    auto ite = threadSize.begin();
-    for (++it ; it != threadSize.end(); ++it)
-    {
-        if (it.value() < ite.value())
-        {
+    auto it = m_hashThreadSize.begin();
+    auto ite = m_hashThreadSize.begin();
+    for(++it ; it != m_hashThreadSize.end(); ++it){
+        if (it.value() < ite.value()){
             ite = it;
         }
     }
@@ -131,10 +121,10 @@ QThread *ThreadHandle::findThreadSize() //遍历查找所有线程中连接数�
     return ite.key();
 }
 
-void ThreadHandle::clear()//仅仅清空计数，线程不释放
+//仅仅清空计数，线程不释放
+void ThreadHandle::Clear()
 {
-    for (auto it  = threadSize.begin();it != threadSize.end() ;++it)
-    {
+    for(auto it  = m_hashThreadSize.begin();it != m_hashThreadSize.end() ;++it){
         it.value()  = 0;
     }
 }

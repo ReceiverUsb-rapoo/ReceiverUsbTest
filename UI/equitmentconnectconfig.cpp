@@ -27,6 +27,7 @@ void EquitmentConnectConfig::InitEquitmentConfig()
     ui->le_BoxIP_1->setValidator(p_Validator_ip);
     ui->le_BoxIP_2->setValidator(p_Validator_ip);
     ui->le_RobotIP->setValidator(p_Validator_ip);
+    ui->le_ComputerIP->setValidator(p_Validator_ip);
 
     QString RegExp_Com = "^((ttyS\\d)|(ttyS[1-9]\\d)|(ttyUSB\\d)|(ttyUSB[1-9]\\d))$";
     QRegExp o_QRegExp_Com(RegExp_Com);
@@ -41,6 +42,12 @@ void EquitmentConnectConfig::InitEquitmentConfig()
 
     ui->le_ComPID->setValidator(p_Validator_PID);
     ui->le_ComVID->setValidator(p_Validator_PID);
+
+    QString RegExp_Port = "^((\\d{4})|(\\d{5}))$";
+    QRegExp o_QRegExp_Port(RegExp_Port);
+    QValidator *p_Validator_Prot = new QRegExpValidator(o_QRegExp_Port, this);
+
+    ui->le_ComputerPort->setValidator(p_Validator_Prot);
 
     connect(ui->pb_SaveConfig, &QPushButton::clicked,
             this, &EquitmentConnectConfig::SaveConfig);
@@ -60,8 +67,11 @@ void EquitmentConnectConfig::ShowConfig()
 
     ui->le_RobotIP->setText(struct_EquitmentConfig.list_RobotIP.at(0));
 
-    ui->le_ComName_1->setText(struct_EquitmentConfig.list_ConName.at(0));
-    ui->le_ComName_2->setText(struct_EquitmentConfig.list_ConName.at(1));
+    ui->le_ComputerIP->setText(struct_EquitmentConfig.str_ComputerIP);
+    ui->le_ComputerPort->setText(QString::number(struct_EquitmentConfig.us_ComputerPort));
+
+    ui->le_ComName_1->setText(struct_EquitmentConfig.list_ComName.at(0));
+    ui->le_ComName_2->setText(struct_EquitmentConfig.list_ComName.at(1));
 
     ui->le_ComPID->setText(QString::number(struct_EquitmentConfig.un_ComPid, 16).toUpper());
     ui->le_ComVID->setText(QString::number(struct_EquitmentConfig.un_ComVid, 16).toUpper());
@@ -110,9 +120,12 @@ void EquitmentConnectConfig::SaveConfig()
 
     list_RobotIP.append(ui->le_RobotIP->text());
 
-    struct_EquitmentConfig.list_ConName = list_ConName;
+    struct_EquitmentConfig.list_ComName = list_ConName;
     struct_EquitmentConfig.list_BoxIP = list_BoxIP;
     struct_EquitmentConfig.list_RobotIP = list_RobotIP;
+
+    struct_EquitmentConfig.str_ComputerIP = ui->le_ComputerIP->text();
+    struct_EquitmentConfig.us_ComputerPort = ui->le_ComputerPort->text().toUShort();
 
     struct_EquitmentConfig.un_ComPid = ui->le_ComPID->text().toUInt(NULL,16);
     struct_EquitmentConfig.un_ComVid = ui->le_ComVID->text().toUInt(NULL,16);

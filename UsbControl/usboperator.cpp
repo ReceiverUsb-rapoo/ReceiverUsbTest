@@ -2,6 +2,7 @@
 #include <QTime>
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QDebug>
 
 UsbOperator::UsbOperator(QThread *parent)
     : QThread(parent)
@@ -112,6 +113,8 @@ bool UsbOperator::FindUsbDevicePort(const uint &un_Pid,
    int n_Device = 0;
    libusb_device *ld_pDevice;
 
+//   qDebug()<<"enter";
+
    while(ld_Device[n_Device] != NULL){
 
        struct libusb_device_descriptor ldd_Descriptor;
@@ -122,10 +125,17 @@ bool UsbOperator::FindUsbDevicePort(const uint &un_Pid,
        int n_Ret = 0;
        n_Ret = libusb_get_device_descriptor(ld_pDevice, &ldd_Descriptor);
 
+//       qDebug()<<"libusb_get_device_descriptor";
+
        if(n_Ret < 0){
            libusb_free_device_list(ld_Device, 1);
            return false;
        }
+
+//       qDebug()<<"ldd_Descriptor.idProduct"<<ldd_Descriptor.idProduct;
+//       qDebug()<<"ldd_Descriptor.idVendor"<<ldd_Descriptor.idVendor;
+//       qDebug()<<"un_Pid"<<un_Pid;
+//       qDebug()<<"un_Vid"<<un_Vid;
 
        if(ldd_Descriptor.idProduct == un_Pid && ldd_Descriptor.idVendor == un_Vid){
            QString str_PortName = QString::number(libusb_get_port_number(ld_pDevice));
@@ -135,10 +145,11 @@ bool UsbOperator::FindUsbDevicePort(const uint &un_Pid,
 
             do{
                 ld_pDeviceParent = libusb_get_parent(ld_pDeviceParent);
-                if(ld_pDeviceParent){
+                if(ld_pDeviceParent && libusb_get_port_number(ld_pDeviceParent) != 0){
                     str_PortName += QString::number(libusb_get_port_number(ld_pDeviceParent));
                 }
             }while(ld_pDeviceParent);
+            qDebug()<<"str_PortName"<<str_PortName;
 
             map_LDevice.insert(str_PortName.toInt(), ld_pDevice);
 
@@ -160,10 +171,12 @@ void UsbOperator::RunComplete()
 void UsbOperator::run()
 {
     QTime _DieTime = QTime::currentTime().addMSecs(m_nRunTime);
+//    qDebug()<<"_DieTime"<<_DieTime;
     while(QTime::currentTime() < _DieTime) {
-        if(!m_mapLDevice.isEmpty() || !m_listDevicePort.isEmpty()){
-            break;
-        }
+//        qDebug()<<"currentTime"<<QTime::currentTime();
+//        if(!m_mapLDevice.isEmpty() || !m_listDevicePort.isEmpty()){
+//            break;
+//        }
 
         if(FindUsbDevicePort(m_unPid, m_unVid, m_mapLDevice, m_listDevicePort)){
             //nothing to do

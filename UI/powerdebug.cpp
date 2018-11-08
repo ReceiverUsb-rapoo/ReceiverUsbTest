@@ -8,13 +8,13 @@
 const int StationNumber = 32;
 
 PowerDebug::PowerDebug(ushort us_SequenceNumber, QWidget *parent) :
-    QWidget(parent), m_usSequenceNumber(us_SequenceNumber),
+    QWidget(parent),
     ui(new Ui::PowerDebug)
 {
     ui->setupUi(this);
     m_pDeviceObserver = NULL;
     m_pDeviceOperator = NULL;
-    m_usSequenceNumber = 0;
+    m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 

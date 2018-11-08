@@ -72,7 +72,11 @@ public:
 
     bool PC_TestPowerSelfTest();
 
-    bool PC_TestEnum(const short &s_Time);
+    bool PC_TestEnum(const ENUM_POWERONGROUP &Group,
+                     const short &s_Time);
+
+    bool PC_PowerOnSwitch(const ENUM_POWERONSWITCH &Switch,
+                          const ENUM_POWERONGROUP &Group);
 
 private:
     void WorkSleep(ushort un_Msec);
@@ -186,6 +190,8 @@ private:
 
     bool FWACK_TestEnum();
 
+    bool FWACK_PowerOnSwitch();
+
 signals:
     void sig_ReceiveCommand(ushort us_SequenceNumber,
                             uchar uc_Command,
@@ -268,7 +274,7 @@ private slots:
 private:
     FirmwareCom *m_pFirmwareCom;
     STRUCT_PCTESTCONFIG m_structPCConfig;
-    ushort m_usSequenceNumber = 0;
+    ushort m_usSequenceNumber;
 
     QTimer *m_pLongQTimer;
     QTimer *m_pShortQTimer;

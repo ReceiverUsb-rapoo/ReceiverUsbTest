@@ -1,30 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>EquitmentControl</class>
- <widget class="QMainWindow" name="EquitmentControl">
+ <widget class="QWidget" name="EquitmentControl">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>689</width>
+    <height>354</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
+  <property name="font">
+   <font>
+    <pointsize>9</pointsize>
+   </font>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar">
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTextBrowser" name="tb_Info">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>19</height>
+     <x>330</x>
+     <y>20</y>
+     <width>341</width>
+     <height>321</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>291</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Box</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="pb_Open">
+      <property name="text">
+       <string>Open</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="pb_Close">
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>291</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Robot</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Receive</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="le_ReceiveData"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pb_Send">
+      <property name="text">
+       <string>Send</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="le_SendData"/>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>

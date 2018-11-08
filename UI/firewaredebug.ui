@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>390</height>
+    <width>998</width>
+    <height>467</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>330</x>
      <y>30</y>
      <width>651</width>
-     <height>341</height>
+     <height>421</height>
     </rect>
    </property>
    <property name="font">
@@ -52,7 +52,7 @@
      <x>20</x>
      <y>30</y>
      <width>291</width>
-     <height>341</height>
+     <height>421</height>
     </rect>
    </property>
    <property name="font">
@@ -61,60 +61,6 @@
     </font>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QPushButton" name="pb_EnterDebugModel">
-      <property name="minimumSize">
-       <size>
-        <width>130</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>进入调试模式</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="pb_ExitDebugModel">
-      <property name="minimumSize">
-       <size>
-        <width>130</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>退出调试模式</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pb_GetFWInfo">
-      <property name="minimumSize">
-       <size>
-        <width>130</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>获取控制器信息</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QPushButton" name="pb_RestartFW">
       <property name="minimumSize">
@@ -130,6 +76,24 @@
       </property>
       <property name="text">
        <string>复位主控制器</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="pb_EnterDebugModel">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>进入调试模式</string>
       </property>
      </widget>
     </item>
@@ -151,7 +115,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="6" column="0">
      <widget class="QPushButton" name="pb_TestPowerSelf">
       <property name="minimumSize">
        <size>
@@ -169,25 +133,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="pb_TestEnum">
-      <property name="minimumSize">
-       <size>
-        <width>130</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>测试枚举</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
+    <item row="8" column="0">
      <widget class="QPushButton" name="pb_TestWholeDUT">
       <property name="minimumSize">
        <size>
@@ -205,7 +151,7 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
+    <item row="8" column="1">
      <widget class="QPushButton" name="pb_ClearInfoShow">
       <property name="minimumSize">
        <size>
@@ -220,6 +166,150 @@
       </property>
       <property name="text">
        <string>清除信息显示</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="pb_ExitDebugModel">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>退出调试模式</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QPushButton" name="pb_PowerOn_2">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>第2组上电</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QPushButton" name="pb_TestEnum_1">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>测试枚举-第1组</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="pb_PowerOn_1">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>第1组上电</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pb_GetFWInfo">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>获取控制器信息</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="pb_PowerOff_1">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>第1组断电</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QPushButton" name="pb_PowerOff_2">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>第2组断电</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QPushButton" name="pb_TestEnum_2">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>测试枚举-第2组</string>
       </property>
      </widget>
     </item>

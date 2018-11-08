@@ -24,9 +24,13 @@ private:
 private:
     bool InitMasterControl();
 
-    bool SetConnectFWConfig();
+    bool SetEquitmentConfig();
 
     bool UpdataFWDevice();
+
+    bool UpdataBox();
+
+    bool UpdataCatchRobot();
 
     bool SetAllFWPCConfig();
 
@@ -48,6 +52,11 @@ private:
 
 //    void ShowResultStatisticalData();
 
+private:
+    void WaitUsbEnumTestFinish();
+
+    void WaitUsbPowerTestFinish();
+
 signals:
 
 public slots:
@@ -55,6 +64,15 @@ public slots:
 
     void slot_FirmwareRemove();
 
+    void slot_BoxDiscoverd();
+
+    void slot_CatchRobotDiscoverd();
+
+    void slot_BoxRemove();
+
+    void slot_CatchRobotRemove();
+
+public slots:
     void slot_EnumUsbComplete();
 
     void slot_SendPowerTestComplete();
@@ -67,6 +85,8 @@ public slots:
 
     void slot_CompleteTest(ushort us_SequenceNumber);
 
+    void slot_BoxOperatorUpdata(ushort us_SequenceNumber);
+
 private slots:
 
 
@@ -78,6 +98,9 @@ private:
     DeviceOperator *m_pDeviceOperator;
 
     QMap<ushort, STRUCT_USBCONTROLCONFIG> m_mapUsbControlConfig;
+
+    bool m_bEnumTestWorkState;
+    bool m_bPowerTestWorkState;
 };
 
 #endif // MASTERCONTROL_H

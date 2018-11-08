@@ -18,6 +18,8 @@ private:
 public:
     ~UsbControl();
 
+    bool InitUsbControl();
+
     bool SetEnumTestUsbConfig(const uint &un_Pid,
                               const uint &un_Vid,
                               const int &n_DeviceNumber,

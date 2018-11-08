@@ -44,6 +44,11 @@ enum ENUM_RESULTTYPE{
 struct STRUCT_RESULTCROUT{
     uint un_Sum;
     uint un_RetestCount;
+
+    STRUCT_RESULTCROUT(){
+        un_Sum  =  0;
+        un_RetestCount = 0;
+    }
 };
 
 

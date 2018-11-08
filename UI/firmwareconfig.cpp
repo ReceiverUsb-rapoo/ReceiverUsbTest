@@ -3,7 +3,7 @@
 #include "DataFile/configfile.h"
 
 FirmwareConfig::FirmwareConfig(ushort us_SequenceNumber, QWidget *parent) :
-    QDialog(parent), m_usSequenceNumber(us_SequenceNumber),
+    QDialog(parent),
     ui(new Ui::FirmwareConfig)
 {
     ui->setupUi(this);
@@ -11,6 +11,8 @@ FirmwareConfig::FirmwareConfig(ushort us_SequenceNumber, QWidget *parent) :
     m_pPT_FWPositionNumber = NULL;
     m_pPT_PowerTestGroup = NULL;
     m_pPT_PowerTestPositionNumber = NULL;
+
+    m_usSequenceNumber = us_SequenceNumber;
 
 //    this->setAttribute(Qt::WA_DeleteOnClose);
 
@@ -99,7 +101,7 @@ void FirmwareConfig::ShowData()
     ui->le_DUTVoltage->setText(QString::number(struct_PCTestConfig.us_DUTVoltageSelect));
     ui->le_PowerAvgTimes->setText(QString::number(struct_PCTestConfig.uc_PowerAvgTimes));
     ui->le_SingleTestCount->setText(QString::number(struct_PCTestConfig.uc_SingleTestCount));
-    ui->le_PowerChannel->setText(QString::number(struct_PCTestConfig.uc_PowerChannel));
+    ui->le_PowerChannel->setText("0");
 
     if(struct_PCTestConfig.uc_PowerTestSwitch != 0)
         ui->cb_PowerSwitch->setCheckState(Qt::Checked);

@@ -49,6 +49,11 @@ private:
 
     bool StartUsbPowerTestByOneGroup(const QList<int> &list_OneGroupSendTest);
 
+    bool GetOneGroupStationPort(const ENUM_POWERONGROUP &GroupStation,
+                                QMap<int, int> &map_OneGroupStationPort);
+
+    void WorkSleep(ushort un_Msec);
+
 private:
     void EnterDebugModel();
 
@@ -60,9 +65,19 @@ private:
 
     void InquireMachineState();
 
+    void PowerOn_1();
+
+    void PowerOn_2();
+
+    void PowerOff_1();
+
+    void PowerOff_2();
+
     void TestPowerSelf();
 
-    void TestEnum();
+    void TestEnum_1();
+
+    void TestEnum_2();
 
     void TestSendPower();
 
@@ -137,6 +152,9 @@ private:
 
     QList<int> m_listOneGroupPowerTest;
     QList<int> m_listOneGroupEnumTest;
+
+    ENUM_POWERONGROUP m_PowerTestGroup;
+
 };
 
 #endif // FIREWAREDEBUG_H

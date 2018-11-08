@@ -1,9 +1,10 @@
 ﻿#include "enumpointtable.h"
 #include "ui_enumpointtable.h"
+#include <QDebug>
 
 const QString COLORNAME[2] = {"#00c9b0", "#0195ca"};
 const int OneGroupUsbNumber_PonintTable = 20;
-const QString RegExp = "^(([0-9]|([1-9]\\d)))$";
+const QString RegExp = "^(([0-9]|(\\d{7})))$";
 
 EnumPointTable::EnumPointTable(QWidget *parent) :
     QWidget(parent),
@@ -25,6 +26,8 @@ bool EnumPointTable::SetLEValue(const QList<QString> &list_LEValue)
     }
 
     for(int i = 0; i < OneGroupUsbNumber_PonintTable; i++){
+//        qDebug()<<m_listLE.at(i)<<" "<<list_LEValue.at(i);
+
         m_listLE.at(i)->setText(list_LEValue.at(i));
     }
 

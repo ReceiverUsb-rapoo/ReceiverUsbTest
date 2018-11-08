@@ -5,8 +5,9 @@
 #include "UsbControl/usbcontrol.h"
 #include "fwuploaddata.h"
 #include "upperdefine.h"
-#include "Robot/robot.h"
 #include "Box/box.h"
+#include "Robot/catchrobot.h"
+#include "tcp/tcpserverinstancegetter.h"
 
 class DeviceObserver : public QObject
 {
@@ -35,9 +36,20 @@ public:
 
     bool RemoveUsbControlObjectPoint();
 
-//    bool UploadRobotObjectPointer(Robot * p_Robot);
+    bool SetLocalTcpServer(const QString &str_IP,
+                           const ushort &us_Port);
 
-//    bool UploadBoxObjectPointer(Box * p_Box);
+    bool SetBoxIP(const QList<QString> &list_BoxIP);
+
+    bool SetCatchRobotIP(const QString &str_CatchRobotIP);
+
+    bool GetBoxObjectPoint(QList<Box *> &list_Box);
+
+    bool GetCatchRobotObjectPoint(CatchRobot * &p_CatchRobot);
+
+    bool ClearEnumResult();
+
+    bool ClearPowerSendResult();
 
 
 public:
@@ -131,7 +143,16 @@ public:
     void ClearFWTestData(EMUN_TESTDATAPOINT Point,
                          const ushort &us_SequenceNumber);
 
+public:
+    void GetBoxOperator(const ushort &us_SequenceNumber,
+                        BOX_OPERATOR &box_Operator);
+
+
 private:
+    void InitComDiscover();
+
+    void InitTcpServer();
+
     void WorkSleep(ushort un_Msec);
 
     bool GetFWDataPointer(const ushort &us_SequenceNumber,
@@ -167,15 +188,37 @@ private:
                                  QMap<int,bool> &map_FromResultData,
                                  QMap<int,bool> &map_ToResultData);
 
+    bool AddBox(const QString &str_IP);
+
+    bool RemoveBox(const QString &str_IP);
+
+    bool AddCatchRobot(const QString &str_IP);
+
+    bool RemoveCatchRobot(const QString &str_IP);
+
+signals:
+    void sig_FirmwareDiscoverd();
+
+    void sig_FirmwareRemove();
+
+signals:
+    void sig_BoxDiscoverd();
+
+    void sig_CatchRobotDiscoverd();
+
+    void sig_BoxRemove();
+
+    void sig_CatchRobotRemove();
+
+signals:
+    void sig_BoxOperatorUpdata(ushort us_SequenceNumber);
+
 signals:
     void sig_EnumUsbComplete();
 
     void sig_SendPowerTestComplete();
 
-    void sig_FirmwareDiscoverd();
-
-    void sig_FirmwareRemove();
-
+signals:
     void sig_ReceiveCmd(ushort us_SequenceNumber,
                         uchar uc_Command);
 
@@ -211,10 +254,6 @@ signals:
     void sig_UploadRFPowerResult(ushort us_SequenceNumber);
 
 public slots:
-    void slot_EnumUsbComplete();
-
-    void slot_SendPowerTestComplete();
-
     void slot_FirmwareDiscoverd(QString str_Port,
                                 uint un_Pid,
                                 uint un_Vid);
@@ -223,6 +262,22 @@ public slots:
                              uint un_Pid,
                              uint un_Vid);
 
+public slots:
+    //新用户连接信息
+    void slot_ConnectClient(int n_ID,
+                           QString str_IP,
+                           quint16 us_Port);
+    //断开连接的用户信息
+    void slot_DisConnectClient(int n_ID,
+                               QString str_IP,
+                               quint16 us_Port);
+
+public slots:
+    void slot_EnumUsbComplete();
+
+    void slot_SendPowerTestComplete();
+
+public slots:
     void slot_ReceiveCommand(ushort us_SequenceNumber,
                              uchar uc_Command,
                              QByteArray byte_Data,
@@ -288,6 +343,11 @@ public slots:
     void slot_UploadRFPowerResult(ushort us_SequenceNumber,
                                   QList<short> list_Power_db);
 
+public slots:
+    void slot_BoxOperator(ushort us_SequenceNumber,
+                          BOX_OPERATOR box_Operator);
+
+
 private slots:
 
 private:
@@ -296,18 +356,21 @@ private:
     UsbControl *m_pUsbControl;
     QThread *m_pQThread;
 
+    TcpServerInstanceGetter m_oTcpServerInstanceGetter;
+    TcpServer *m_pTcpServer;
+
     QList<STRUCT_COMINFO> m_listNeedFW;
     QList<STRUCT_COMINFO> m_listFindCom;
 
     QList<FWUploadData *> m_listFWUploadData;
     QMap<int,bool> m_mapEnumResult;
     QMap<int,bool> m_mapOpenDeviceResult;
-    QMap<int, bool> m_mapSendCmdResult;
+    QMap<int,bool> m_mapSendCmdResult;
 
     QList<FWUploadData *> m_listLastFWUploadData;
     QMap<int,bool> m_mapLastEnumResult;
     QMap<int,bool> m_mapLastOpenDeviceResult;
-    QMap<int, bool> m_mapLastSendCmdResult;
+    QMap<int,bool> m_mapLastSendCmdResult;
 
     ENUM_OPENMODEL m_OpenFWModel;
 
@@ -315,6 +378,17 @@ private:
 
     QList<STRUCT_COMMANDANDDATA> m_listReceiveCommandAndData;
     QList<STRUCT_COMMANDANDDATA> m_listWriteCommandAndData;
+
+    QString m_strLocalTcpServerIP;
+    ushort m_usLocalTcpServerPort;
+
+    QList<QString> m_listBoxIP;
+    QList<Box *> m_listBox;
+
+    QString m_CatchRobotIP;
+    CatchRobot *m_pCatchRobot;
+
+    QMap<ushort, BOX_OPERATOR> m_mapBoxOperator;
 };
 
 #endif // DEVICEOBSERVER_H

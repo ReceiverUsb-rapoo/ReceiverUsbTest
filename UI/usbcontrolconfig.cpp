@@ -1,13 +1,16 @@
 #include "usbcontrolconfig.h"
 #include "ui_usbcontrolconfig.h"
 #include "DataFile/configfile.h"
+#include <QDebug>
 
 UsbControlConfig::UsbControlConfig(ushort us_SequenceNumber, QWidget *parent) :
-    QWidget(parent), m_usSequenceNumber(us_SequenceNumber),
+    QWidget(parent),
     ui(new Ui::UsbControlConfig)
 {
     ui->setupUi(this);
     m_pEnumPointTable = NULL;
+    m_usSequenceNumber = us_SequenceNumber;
+
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     InitUsbControlConfig();
@@ -36,7 +39,7 @@ void UsbControlConfig::InitUsbControlConfig()
 {
     m_pEnumPointTable = new EnumPointTable(ui->gb_EnumPositionNumber);
     m_pEnumPointTable->move(0,20);
-    m_pEnumPointTable->SetRepeatData(false);
+    m_pEnumPointTable->SetRepeatData(true);
 
     QString RegExp_PID = "^(\\w{4})$";
     QRegExp o_QRegExp_PID(RegExp_PID);
@@ -75,6 +78,8 @@ void UsbControlConfig::ShowData()
                                     str_EnumPositionPort);
     o_ConfigFile.TransformToList(str_EnumPositionPort,
                                  list_EnumPositionPort);
+
+//    qDebug()<<list_EnumPositionPort;
     m_pEnumPointTable->SetLEValue(list_EnumPositionPort);
 }
 
@@ -93,7 +98,7 @@ void UsbControlConfig::SaveData()
                                 struct_UsbControlConfig.map_StationPort);
 
     struct_UsbControlConfig.un_Pid = ui->le_PID->text().toUInt(NULL,16);
-    struct_UsbControlConfig.un_Vid = ui->le_PID->text().toUInt(NULL,16);
+    struct_UsbControlConfig.un_Vid = ui->le_VID->text().toUInt(NULL,16);
     struct_UsbControlConfig.n_Time = ui->le_EnumTime->text().toInt();
 
     o_ConfigFile.SaveUsbControlConfig(m_usSequenceNumber,

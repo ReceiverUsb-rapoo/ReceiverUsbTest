@@ -14,12 +14,8 @@ DeviceObserver::DeviceObserver(QObject *parent)
     m_pComDiscoverd = NULL;
     m_pQThread = NULL;
 
-    m_pComDiscoverd = new ComDiscoverd;
-
-    connect(m_pComDiscoverd, SIGNAL(sig_ComDiscoverd(QString,uint,uint)),
-            this, SLOT(slot_FirmwareDiscoverd(QString,uint,uint)));
-    connect(m_pComDiscoverd, SIGNAL(sig_ComRemove(QString,uint,uint)),
-            this, SLOT(slot_FirmwareRemove(QString,uint,uint)));
+    InitComDiscover();
+    InitTcpServer();
 
 //    m_pQThread = new QThread;
 //    this->moveToThread(m_pQThread);
@@ -73,7 +69,7 @@ bool DeviceObserver::GetUsbControlObjectPointer(UsbControl * &p_UsbControl)
 
 bool DeviceObserver::SetUsbControlObjectPointer(UsbControl * &p_UsbControl)
 {
-    if(p_UsbControl != NULL){
+    if(m_pUsbControl != NULL){
         return false;
     }
 
@@ -100,6 +96,54 @@ bool DeviceObserver::RemoveUsbControlObjectPoint()
 
     m_pUsbControl = NULL;
 
+    return true;
+}
+
+bool DeviceObserver::SetLocalTcpServer(const QString &str_IP,
+                                       const ushort &us_Port)
+{
+    if(m_pTcpServer->isListening()){
+        m_pTcpServer->close();
+    }
+
+    return m_pTcpServer->StartListen(us_Port,
+                                     str_IP);
+}
+
+bool DeviceObserver::SetBoxIP(const QList<QString> &list_BoxIP)
+{
+    m_listBoxIP = list_BoxIP;
+    return true;
+}
+
+bool DeviceObserver::SetCatchRobotIP(const QString &str_CatchRobotIP)
+{
+    m_strLocalTcpServerIP = str_CatchRobotIP;
+    return true;
+}
+
+bool DeviceObserver::GetBoxObjectPoint(QList<Box *> &list_Box)
+{
+    list_Box = m_listBox;
+    return true;
+}
+
+bool DeviceObserver::GetCatchRobotObjectPoint(CatchRobot *&p_CatchRobot)
+{
+    p_CatchRobot = m_pCatchRobot;
+    return true;
+}
+
+bool DeviceObserver::ClearEnumResult()
+{
+    m_mapEnumResult.clear();
+    return true;
+}
+
+bool DeviceObserver::ClearPowerSendResult()
+{
+    m_mapOpenDeviceResult.clear();
+    m_mapSendCmdResult.clear();
     return true;
 }
 
@@ -436,7 +480,7 @@ void DeviceObserver::GetStartOneGroupEnumTestData(EMUN_TESTDATAPOINT Point,
     c_SurplusGroup = p_FWData->c_StartOneGroupEnumTestSurplusGroup;
     n_TestDUTMask = p_FWData->n_StartOneGroupEnumTestDUTMask;
 
-    TransformMaskCode(us_SequenceNumber, n_TestDUTMask,list_MaskCode);
+    TransformMaskCode(us_SequenceNumber, n_TestDUTMask, list_MaskCode);
 }
 
 void DeviceObserver::GetUploadRFPowerResultData(EMUN_TESTDATAPOINT Point,
@@ -474,6 +518,29 @@ void DeviceObserver::ClearFWTestData(EMUN_TESTDATAPOINT Point,
     }
 
     p_FWData->ClearFWData();
+}
+
+void DeviceObserver::InitComDiscover()
+{
+    m_pComDiscoverd = new ComDiscoverd;
+
+    connect(m_pComDiscoverd, SIGNAL(sig_ComDiscoverd(QString,uint,uint)),
+            this, SLOT(slot_FirmwareDiscoverd(QString,uint,uint)));
+    connect(m_pComDiscoverd, SIGNAL(sig_ComRemove(QString,uint,uint)),
+            this, SLOT(slot_FirmwareRemove(QString,uint,uint)));
+
+}
+
+void DeviceObserver::InitTcpServer()
+{
+    m_pTcpServer = m_oTcpServerInstanceGetter.GetInstance();
+
+    m_pTcpServer->setMaxPendingConnections(30);
+
+    connect(m_pTcpServer, SIGNAL(sig_ConnectClient(int,QString,quint16)),
+            this, SLOT(slot_ConnectClient(int,QString,quint16)));
+    connect(m_pTcpServer, SIGNAL(sig_SockDisConnect(int,QString,quint16)),
+            this, SLOT(slot_DisConnectClient(int,QString,quint16)));
 }
 
 void DeviceObserver::WorkSleep(ushort un_Msec)
@@ -854,20 +921,60 @@ bool DeviceObserver::ReplaceUsbControlResult(const ushort &us_SequenceNumber,
     return true;
 }
 
-void DeviceObserver::slot_EnumUsbComplete()
+bool DeviceObserver::AddBox(const QString &str_IP)
 {
-    m_pUsbControl->GetEnumResult(m_mapEnumResult);
+    for(int i = 0; i < m_listBoxIP.count(); i++){
+        if(m_listBoxIP.at(i) == str_IP){
+            Box *p_Box = new Box;
+            p_Box->SetIP(str_IP);
+            p_Box->SetSequenceNumber(i+1);
 
-    emit sig_EnumUsbComplete();
+            connect(p_Box, SIGNAL(sig_BoxOperator(ushort,BOX_OPERATOR)),
+                    this, SLOT(slot_BoxOperator(ushort,BOX_OPERATOR)));
+
+            m_listBox.append(p_Box);
+        }
+    }
+    return true;
 }
 
-void DeviceObserver::slot_SendPowerTestComplete()
+bool DeviceObserver::RemoveBox(const QString &str_IP)
 {
-    m_pUsbControl->GetTestResult(m_mapEnumResult,
-                                 m_mapOpenDeviceResult,
-                                 m_mapSendCmdResult);
+    QString str_ExistIP;
+    foreach(Box *p_Box, m_listBox){
+        p_Box->GetIP(str_ExistIP);
+        if(str_ExistIP == str_IP){
+            m_listBox.removeAll(p_Box);
 
-    emit sig_SendPowerTestComplete();
+            disconnect(p_Box, SIGNAL(sig_BoxOperator(ushort,BOX_OPERATOR)),
+                       this, SLOT(slot_BoxOperator(ushort,BOX_OPERATOR)));
+
+            delete p_Box;
+            p_Box = NULL;
+        }
+    }
+    return true;
+}
+
+bool DeviceObserver::AddCatchRobot(const QString &str_IP)
+{
+    m_pCatchRobot = new CatchRobot;
+    m_pCatchRobot->SetIP(str_IP);
+    return true;
+}
+
+bool DeviceObserver::RemoveCatchRobot(const QString &str_IP)
+{
+    QString str_ExistIP;
+    if(m_pCatchRobot != NULL){
+        m_pCatchRobot->GetIP(str_ExistIP);
+
+        if(str_ExistIP == str_IP){
+            delete m_pCatchRobot;
+            m_pCatchRobot = NULL;
+        }
+    }
+    return true;
 }
 
 void DeviceObserver::slot_FirmwareDiscoverd(QString str_Port,
@@ -911,6 +1018,57 @@ void DeviceObserver::slot_FirmwareRemove(QString str_Port,
 
     emit sig_FirmwareRemove();
 }
+
+void DeviceObserver::slot_ConnectClient(int n_ID,
+                                        QString str_IP,
+                                        quint16 us_Port)
+{
+    Q_UNUSED(n_ID);
+    Q_UNUSED(us_Port);
+
+    if(m_listBoxIP.contains(str_IP)){
+        AddBox(str_IP);
+        emit sig_BoxDiscoverd();
+    }
+    else if(str_IP == m_CatchRobotIP){
+        AddCatchRobot(str_IP);
+        emit sig_CatchRobotDiscoverd();
+    }
+}
+
+void DeviceObserver::slot_DisConnectClient(int n_ID,
+                                           QString str_IP,
+                                           quint16 us_Port)
+{
+    Q_UNUSED(n_ID);
+    Q_UNUSED(us_Port);
+
+    if(m_listBoxIP.contains(str_IP)){
+        RemoveBox(str_IP);
+        emit sig_BoxRemove();
+    }
+    else if(str_IP == m_CatchRobotIP){
+        RemoveCatchRobot(str_IP);
+        sig_CatchRobotRemove();
+    }
+}
+
+void DeviceObserver::slot_EnumUsbComplete()
+{
+    m_pUsbControl->GetEnumResult(m_mapEnumResult);
+
+    emit sig_EnumUsbComplete();
+}
+
+void DeviceObserver::slot_SendPowerTestComplete()
+{
+    m_pUsbControl->GetTestResult(m_mapEnumResult,
+                                 m_mapOpenDeviceResult,
+                                 m_mapSendCmdResult);
+
+    emit sig_SendPowerTestComplete();
+}
+
 
 void DeviceObserver::slot_ReceiveCommand(ushort us_SequenceNumber,
                                          uchar uc_Command,
@@ -1237,4 +1395,13 @@ void DeviceObserver::slot_UploadRFPowerResult(ushort us_SequenceNumber,
     p_FWData->list_UploadRFPowerResult_db = list_Power_db;
 
     emit sig_UploadRFPowerResult(us_SequenceNumber);
+}
+
+void DeviceObserver::slot_BoxOperator(ushort us_SequenceNumber,
+                                      BOX_OPERATOR box_Operator)
+{
+    m_mapBoxOperator.insert(us_SequenceNumber,
+                            box_Operator);
+
+    emit sig_BoxOperatorUpdata(us_SequenceNumber);
 }

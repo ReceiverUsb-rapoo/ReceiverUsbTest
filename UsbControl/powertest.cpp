@@ -4,6 +4,7 @@
 #include <QEventLoop>
 #include "writecmdthread.h"
 #include "usboperator.h"
+#include <QDebug>
 
 PowerTest::PowerTest(QObject *parent)
     :QObject(parent)
@@ -11,6 +12,7 @@ PowerTest::PowerTest(QObject *parent)
     m_pQTimer       = NULL;
     m_pQTimer       = new QTimer;
 
+    m_pQTimer->setSingleShot(true);
     m_oQThreadPool.setMaxThreadCount(30);
     connect(m_pQTimer, SIGNAL(timeout()), this, SLOT(slot_TimeOut()));
 }
@@ -61,9 +63,14 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
         return false;
     }
 
+    qDebug()<<"map_LDevice"<<map_LDevice;
+    qDebug()<<"m_mapStationPort"<<m_mapStationPort;
+
     QMapIterator<int,int> map_IteratorStationPort(m_mapStationPort);
     while(map_IteratorStationPort.hasNext()){
         map_IteratorStationPort.next();
+
+        m_mapOpenDeviceResult.insert(map_IteratorStationPort.key(), false);
 
         QMapIterator<int, libusb_device*> map_IterationLDevice(map_LDevice);
         while(map_IterationLDevice.hasNext()){
@@ -72,7 +79,25 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
             if(map_IterationLDevice.key() == map_IteratorStationPort.value()){
                 libusb_device_handle *p_LDHandle = NULL;
                 int n_Ret = libusb_open(map_IterationLDevice.value(), &p_LDHandle);
+//                qDebug()<<"n_Ret"<<n_Ret;
+//                qDebug()<<"p_LDHandle"<<p_LDHandle;
                 if(n_Ret == 0){
+                    if(libusb_kernel_driver_active(p_LDHandle, 1) != 0){
+                        if(libusb_detach_kernel_driver(p_LDHandle, 1) != 0){
+                            libusb_close(p_LDHandle);
+                            continue;
+                        }
+                    }
+//                    if(libusb_set_configuration(p_LDHandle, 1) != 0){
+//                        libusb_close(p_LDHandle);
+//                        continue;
+//                    }
+
+                    if(libusb_claim_interface(p_LDHandle, 1) != 0){
+                        libusb_close(p_LDHandle);
+                        continue;
+                    }
+
                     m_mapLDHandle.insert(map_IteratorStationPort.key(), p_LDHandle);
                     m_mapOpenDeviceResult.insert(map_IteratorStationPort.key(), true);
                 }
@@ -80,11 +105,11 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
                     m_mapOpenDeviceResult.insert(map_IteratorStationPort.key(), false);
                 }
             }
-            else{
-                m_mapOpenDeviceResult.insert(map_IteratorStationPort.key(), false);
-            }
         }
     }
+
+    qDebug()<<"m_mapOpenDeviceResult"<<m_mapOpenDeviceResult;
+
     return true;
 }
 
@@ -97,6 +122,7 @@ bool PowerTest::CloseUsbDevice()
     QMapIterator<int, libusb_device_handle *> map_IterationLDHandle(m_mapLDHandle);
     while(map_IterationLDHandle.hasNext()){
         map_IterationLDHandle.next();
+        libusb_release_interface(map_IterationLDHandle.value(), 1);
         libusb_close(map_IterationLDHandle.value());
     }
 
@@ -106,6 +132,8 @@ bool PowerTest::CloseUsbDevice()
 
 bool PowerTest::StartPowerTest()
 {
+    m_bSendComplete = false;
+
     QMapIterator<int, libusb_device_handle *> map_IterationLDHandle(m_mapLDHandle);
     while(map_IterationLDHandle.hasNext()){
         map_IterationLDHandle.next();
@@ -115,7 +143,7 @@ bool PowerTest::StartPowerTest()
             m_oQThreadPool.start(p_WriteCmdThread);
     }
 
-    m_pQTimer->start(200);
+    m_pQTimer->start(1000);
     return true;
 }
 
@@ -155,8 +183,11 @@ bool PowerTest::WriteSendCmdResult(int n_Station,
 
     m_mapSendCmdResult.insert(n_Station, b_Result);
     if(m_mapSendCmdResult.count() == m_mapLDHandle.count()){
-        emit sig_SendCmdComplete();
+        if(!m_bSendComplete){
+            CompletePowerTest();
+        }
     }
+    qDebug()<<"m_mapSendCmdResult"<<m_mapSendCmdResult;
 
     m_oQMutex.unlock();
     return true;
@@ -192,7 +223,9 @@ bool PowerTest::WriteCmdInDongle(libusb_device_handle *p_LDHandle,
                                         us_Length,
                                         1000);
 
-    if(n_Ret == 0)
+//    qDebug()<<"WriteCmdInDongle"<<n_Ret;
+
+    if(n_Ret >= 0)
         return true;
     else
         return false;
@@ -222,7 +255,7 @@ bool PowerTest::SendCmdToDogle(libusb_device_handle *p_LDHandle, uchar *uc_Data,
     bool b_Ret = WriteCmdInDongle(p_LDHandle, uc_Data, us_Length);
     if(b_Ret){
         uchar ucData[2] = {0x00, 0x00};
-        for(int i = 5; i<3 || ucData[0] == 0x01 ; i++){
+        for(int i = 0; i<3 || ucData[0] == 0x01 ; i++){
             WorkSleep(50);
             ReadDetailsFromDongle(p_LDHandle, ucData, 2);
             if(ucData[0] == 0x01){
@@ -254,6 +287,8 @@ bool PowerTest::TestSignalCarrier(libusb_device_handle *p_LDHandle)
 bool PowerTest::CompletePowerTest()
 {
     //wait the scheme, nothing to do
+    emit sig_SendCmdComplete();
+    m_bSendComplete = true;;
     return true;
 }
 
@@ -269,7 +304,13 @@ void PowerTest::WorkSleep(uint un_Msec)
 void PowerTest::slot_TimeOut()
 {
     if(m_oQThreadPool.activeThreadCount() == 0){
-        CompletePowerTest();
-        m_pQTimer->stop();
+        if(!m_bSendComplete){
+            CompletePowerTest();
+        }
+
+//        if(m_pQTimer->isActive()){
+
+//            m_pQTimer->stop();
+//        }
     }
 }

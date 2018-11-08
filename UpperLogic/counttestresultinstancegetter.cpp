@@ -2,7 +2,6 @@
 CountTestData *CountTestResultInstanceGetter::m_pCountTestDataInstance = NULL;
 uint CountTestResultInstanceGetter::m_unCountTestDataReference = 0;
 
-
 CountTestResultInstanceGetter::CountTestResultInstanceGetter()
 {
     if(m_pCountTestDataInstance == NULL){

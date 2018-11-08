@@ -6,8 +6,6 @@
 class ConfigFile
 {
 public:
-    ConfigFile();
-
     bool SavePCTestConfig(const ushort &us_SequenceNumber,
                           STRUCT_PCTESTCONFIG &struct_PCTestConfig);
 

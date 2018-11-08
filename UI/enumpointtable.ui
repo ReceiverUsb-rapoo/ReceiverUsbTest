@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
-    <height>96</height>
+    <width>632</width>
+    <height>102</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -183,8 +183,8 @@
     <widget class="QLineEdit" name="lineEdit_1">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -210,8 +210,8 @@
     <widget class="QLineEdit" name="lineEdit_2">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -237,8 +237,8 @@
     <widget class="QLineEdit" name="lineEdit_3">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -264,8 +264,8 @@
     <widget class="QLineEdit" name="lineEdit_4">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -291,8 +291,8 @@
     <widget class="QLineEdit" name="lineEdit_5">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -318,8 +318,8 @@
     <widget class="QLineEdit" name="lineEdit_6">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -345,8 +345,8 @@
     <widget class="QLineEdit" name="lineEdit_7">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -372,8 +372,8 @@
     <widget class="QLineEdit" name="lineEdit_8">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -399,8 +399,8 @@
     <widget class="QLineEdit" name="lineEdit_9">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -426,8 +426,8 @@
     <widget class="QLineEdit" name="lineEdit_10">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -468,8 +468,8 @@
     <widget class="QLineEdit" name="lineEdit_11">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -495,8 +495,8 @@
     <widget class="QLineEdit" name="lineEdit_12">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -522,8 +522,8 @@
     <widget class="QLineEdit" name="lineEdit_13">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -549,8 +549,8 @@
     <widget class="QLineEdit" name="lineEdit_14">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -576,8 +576,8 @@
     <widget class="QLineEdit" name="lineEdit_15">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -603,8 +603,8 @@
     <widget class="QLineEdit" name="lineEdit_16">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -630,8 +630,8 @@
     <widget class="QLineEdit" name="lineEdit_17">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -657,8 +657,8 @@
     <widget class="QLineEdit" name="lineEdit_18">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -684,8 +684,8 @@
     <widget class="QLineEdit" name="lineEdit_19">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -711,8 +711,8 @@
     <widget class="QLineEdit" name="lineEdit_20">
      <property name="minimumSize">
       <size>
-       <width>40</width>
-       <height>25</height>
+       <width>52</width>
+       <height>28</height>
       </size>
      </property>
      <property name="maximumSize">

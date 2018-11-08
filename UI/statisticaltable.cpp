@@ -7,10 +7,12 @@
 const int n_TableColumnCount = 4;
 
 StatisticalTable::StatisticalTable(ushort us_SequenceNumber, QWidget *parent) :
-    QDialog(parent), m_usSequenceNumber(us_SequenceNumber)
+    QDialog(parent)
 {
     m_pQTableWidget = NULL;
     m_pCountTestData = NULL;
+
+    m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 

@@ -2,6 +2,7 @@
 #include <QTime>
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QDebug>
 
 EnumUsb::EnumUsb(QObject *parent)
     :QObject(parent)
@@ -69,6 +70,8 @@ bool EnumUsb::GetEnumResult(QMap<int, bool> &map_EnumResult)
 
     QList<int> list_DevicePort;
     m_pUsbOperator->GetDevicePort(list_DevicePort);
+//    qDebug()<<list_DevicePort;
+//    qDebug()<<m_mapStationPort;
 
     if(list_DevicePort.isEmpty() || m_mapStationPort.isEmpty()){
         return false;
@@ -85,6 +88,8 @@ bool EnumUsb::GetEnumResult(QMap<int, bool> &map_EnumResult)
             }
         }
     }
+
+//    qDebug()<<map_EnumResult;
     return true;
 }
 

@@ -27,6 +27,16 @@ enum ENUM_OPENMODEL{
     BYPIDVID
 };
 
+enum ENUM_POWERONSWITCH{
+    POWERON     = 0x00,
+    POWEROFF    = 0x01
+};
+
+enum ENUM_POWERONGROUP{
+    FIRSTGROUP      = 0x01,
+    SECONDGROUP     = 0x02
+};
+
 enum ENUM_TESTTYPE{
     _24GMOUSE       = 0x00,     //2.4G鼠标
     _24GKEYBOARD    = 0x01,     //2.4G键盘
@@ -91,6 +101,50 @@ struct STRUCT_FWCONGIF{
     ushort us_EnumTime;               //默认=8000
     uchar uc_EnumTestSwitch;
     uchar uc_TotalByte;
+
+    STRUCT_FWCONGIF(){
+        us_WorkCurrentTime = 0;
+        us_SleepCurrentTime = 0;
+        us_LEDTestTime = 0;
+        us_LED2TestTime = 0;
+        us_IRTestTime = 0;
+        us_LaserTestTime = 0;
+        us_BurnEEPROMTime = 0;
+        us_ChargeTextTime = 0;
+        us_SendTime = 0;
+        us_ReceiveTime = 0;
+        us_PoweredDelay = 1200;
+        us_ReadRFDelay = 5000;
+        us_SleepCurrentDelay = 4000;
+        us_DischargeTimeSelect = 2000;
+        us_DUTVoltageSelect = 1500;
+        us_CloseCurrentSet = 0;
+        uc_IRTestSwitch = 0;
+
+        uc_LEDTestSwitch = 0;
+        uc_LaserTestSwitch = 0;
+        uc_FunctionTextSwitch = 0;
+        uc_SelfTestCode = 0;
+        uc_RetestTimes = 0;
+        uc_IRCollectAvgTimes = 0;
+        uc_LEDCollectAvgTimes = 0;
+        uc_LED2CollectAvgTimes = 0;
+        uc_CurrentCollectAvgTimes = 0;
+
+        uc_CrytalCollectAvgTimes = 0;
+        uc_ReceiveRSSILimit = 0;
+        uc_SingleTestCount = 4;
+        us_SinglePowerDelay = 0;
+        us_SinglePowerTime = 0;
+        uc_PowerAvgTimes = 0;
+        uc_PowerChannel = 0;
+        uc_PowerTestSwitch = 0;
+        us_FirstPowerTestDelay = 0;
+        us_EnumTime = 8000;
+
+        uc_EnumTestSwitch = 0;
+        uc_TotalByte = 0;
+    }
 };
 
 struct STRUCT_PCTESTCONFIG{
@@ -125,6 +179,36 @@ struct STRUCT_PCTESTCONFIG{
 
     QString str_ProjectName;
     QString str_ProjectVersions;
+
+    STRUCT_PCTESTCONFIG(){
+        TestType = _INTACTRECEIVER;
+        un_FWPosition = 0;
+        us_FWPid = 0;
+        us_FWVid = 0;
+        us_PoweredDelay = 1200;
+        us_ReadRFDelay = 5000;
+        us_DischargeTimeSelect = 2000;
+        us_DUTVoltageSelect = 1500;
+        uc_RetestTimes = 0;
+        uc_SingleTestCount = 4;
+        us_SinglePowerDelay = 0;
+        us_SinglePowerTime = 0;
+        uc_PowerAvgTimes = 0;
+        uc_PowerChannel = 0;
+        uc_PowerTestSwitch = 0;
+        us_FirstPowerTestDelay = 0;
+        us_EnumTime = 8000;
+        uc_EnumTestSwitch = 0;
+
+        str_DUTFWPositions = "";
+        str_PowerDUTPositions = "";
+        str_PowerTestGroups = "";
+        str_RFPowerDBUponLimit = "";
+        str_RFPowerDBLowerLimit = "";
+
+        str_ProjectName = "";
+        str_ProjectVersions = "";
+    }
 };
 
 struct STRUCT_FWINFO{
@@ -180,6 +264,14 @@ struct STRUCT_HANDBAG{
     char c_TestType;
     char c_SurplusGroup;
     char c_TestingProgress;
+
+    STRUCT_HANDBAG(){
+        c_DUTState = 0;
+        c_TestState = 0;
+        c_TestType = 0;
+        c_SurplusGroup = 0;
+        c_TestingProgress = 0;
+    }
 };
 
 
@@ -204,6 +296,7 @@ enum ENUM_PCCOMMAND{
 
     PC_TESTPOWERSELFTEST    = 0x61,
     PC_TESTENUM             = 0x69,
+    PC_POWERONSWITCH        = 0x6a,
 
     //ACK
     PCACK_BOOT                  = 0x80,
@@ -214,7 +307,7 @@ enum ENUM_PCCOMMAND{
     PCACK_COMPLETETEST          = 0x93,
     PCACK_POWTEST               = 0x94,
     PCACK_STARTONEGROUNDTEST    = 0x95,
-    PCACK_UPLOADRFPOWERRESYLT   = 0xa0
+    PCACK_UPLOADRFPOWERRESYLT   = 0xa0,
 };
 
 enum ENUM_FIRMWARECOMMAND{
@@ -250,6 +343,7 @@ enum ENUM_FIRMWARECOMMAND{
 
     FWACK_TESTPOWERSELFTEST = 0xe1,
     FWACK_TESTENUM          = 0xe9,
+    FWACK_POWERONSWITCH     = 0xea,
 };
 
 enum ENUM_MSGDEFINE{
@@ -272,6 +366,13 @@ struct STRUCT_PCCOMMANDDATA{
     char DATA[254];
     uint un_DataLength;
     uint un_SendTime;
+
+    STRUCT_PCCOMMANDDATA(){
+        PCCommand = PC_GETFWINFO;
+        memset(DATA, 0, 254);
+        un_DataLength = 0;
+        un_SendTime = 0;
+    }
 };
 
 enum ENUM_MACHINEDUTSTATE{

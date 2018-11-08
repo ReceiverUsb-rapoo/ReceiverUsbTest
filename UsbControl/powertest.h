@@ -49,7 +49,9 @@ private:
                         ushort us_Length);
 
     bool JudgeEnterCommandModel(libusb_device_handle *p_LDHandle);
+
     bool EnterTestModel(libusb_device_handle *p_LDHandle);
+
     bool TestSignalCarrier(libusb_device_handle *p_LDHandle);
 
     bool CompletePowerTest();
@@ -69,8 +71,10 @@ private:
 
     QMap<int, libusb_device_handle * > m_mapLDHandle;
     QMap<int, bool> m_mapSendCmdResult;
-    QMap<int,bool> m_mapOpenDeviceResult;
+    QMap<int, bool> m_mapOpenDeviceResult;
     QMap<int, int> m_mapStationPort;
+
+    bool m_bSendComplete;
 };
 
 #endif // POWERTEST_H

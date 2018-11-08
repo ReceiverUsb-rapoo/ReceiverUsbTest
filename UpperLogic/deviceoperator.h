@@ -4,6 +4,8 @@
 #include "Firmware/firmware.h"
 #include "UsbControl/usbcontrol.h"
 #include "upperdefine.h"
+#include "Box/box.h"
+#include "Robot/catchrobot.h"
 
 
 class DeviceOperator : public QObject
@@ -23,6 +25,10 @@ public:
 
     bool SetFWPCConfig(const ushort &us_SequenceNumber,
                        STRUCT_PCTESTCONFIG &struct_PCConfig);
+
+    bool SetBoxObjectPoint(QList<Box *> &list_Box);
+
+    bool SetCatchRobotObjectPoint(CatchRobot * &p_CatchRobot);
 
 //    bool SetFWPCConfig();
 
@@ -49,6 +55,11 @@ public:
     bool StartSendPowerTest();
 
     bool ExitUsbTest();
+
+public:
+    bool OpenBox(const ushort &us_SequenceNumber);
+
+    bool CloseBox(const ushort &us_SequenceNumber);
 
 public:
     //FW
@@ -88,13 +99,21 @@ public:
     bool TestPowerSelfTest(const ushort &us_SequenceNumber);
 
     bool TestEnum(const ushort &us_SequenceNumber,
+                  const ENUM_POWERONGROUP &Group,
                   const short &s_Time);
+
+    bool PowerOnSwitch(const ushort &us_SequenceNumber,
+                       const ENUM_POWERONSWITCH &Switch,
+                       const ENUM_POWERONGROUP &Group);
 
 private:
     void WorkSlepp(ushort un_Msec);
 
     bool GetFWPointer(const ushort &us_SequenceNumber,
                       Firmware * &p_FW);
+
+    bool GetBoxPointer(const ushort &us_SequenceNumber,
+                       Box * &p_Box);
 
 signals:
 
@@ -105,6 +124,9 @@ private slots:
 private:
     QList<Firmware *> m_listFirmware;
     UsbControl *m_pUsbControl;
+
+    QList<Box *> m_listBox;
+    CatchRobot *m_pCatchRobot;
 };
 
 #endif // DEVICEOPERATOR_H

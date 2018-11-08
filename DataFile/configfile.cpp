@@ -7,11 +7,6 @@
 #include <QStringList>
 #include <QtDebug>
 
-ConfigFile::ConfigFile()
-{
-
-}
-
 bool ConfigFile::SavePCTestConfig(const ushort &us_SequenceNumber,
                                   STRUCT_PCTESTCONFIG &struct_PCTestConfig)
 {
@@ -381,7 +376,7 @@ bool ConfigFile::GetEquitmentConfig(STRUCT_EQUITMENTCONFIG &struct_EquitmentConf
             QList<QString> list_ComName;
 
             TransformToList(str_ComList, list_ComName);
-            struct_EquitmentConfig.list_ConName = list_ComName;
+            struct_EquitmentConfig.list_ComName = list_ComName;
         }
         else if(o_QXmlStreamReader.name() == "un_ComPid"){
             o_QXmlStreamReader.readNext();
@@ -390,6 +385,14 @@ bool ConfigFile::GetEquitmentConfig(STRUCT_EQUITMENTCONFIG &struct_EquitmentConf
         else if(o_QXmlStreamReader.name() == "un_ComVid"){
             o_QXmlStreamReader.readNext();
             struct_EquitmentConfig.un_ComVid = o_QXmlStreamReader.text().toUInt();
+        }
+        else if(o_QXmlStreamReader.name() == "str_ComputerIP"){
+            o_QXmlStreamReader.readNext();
+            struct_EquitmentConfig.str_ComputerIP = o_QXmlStreamReader.text().toString();
+        }
+        else if(o_QXmlStreamReader.name() == "us_ComputerPort"){
+            o_QXmlStreamReader.readNext();
+            struct_EquitmentConfig.us_ComputerPort = o_QXmlStreamReader.text().toUShort();
         }
         else if(o_QXmlStreamReader.name() == "n_OpemWithComName"){
             o_QXmlStreamReader.readNext();
@@ -453,7 +456,7 @@ bool ConfigFile::SaveEquitmenConfig(STRUCT_EQUITMENTCONFIG &struct_EquitmentConf
     QString str_BoxIP = "";
     QString str_RobotIP = "";
 
-    TransformToQString(struct_EquitmentConfig.list_ConName, str_ComName);
+    TransformToQString(struct_EquitmentConfig.list_ComName, str_ComName);
     TransformToQString(struct_EquitmentConfig.list_BoxIP, str_BoxIP);
     TransformToQString(struct_EquitmentConfig.list_RobotIP, str_RobotIP);
 
@@ -465,6 +468,8 @@ bool ConfigFile::SaveEquitmenConfig(STRUCT_EQUITMENTCONFIG &struct_EquitmentConf
     o_QXmlStreamWriter.writeTextElement("Com", str_ComName);
     o_QXmlStreamWriter.writeTextElement("un_ComPid", QString::number(struct_EquitmentConfig.un_ComPid));
     o_QXmlStreamWriter.writeTextElement("un_ComVid", QString::number(struct_EquitmentConfig.un_ComVid));
+    o_QXmlStreamWriter.writeTextElement("str_ComputerIP", struct_EquitmentConfig.str_ComputerIP);
+    o_QXmlStreamWriter.writeTextElement("us_ComputerPort", QString::number(struct_EquitmentConfig.us_ComputerPort));
     o_QXmlStreamWriter.writeTextElement("n_OpemWithComName", QString::number(struct_EquitmentConfig.n_OpemWithComName));
     o_QXmlStreamWriter.writeTextElement("n_OpemWithPidVid", QString::number(struct_EquitmentConfig.n_OpemWithPidVid));
     o_QXmlStreamWriter.writeTextElement("n_BoxUnuse", QString::number(struct_EquitmentConfig.n_BoxUnuse));

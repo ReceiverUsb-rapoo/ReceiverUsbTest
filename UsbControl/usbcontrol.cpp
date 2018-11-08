@@ -13,6 +13,8 @@ UsbControl::UsbControl(QObject *parent)
 
     connect(m_pEnumUsb, SIGNAL(sig_EnumComplete()),
             this, SLOT(slot_EnumUsbTestComplete()));
+    connect(m_pPowerTest, SIGNAL(sig_SendCmdComplete()),
+            this, SLOT(slot_SendPowerTestomplete()));
 }
 
 UsbControl::~UsbControl()
@@ -29,6 +31,11 @@ UsbControl::~UsbControl()
         delete m_pPowerTestInstanceGetter;
         m_pPowerTestInstanceGetter = NULL;
     }
+}
+
+bool UsbControl::InitUsbControl()
+{
+    m_pEnumUsb->InitEnumUsb();
 }
 
 bool UsbControl::SetEnumTestUsbConfig(const uint &un_Pid,

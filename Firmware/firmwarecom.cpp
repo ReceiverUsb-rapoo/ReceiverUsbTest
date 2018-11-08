@@ -147,13 +147,13 @@ bool FirmwareCom::WriteCommandData(char *p_cCommand,
         return false;
     }
 
-    QString str_Info = "write ";
-    for(int i = 0; i < (int)(un_DataLength + 11); i++){
-        str_Info += " " + QString::number((unsigned char)cWRITEDATA[i], 16);
-    }
-    qDebug()<<str_Info;
+//    QString str_Info = "write ";
+//    for(int i = 0; i < (int)(un_DataLength + 11); i++){
+//        str_Info += " " + QString::number((unsigned char)cWRITEDATA[i], 16);
+//    }
+//    qDebug()<<str_Info;
 
-    qDebug()<<"";
+//    qDebug()<<"";
 
     QByteArray byte_Data = QByteArray(p_cData, un_DataLength);
     emit sig_WriteCommand(p_cCommand[0], byte_Data, un_DataLength);
@@ -371,12 +371,12 @@ void FirmwareCom::slot_ReadData()
             m_pQSerialPort->bytesAvailable() != -1){
         QByteArray byte_ReadData = m_pQSerialPort->readAll();
 
-        QString str_Info = "Read ";
-        for(int i = 0; i < byte_ReadData.length(); i++){
-            str_Info += " " + QString::number((unsigned char)byte_ReadData.at(i), 16);
-        }
-        qDebug()<<str_Info;
-        qDebug()<<"";
+//        QString str_Info = "Read ";
+//        for(int i = 0; i < byte_ReadData.length(); i++){
+//            str_Info += " " + QString::number((unsigned char)byte_ReadData.at(i), 16);
+//        }
+//        qDebug()<<str_Info;
+//        qDebug()<<"";
 
         int n_DataLength = byte_ReadData.length();
         if(n_DataLength > MAX_LENGHT){
@@ -401,11 +401,11 @@ void FirmwareCom::slot_ReadData()
             }
         }
 
-        QString str_Info1 = "Cache ";
-        for(int i = 0; i < m_byteCache.length(); i++){
-            str_Info1 += " " + QString::number((unsigned char)m_byteCache.at(i), 16);
-        }
-        qDebug()<<str_Info1;
-        qDebug()<<"";
+//        QString str_Info1 = "Cache ";
+//        for(int i = 0; i < m_byteCache.length(); i++){
+//            str_Info1 += " " + QString::number((unsigned char)m_byteCache.at(i), 16);
+//        }
+//        qDebug()<<str_Info1;
+//        qDebug()<<"";
     }
 }

@@ -1122,7 +1122,7 @@
      <pointsize>9</pointsize>
     </font>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_1">
     <item row="15" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_15">
       <property name="alignment">
