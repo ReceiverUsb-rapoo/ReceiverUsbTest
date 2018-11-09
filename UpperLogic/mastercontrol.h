@@ -12,7 +12,7 @@ public:
     explicit MasterControl(QObject *parent = 0);
     ~MasterControl();
 
-private:
+public:
     void InitTest();
 
     void StartOneTest();
@@ -20,6 +20,9 @@ private:
     void StartAutoTest();
 
     void StopTest();
+
+public:
+    void GetAllSequenceNumber(QList<ushort> &list_SequenceNumber);
 
 private:
     bool InitMasterControl();
@@ -58,6 +61,9 @@ private:
     void WaitUsbPowerTestFinish();
 
 signals:
+    void sig_FWDiscoverd();
+
+    void sig_FWRemove();
 
 public slots:
     void slot_FirmwareDiscoverd();

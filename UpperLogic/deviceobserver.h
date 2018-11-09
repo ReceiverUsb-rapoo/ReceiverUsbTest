@@ -47,9 +47,12 @@ public:
 
     bool GetCatchRobotObjectPoint(CatchRobot * &p_CatchRobot);
 
+public:
     bool ClearEnumResult();
 
     bool ClearPowerSendResult();
+
+    bool GetAllSequenceNumber(QList<ushort> &list_SequenceNumber);
 
 
 public:
@@ -333,8 +336,8 @@ public slots:
                            QList<char> list_UsefulResult);
 
     void slot_StartOneGroupPowerTest(ushort us_SequenceNumber,
-                        char c_SurplusGroup,
-                        int n_TestDUTMask);
+                                     char c_SurplusGroup,
+                                     int n_TestDUTMask);
 
     void slot_StartOneGroupEnumTest(ushort us_SequenceNumber,
                                     char c_SurplusGroup,
@@ -389,6 +392,8 @@ private:
     CatchRobot *m_pCatchRobot;
 
     QMap<ushort, BOX_OPERATOR> m_mapBoxOperator;
+
+    QList<ushort> m_listSequenceNumber;
 };
 
 #endif // DEVICEOBSERVER_H

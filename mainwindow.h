@@ -42,9 +42,23 @@ private:
     void DataTableUI();
 
 private:
-    Ui::MainWindow *ui;
+    void UpdataSequenceNumber();
 
+public slots:
+    void slot_FWDiscoverd();
+
+    void slot_FWRemove();
+
+private slots:
+
+
+
+private:
+    Ui::MainWindow *ui;
     MasterControl *m_pMasterControl;
+
+    QList<ushort> m_listSequenceNumber;
+    ushort m_SelectSequenceNumber;
 };
 
 #endif // MAINWINDOW_H

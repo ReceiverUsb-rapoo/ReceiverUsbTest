@@ -56,6 +56,108 @@ enum ENUM_TESTTYPE{
     _INTACTRECEIVER = 0x0c,     //成品接收器
 };
 
+enum ENUM_PCCOMMAND{
+    //comand
+    PC_GETFWINFO            = 0x01,
+    PC_RESTARTFW            = 0x02,
+
+    PC_INITRDUTTEST         = 0x30,
+    PC_EXITDUTTEST          = 0x31,
+    PC_STARTONETEST         = 0x32,
+    PC_INQUIREMACHINESTATE  = 0x33,
+
+    PC_COMPLETEENUM         = 0x35,
+    PC_ENTERDEBUGMODEL      = 0x50,
+    PC_EXITDEBUGMODLE       = 0x51,
+
+    PC_STARTWHOLEDUTTEST    = 0x5a,
+    PC_ADJUSTPOWER          = 0x5e,
+    PC_READPOWERDATA        = 0x5f,
+    PC_CLEARPOWERCONFIG     = 0x60,
+
+    PC_TESTPOWERSELFTEST    = 0x61,
+    PC_TESTENUM             = 0x69,
+    PC_POWERONSWITCH        = 0x6a,
+
+    //ACK
+    PCACK_BOOT                  = 0x80,
+    PCACK_FIRMWAREINTACT        = 0x81,
+    PCACK_SELECTFIRMWARE        = 0x82,
+
+    PCACK_STARTTEST             = 0x92,
+    PCACK_COMPLETETEST          = 0x93,
+    PCACK_POWTEST               = 0x94,
+    PCACK_STARTONEGROUNDTEST    = 0x95,
+    PCACK_UPLOADRFPOWERRESYLT   = 0xa6,
+};
+
+enum ENUM_FIRMWARECOMMAND{
+    //command
+    FW_BOOT                     = 0x00,
+    FW_FIRMWAREINTACT           = 0x01,
+    FW_SELECTFIRMWARE           = 0x02,
+    FW_HANDSHAKE                = 0x03,
+
+    FW_STARTTEST                = 0x12,
+    FW_COMPLETETEST             = 0x13,
+    FW_STARTONEGROUPPOWTEST     = 0x14,
+    FW_STARTONEGROUPENUMTEST    = 0x15,
+    FW_UPLOADRFPOWERRESYLT      = 0x26,
+
+    //ACK
+    FWACK_GETFWINFO         = 0x81,
+    FWACK_RESTARTFW         = 0x82,
+
+    FWACK_INITDUTTEST           = 0xb0,
+    FWACK_EXITDUTTEST           = 0xb1,
+    FWACK_STARTONETEST          = 0xb2,
+    FWACK_INQUIREMACHINESTATE   = 0xb3,
+
+    FWACK_COMPLETEENUM      = 0xb5,
+    FWACK_ENTERDEBUGMODEL   = 0xd0,
+    FWACK_EXITDEBUGMODLE    = 0xd1,
+
+    FWACK_STARTWHOLEDUTTEST = 0xda,
+    FWACK_ADJUSTPOWER       = 0xde,
+    FWACK_READPOWERDATA     = 0xdf,
+    FWACK_CLEARPOWERCONFIG  = 0xe0,
+
+    FWACK_TESTPOWERSELFTEST = 0xe1,
+    FWACK_TESTENUM          = 0xe9,
+    FWACK_POWERONSWITCH     = 0xea,
+};
+
+enum ENUM_MSGDEFINE{
+    NORMAL = 0x00,
+    NORMAL_OUTUPGRADEMODEL = 0x01,
+    UPGRADEDATABAGERROR = 0x02,
+
+    NOFW = 0x0b,
+    FWDAMAGED = 0x0c,
+
+    OTHERERROR = 0x7f,
+
+    ABNORMALITY = 0xff,   //use for autor
+
+    //......and so on and no use again
+};
+
+
+enum ENUM_MACHINEDUTSTATE{
+    DUTOUTFIXTURE = 0,
+    DUTINFIXTURE = 1
+};
+
+enum ENUM_MACHINETESTSTATE{
+    UNSTART = 0,
+    WAIT,
+    TESTING,
+    COMPLETE
+};
+
+//#pragma pack(push)  //将当前pack设置压栈保存
+#pragma pack(1)     //必须在结构体定义之前使用
+
 struct STRUCT_FWCONGIF{
     ushort us_WorkCurrentTime;        //工作电流测试时间(ms), 默认=0
     ushort us_SleepCurrentTime;       //睡眠电流测试时间(ms), 默认=0
@@ -274,93 +376,6 @@ struct STRUCT_HANDBAG{
     }
 };
 
-
-enum ENUM_PCCOMMAND{
-    //comand
-    PC_GETFWINFO            = 0x01,
-    PC_RESTARTFW            = 0x02,
-
-    PC_INITRDUTTEST         = 0x30,
-    PC_EXITDUTTEST          = 0x31,
-    PC_STARTONETEST         = 0x32,
-    PC_INQUIREMACHINESTATE  = 0x33,
-
-    PC_COMPLETEENUM         = 0x35,
-    PC_ENTERDEBUGMODEL      = 0x50,
-    PC_EXITDEBUGMODLE       = 0x51,
-
-    PC_STARTWHOLEDUTTEST    = 0x5a,
-    PC_ADJUSTPOWER          = 0x5e,
-    PC_READPOWERDATA        = 0x5f,
-    PC_CLEARPOWERCONFIG     = 0x60,
-
-    PC_TESTPOWERSELFTEST    = 0x61,
-    PC_TESTENUM             = 0x69,
-    PC_POWERONSWITCH        = 0x6a,
-
-    //ACK
-    PCACK_BOOT                  = 0x80,
-    PCACK_FIRMWAREINTACT        = 0x81,
-    PCACK_SELECTFIRMWARE        = 0x82,
-
-    PCACK_STARTTEST             = 0x92,
-    PCACK_COMPLETETEST          = 0x93,
-    PCACK_POWTEST               = 0x94,
-    PCACK_STARTONEGROUNDTEST    = 0x95,
-    PCACK_UPLOADRFPOWERRESYLT   = 0xa0,
-};
-
-enum ENUM_FIRMWARECOMMAND{
-    //command
-    FW_BOOT                     = 0x00,
-    FW_FIRMWAREINTACT           = 0x01,
-    FW_SELECTFIRMWARE           = 0x02,
-    FW_HANDSHAKE                = 0x03,
-
-    FW_STARTTEST                = 0x12,
-    FW_COMPLETETEST             = 0x13,
-    FW_STARTONEGROUPPOWTEST     = 0x14,
-    FW_STARTONEGROUPENUMTEST    = 0x15,
-    FW_UPLOADRFPOWERRESYLT      = 0x20,
-
-    //ACK
-    FWACK_GETFWINFO         = 0x81,
-    FWACK_RESTARTFW         = 0x82,
-
-    FWACK_INITDUTTEST           = 0xb0,
-    FWACK_EXITDUTTEST           = 0xb1,
-    FWACK_STARTONETEST          = 0xb2,
-    FWACK_INQUIREMACHINESTATE   = 0xb3,
-
-    FWACK_COMPLETEENUM      = 0xb5,
-    FWACK_ENTERDEBUGMODEL   = 0xd0,
-    FWACK_EXITDEBUGMODLE    = 0xd1,
-
-    FWACK_STARTWHOLEDUTTEST = 0xda,
-    FWACK_ADJUSTPOWER       = 0xde,
-    FWACK_READPOWERDATA     = 0xdf,
-    FWACK_CLEARPOWERCONFIG  = 0xe0,
-
-    FWACK_TESTPOWERSELFTEST = 0xe1,
-    FWACK_TESTENUM          = 0xe9,
-    FWACK_POWERONSWITCH     = 0xea,
-};
-
-enum ENUM_MSGDEFINE{
-    NORMAL = 0x00,
-    NORMAL_OUTUPGRADEMODEL = 0x01,
-    UPGRADEDATABAGERROR = 0x02,
-
-    NOFW = 0x0b,
-    FWDAMAGED = 0x0c,
-
-    OTHERERROR = 0x7f,
-
-    ABNORMALITY = 0xff,   //use for autor
-
-    //......and so on and no use again
-};
-
 struct STRUCT_PCCOMMANDDATA{
     ENUM_PCCOMMAND PCCommand;
     char DATA[254];
@@ -375,16 +390,6 @@ struct STRUCT_PCCOMMANDDATA{
     }
 };
 
-enum ENUM_MACHINEDUTSTATE{
-    DUTOUTFIXTURE = 0,
-    DUTINFIXTURE = 1
-};
-
-enum ENUM_MACHINETESTSTATE{
-    UNSTART = 0,
-    WAIT,
-    TESTING,
-    COMPLETE
-};
+#pragma pack(0) // 恢复先前的pack设置
 
 #endif // FIRMWARE_DEFINE_H

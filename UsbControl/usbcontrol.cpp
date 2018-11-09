@@ -5,11 +5,9 @@ UsbControl::UsbControl(QObject *parent)
 {
     m_pEnumUsb = NULL;
     m_pPowerTest = NULL;
-    m_pPowerTestInstanceGetter = NULL;
 
     m_pEnumUsb = new EnumUsb;
-    m_pPowerTestInstanceGetter = new PowerTestInstanceGetter;
-    m_pPowerTest = m_pPowerTestInstanceGetter->GetInstance();
+    m_pPowerTest = m_oPowerTestInstanceGetter.GetInstance();
 
     connect(m_pEnumUsb, SIGNAL(sig_EnumComplete()),
             this, SLOT(slot_EnumUsbTestComplete()));
@@ -20,22 +18,16 @@ UsbControl::UsbControl(QObject *parent)
 UsbControl::~UsbControl()
 {
     ExitUsbControl();
-
     if(m_pEnumUsb != NULL){
         delete m_pEnumUsb;
         m_pEnumUsb = NULL;
-    }
-
-    if(m_pPowerTestInstanceGetter != NULL){
-
-        delete m_pPowerTestInstanceGetter;
-        m_pPowerTestInstanceGetter = NULL;
     }
 }
 
 bool UsbControl::InitUsbControl()
 {
     m_pEnumUsb->InitEnumUsb();
+    return true;
 }
 
 bool UsbControl::SetEnumTestUsbConfig(const uint &un_Pid,

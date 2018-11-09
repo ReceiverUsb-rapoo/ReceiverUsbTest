@@ -58,7 +58,7 @@ private slots:
 private:
     EnumUsb *m_pEnumUsb;
     PowerTest *m_pPowerTest;
-    PowerTestInstanceGetter *m_pPowerTestInstanceGetter;
+    PowerTestInstanceGetter m_oPowerTestInstanceGetter;
 };
 
 #endif // USBCONTROL_H

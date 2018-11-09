@@ -100,3 +100,18 @@ void MainWindow::DataTableUI()
     p_StatisticalTable->SetSequenceNumber(1);
     p_StatisticalTable->show();
 }
+
+void MainWindow::UpdataSequenceNumber()
+{
+    m_pMasterControl->GetAllSequenceNumber(m_listSequenceNumber);
+}
+
+void MainWindow::slot_FWDiscoverd()
+{
+
+}
+
+void MainWindow::slot_FWRemove()
+{
+
+}

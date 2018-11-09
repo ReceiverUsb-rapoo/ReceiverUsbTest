@@ -134,8 +134,8 @@ void FirmwareConfig::ShowData()
     o_ConfigFile.TransformToList(struct_PCTestConfig.str_PowerTestGroups,
                                  list_PowerTestGroups);
 
-    m_pPT_PowerTestPositionNumber->SetLEValue(list_DUTFWPositions);
-    m_pPT_FWPositionNumber->SetLEValue(list_PowerDUTPositions);
+    m_pPT_FWPositionNumber->SetLEValue(list_DUTFWPositions);
+    m_pPT_PowerTestPositionNumber->SetLEValue(list_PowerDUTPositions);
     m_pPT_PowerTestGroup->SetLEValue(list_PowerTestGroups);
 
 //    STRUCT_USBCONTROLCONFIG m_structUsbControlConfig;
@@ -193,8 +193,8 @@ void FirmwareConfig::SaveData()
     QList<QString> list_PowerTestGroups;
     ConfigFile o_ConfigFile;
 
-    m_pPT_PowerTestPositionNumber->GetLEValue(list_DUTFWPositions);
-    m_pPT_FWPositionNumber->GetLEValue(list_PowerDUTPositions);
+    m_pPT_FWPositionNumber->GetLEValue(list_DUTFWPositions);
+    m_pPT_PowerTestPositionNumber->GetLEValue(list_PowerDUTPositions);
     m_pPT_PowerTestGroup->GetLEValue(list_PowerTestGroups);
 
     o_ConfigFile.TransformToQString(list_DUTFWPositions,

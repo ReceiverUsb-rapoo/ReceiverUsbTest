@@ -147,13 +147,13 @@ bool FirmwareCom::WriteCommandData(char *p_cCommand,
         return false;
     }
 
-//    QString str_Info = "write ";
-//    for(int i = 0; i < (int)(un_DataLength + 11); i++){
-//        str_Info += " " + QString::number((unsigned char)cWRITEDATA[i], 16);
-//    }
-//    qDebug()<<str_Info;
+    QString str_Info = "write ";
+    for(int i = 0; i < (int)(un_DataLength + 11); i++){
+        str_Info += " " + QString::number((unsigned char)cWRITEDATA[i], 16);
+    }
+    qDebug()<<str_Info;
 
-//    qDebug()<<"";
+    qDebug()<<"";
 
     QByteArray byte_Data = QByteArray(p_cData, un_DataLength);
     emit sig_WriteCommand(p_cCommand[0], byte_Data, un_DataLength);
@@ -258,6 +258,13 @@ bool FirmwareCom::HandleBagData(QByteArray &byte_BagData)
     SendCommand(c_Command, p_Data, n_DataLenght);
 #endif
 
+    QString str_Info1 = "Receive ";
+    for(int i = 0; i < byte_BagData.length(); i++){
+        str_Info1 += " " + QString::number((unsigned char)byte_BagData.at(i), 16);
+    }
+    qDebug()<<str_Info1;
+    qDebug()<<"";
+
     byte_BagData.remove(0, n_BagDataLength);
 
     return true;
@@ -343,6 +350,14 @@ bool FirmwareCom::HandleCacheData(QByteArray &byte_Cache)
     SendCommand(c_Command, p_Data, n_DataLenght);
 #endif
 
+    QString str_Info1 = "Receive ";
+    for(int i = 0; i < byte_Cache.length(); i++){
+        str_Info1 += " " + QString::number((unsigned char)byte_Cache.at(i), 16);
+    }
+    qDebug()<<str_Info1;
+    qDebug()<<"";
+
+
     byte_Cache.remove(0, n_BagDataLength);
     return true;
 }
@@ -350,7 +365,7 @@ bool FirmwareCom::HandleCacheData(QByteArray &byte_Cache)
 bool FirmwareCom::SendCommand(char c_Command,
                               char *p_cData,
                               uint &un_DataLength)
-{
+{    
     QByteArray byte_Data = QByteArray(p_cData, un_DataLength);
     emit sig_ReceiveCommand(c_Command, byte_Data, un_DataLength);
     return true;

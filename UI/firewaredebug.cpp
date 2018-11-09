@@ -350,9 +350,9 @@ void FirewareDebug::TestPowerSelf()
 void FirewareDebug::TestEnum_1()
 {
     m_pDeviceObserver->ClearEnumResult();
-//    m_pDeviceOperator->TestEnum(m_usSequenceNumber,
-//                                FIRSTGROUP,
-//                                m_structUsbControlConfig.n_Time);
+    m_pDeviceOperator->TestEnum(m_usSequenceNumber,
+                                FIRSTGROUP,
+                                m_structUsbControlConfig.n_Time);
     m_bAllDeviceEnum = true;
     QMap<int,int> map_StationPort;
     GetOneGroupStationPort(FIRSTGROUP, map_StationPort);
@@ -369,9 +369,9 @@ void FirewareDebug::TestEnum_1()
 void FirewareDebug::TestEnum_2()
 {
     m_pDeviceObserver->ClearEnumResult();
-//    m_pDeviceOperator->TestEnum(m_usSequenceNumber,
-//                                SECONDGROUP,
-//                                m_structUsbControlConfig.n_Time);
+    m_pDeviceOperator->TestEnum(m_usSequenceNumber,
+                                SECONDGROUP,
+                                m_structUsbControlConfig.n_Time);
     m_bAllDeviceEnum = true;
 
     QMap<int,int> map_StationPort;
@@ -392,6 +392,8 @@ void FirewareDebug::TestSendPower()
     GetOneGroupStationPort(m_PowerTestGroup, map_StationPort);
 
     StartUsbSendTest(map_StationPort);
+
+    m_pDeviceObserver->ClearPowerSendResult();
 }
 
 void FirewareDebug::TestWholeDUT()
@@ -441,7 +443,7 @@ void FirewareDebug::GetReceiveCmdData(uchar uc_Command)
                                                 struct_CommandAndData);
 
     str_Info += "receive cmd  \n" +
-            QString::number(struct_CommandAndData.uc_Command, 16).toUpper() + "   ";
+            QString::number(struct_CommandAndData.uc_Command, 16).toUpper() + "    ";
 
     for(int i = 0; i < (int)struct_CommandAndData.un_DataLength; i++){
         str_Info += AutoCoverDouble(QString::number((uchar)struct_CommandAndData.DATA[i] ,16)) + " ";
@@ -570,7 +572,7 @@ void FirewareDebug::GetTestTimeOutData()
 
 void FirewareDebug::GetStartOneGroupPowerTestData(QList<int> &list_OneGroupPowerTestMaskCode)
 {
-    QString str_Info = "功率测试\n";
+    QString str_Info = "开始一组功率测试\n";
     char c_SurplusGroup;
     int n_TestDUTMask;
 
@@ -580,11 +582,15 @@ void FirewareDebug::GetStartOneGroupPowerTestData(QList<int> &list_OneGroupPower
                                                      n_TestDUTMask,
                                                      list_OneGroupPowerTestMaskCode);
 
-    str_Info += "剩余分组" + QString::number((uchar)c_SurplusGroup) + "\n";
-    str_Info += "DUT掩码" + QString::number(n_TestDUTMask) + "\n";
+    str_Info += "剩余分组  " + QString::number((uchar)c_SurplusGroup, 16) + "\n";
+    str_Info += "DUT掩码  " + QString::number(n_TestDUTMask, 16) + "\n";
 
     for(int i = 0; i < list_OneGroupPowerTestMaskCode.count(); i++){
-        str_Info += "测试编号" + AutoCoverDouble(i) + "  " +
+        if(list_OneGroupPowerTestMaskCode.at(i) == 0){
+            continue;
+        }
+
+        str_Info += "测试编号" + AutoCoverDouble(i + 1) + "  " +
                 QString::number(list_OneGroupPowerTestMaskCode.at(i)) + "\n";
     }
 
@@ -593,7 +599,7 @@ void FirewareDebug::GetStartOneGroupPowerTestData(QList<int> &list_OneGroupPower
 
 void FirewareDebug::GetStartOneGroupEnumTestData(QList<int> &list_OneGroupEnumTestMaskCode)
 {
-    QString str_Info = "开始一组测试\n";
+    QString str_Info = "开始一组枚举测试\n";
     char c_SurplusGroup;
     int n_TestDUTMask;
 
@@ -603,11 +609,15 @@ void FirewareDebug::GetStartOneGroupEnumTestData(QList<int> &list_OneGroupEnumTe
                                                     n_TestDUTMask,
                                                     list_OneGroupEnumTestMaskCode);
 
-    str_Info += "剩余分组" + QString::number((uchar)c_SurplusGroup) + "\n";
-    str_Info += "DUT掩码" + QString::number(n_TestDUTMask) + "\n";
+    str_Info += "剩余分组  " + QString::number((uchar)c_SurplusGroup, 16) + "\n";
+    str_Info += "DUT掩码   " + QString::number(n_TestDUTMask, 16) + "\n";
 
     for(int i = 0; i < list_OneGroupEnumTestMaskCode.count(); i++){
-        str_Info += "测试编号" + AutoCoverDouble(i) + "   " +
+        if(list_OneGroupEnumTestMaskCode.at(i) == 0){
+            continue;
+        }
+
+        str_Info += "测试编号" + AutoCoverDouble(i + 1) + "   " +
                 QString::number(list_OneGroupEnumTestMaskCode.at(i)) + "\n";
     }
 
@@ -633,7 +643,7 @@ void FirewareDebug::GetUploadRFPowerResultData()
 
 void FirewareDebug::GetCompleteTestData()
 {
-    ExitUsbEnumAndSendTest();
+
     QString str_Info = "测试完成\n";
     QList<char> list_UsefulResult;
     m_pDeviceObserver->GetCompleteTestData(CURRENT,
@@ -653,11 +663,13 @@ void FirewareDebug::slot_EnumUsbComplete()
 //    if(us_SequenceNumber != m_usSequenceNumber)
 //        return;
 
-//    m_pDeviceOperator->CompleteEnumTest(m_usSequenceNumber);
 
     if(m_bAllDeviceEnum){
         GetEnumUsbComplete();
         TestSendPower();
+    }
+    else{
+        m_pDeviceOperator->CompleteEnumTest(m_usSequenceNumber);
     }
 }
 
@@ -756,6 +768,8 @@ void FirewareDebug::slot_CompleteTest(ushort us_SequenceNumber)
     if(us_SequenceNumber != m_usSequenceNumber)
         return;
 
+    GetEnumUsbComplete();
+    GetSendPowerTestCompleteData();
     GetCompleteTestData();
     ExitUsbEnumAndSendTest();
 }

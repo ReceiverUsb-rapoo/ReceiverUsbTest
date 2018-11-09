@@ -147,6 +147,12 @@ bool DeviceObserver::ClearPowerSendResult()
     return true;
 }
 
+bool DeviceObserver::GetAllSequenceNumber(QList<ushort> &list_SequenceNumber)
+{
+    list_SequenceNumber = m_listSequenceNumber;
+    return true;
+}
+
 void DeviceObserver::GetEnumUsbCompleteData(EMUN_TESTDATAPOINT Point,
                                             QMap<int, bool> &map_EnumResult)
 {
@@ -675,6 +681,7 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
         return false;
     }
 
+    m_listSequenceNumber.append(us_SequenceNumber);
     m_listFirmware.append(p_Firmware);
     return true;
 }
@@ -775,6 +782,7 @@ bool DeviceObserver::RemoveFW(const QString &str_PortName,
         }
     }
 
+    m_listSequenceNumber.removeAll(us_SequenceNumber);
     return RemoveFWUploadDataObject(us_SequenceNumber, str_PortName);
 }
 
@@ -891,14 +899,20 @@ bool DeviceObserver::TransformMaskCode(const ushort &us_SequenceNumber,
 {
     int n_UpperSequence = (us_SequenceNumber - 1)*OneGroupUsbNumber;
     int n_CheckBit = 0x01;
-    for(int i = 0; i < (int)(sizeof(n_MaskData)*8); i++){
+    int n_DataLength= (int)((sizeof(n_MaskData))*8);
+
+    for(int i = 0; i < n_DataLength; i++){
+//        qDebug()<<(int)(n_MaskData&n_CheckBit);
+//        qDebug()<<(n_CheckBit<<1);
+//        n_CheckBit =  n_CheckBit<<1;
         if(n_MaskData&n_CheckBit){
             list_MaskCode.append(i + n_UpperSequence + 1);
         }
         else{
             list_MaskCode.append(0);
         }
-        n_CheckBit<<1;
+
+        n_CheckBit = n_CheckBit<<1;
     }
     return true;
 }
@@ -1355,8 +1369,8 @@ void DeviceObserver::slot_CompleteTest(ushort us_SequenceNumber,
 }
 
 void DeviceObserver::slot_StartOneGroupPowerTest(ushort us_SequenceNumber,
-                                    char c_SurplusGroup,
-                                    int n_TestDUTMask)
+                                                 char c_SurplusGroup,
+                                                 int n_TestDUTMask)
 {
     FWUploadData *p_FWData = NULL;
     if(!GetFWDataPointer(us_SequenceNumber, p_FWData)){

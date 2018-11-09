@@ -1,5 +1,6 @@
 #include "outputfirmwareconfig.h"
 #include "QStringList"
+#include <QDebug>
 
 void OutPutFirmwareConfig::InPutPCConfig(STRUCT_PCTESTCONFIG &struct_PCConfig)
 {
@@ -55,7 +56,7 @@ bool OutPutFirmwareConfig::OutPutFWConfig(char *p_cFWConfig, uint &un_Lenght)
     }
 
     for(int i = 0; i < PositionTotal; i++){
-        cFWConfig[45 + i] = list_DUTFWPositions.at(i).toLocal8Bit().at(0);
+        cFWConfig[45 + i] = (signed char)list_DUTFWPositions.at(i).toInt();
         cFWConfig[45 + PositionTotal + i] = 0x00;
         cFWConfig[45 + 2*PositionTotal + i] = 0x00;
     }
@@ -67,12 +68,12 @@ bool OutPutFirmwareConfig::OutPutFWConfig(char *p_cFWConfig, uint &un_Lenght)
     struct_FWConfig.uc_PowerChannel = m_structPCConfig.uc_PowerChannel;
     struct_FWConfig.uc_PowerTestSwitch = m_structPCConfig.uc_PowerTestSwitch;
 
-    memcpy(cFWConfig + 141, &struct_FWConfig + 45, 7);
+    memcpy(cFWConfig + 141, (signed char *)&struct_FWConfig + 45, 7);
 
     //address to 148
     for(int i = 0; i < PositionTotal; i++){
-        cFWConfig[148 + i] = list_PowerDUTPositions.at(i).toLocal8Bit().at(0);
-        cFWConfig[148 + PositionTotal + i] = list_PowerTestGroups.at(i).toLocal8Bit().at(0);
+        cFWConfig[148 + i] = (signed char)list_PowerDUTPositions.at(i).toInt();
+        cFWConfig[148 + PositionTotal + i] = (signed char)list_PowerTestGroups.at(i).toInt();
     }
 
     //address to 212
@@ -81,10 +82,14 @@ bool OutPutFirmwareConfig::OutPutFWConfig(char *p_cFWConfig, uint &un_Lenght)
     struct_FWConfig.uc_EnumTestSwitch = m_structPCConfig.uc_EnumTestSwitch;
     struct_FWConfig.uc_TotalByte = 0xda;
 
-    memcpy(cFWConfig + 212, &struct_FWConfig + 52, 6);
+    memcpy(cFWConfig + 212, (signed char *)&struct_FWConfig + 52, 6);
 
     memcpy(p_cFWConfig, cFWConfig, 241);
     un_Lenght = 218;
+
+    for(int i = 0; i < 218; i++){
+        qDebug()<<i<<" "<<(uchar)p_cFWConfig[i];
+    }
 
     //address to 218 and no data
     return true;

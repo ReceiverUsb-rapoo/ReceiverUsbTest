@@ -780,7 +780,7 @@ bool Firmware::FW_StartOneGroupEnumTesT(char *p_cData,
 bool Firmware::FW_UploadRFPowerResult(char *p_cData,
                                       const uint &un_DataLength)
 {
-    if(un_DataLength != 73){
+    if(un_DataLength != 65){
         return false;
     }
 

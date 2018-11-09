@@ -134,7 +134,7 @@ void PowerDebug::ReadPowerData()
     }
 
     str_Info += "参考电压1 " + QString::number(s_ReferenceVoltage_1) + "mV\n";
-    str_Info += "参考电压2 " + QString::number(s_ReferenceVoltage_2) + "mV\n";
+    str_Info += "参考电压2 " + QString::number(s_ReferenceVoltage_2) + "mV";
 
     ShowInfo(str_Info);
 }
@@ -180,7 +180,7 @@ void PowerDebug::GetReceiveCmdData(uchar uc_Command)
                                                 struct_CommandAndData);
 
     str_Info += "receive cmd  \n" +
-            QString::number(struct_CommandAndData.uc_Command, 16).toUpper() + "  ";
+            QString::number(struct_CommandAndData.uc_Command, 16).toUpper() + "   ";
 
     for(int i = 0; i < (int)struct_CommandAndData.un_DataLength; i++){
         str_Info += AutoCoverDouble(QString::number((uchar)struct_CommandAndData.DATA[i], 16))+ " ";
@@ -199,7 +199,7 @@ void PowerDebug::GetWriteCmdData(uchar uc_Command)
                                               struct_CommandAndData);
 
     str_Info += "write cmd  \n" +
-            QString::number(struct_CommandAndData.uc_Command, 16).toUpper() + "  ";
+            QString::number(struct_CommandAndData.uc_Command, 16).toUpper() + "   ";
 
     for(int i = 0; i < (int)struct_CommandAndData.un_DataLength; i++){
         str_Info += AutoCoverDouble(QString::number((uchar)struct_CommandAndData.DATA[i], 16)) + " ";

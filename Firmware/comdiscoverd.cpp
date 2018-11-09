@@ -13,7 +13,7 @@ ComDiscoverd::ComDiscoverd(QObject *parent)
     m_pQTimer = new QTimer;
     connect(m_pQTimer,SIGNAL(timeout()),
             this, SLOT(slot_TimerOut()));
-    m_pQTimer->start(5000);
+    m_pQTimer->start(2000);
 }
 
 ComDiscoverd::~ComDiscoverd()

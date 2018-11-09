@@ -38,6 +38,11 @@ void MasterControl::StopTest()
 
 }
 
+void MasterControl::GetAllSequenceNumber(QList<ushort> &list_SequenceNumber)
+{
+    m_pDeviceObserver->GetAllSequenceNumber(list_SequenceNumber);
+}
+
 bool MasterControl::InitMasterControl()
 {
     m_pDeviceObserver = m_oDeviceObserverInstanceGetter.GetInstance();
@@ -341,11 +346,15 @@ void MasterControl::WaitUsbPowerTestFinish()
 void MasterControl::slot_FirmwareDiscoverd()
 {
     UpdataFWDevice();
+
+    emit sig_FWDiscoverd();
 }
 
 void MasterControl::slot_FirmwareRemove()
 {
     UpdataFWDevice();
+
+    emit sig_FWRemove();
 }
 
 void MasterControl::slot_BoxDiscoverd()
