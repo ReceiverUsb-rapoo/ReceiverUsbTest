@@ -1,4 +1,4 @@
-﻿#ifndef DEVICEOBSERVER_H
+#ifndef DEVICEOBSERVER_H
 #define DEVICEOBSERVER_H
 #include "Firmware/firmware.h"
 #include "Firmware/comdiscoverd.h"
@@ -7,6 +7,7 @@
 #include "upperdefine.h"
 #include "Box/box.h"
 #include "Robot/catchrobot.h"
+#include"Robot/supplementroobot.h"
 #include "tcp/tcpserverinstancegetter.h"
 
 class DeviceObserver : public QObject
@@ -43,9 +44,13 @@ public:
 
     bool SetCatchRobotIP(const QString &str_CatchRobotIP);
 
+    bool SetSupplementRobotIP(const QString &str_SupplementRobotIP);
+
     bool GetBoxObjectPoint(QList<Box *> &list_Box);
 
     bool GetCatchRobotObjectPoint(CatchRobot * &p_CatchRobot);
+
+    bool GetSupplementRobotObjectPoint(SupplementRoobot * &p_SupplementRoobot);
 
 public:
     bool ClearEnumResult();
@@ -53,6 +58,17 @@ public:
     bool ClearPowerSendResult();
 
     bool GetAllSequenceNumber(QList<ushort> &list_SequenceNumber);
+
+public:
+    bool GetBoxOperator(const ushort &us_FWStation,
+                        BOX_OPERATOR &box_Operator);
+
+
+    bool GetCatchRobotGetAction(const ushort &us_FWStation,
+                                QString &str_Action);
+
+    bool GetSupplementRobotGetRequest(const ushort &us_FWStation,
+                                      QString &str_Request);
 
 
 public:
@@ -199,6 +215,10 @@ private:
 
     bool RemoveCatchRobot(const QString &str_IP);
 
+    bool AddSupplementRobot(const QString &str_IP);
+
+    bool RemoveSupplementRobot(const QString &str_IP);
+
 signals:
     void sig_FirmwareDiscoverd();
 
@@ -209,12 +229,22 @@ signals:
 
     void sig_CatchRobotDiscoverd();
 
+    void sig_SupplementRobotDiscoverd();
+
     void sig_BoxRemove();
 
     void sig_CatchRobotRemove();
 
+    void sig_SupplementRobotRemove();
+
 signals:
     void sig_BoxOperatorUpdata(ushort us_SequenceNumber);
+
+signals:
+    void sig_CatchRobotGetActionUpdata(ushort us_SequenceNumber);
+
+signals:
+    void sig_SupplementRobotGetRequestUpdata(ushort us_SequenceNumber);
 
 signals:
     void sig_EnumUsbComplete();
@@ -274,6 +304,19 @@ public slots:
     void slot_DisConnectClient(int n_ID,
                                QString str_IP,
                                quint16 us_Port);
+
+// us_FWStation == us_SequenceNumber
+public slots:
+    void slot_BoxOperator(ushort us_FWStation,
+                          BOX_OPERATOR box_Operator);
+
+public slots:
+    void slot_CatchRobotGetAction(ushort us_FWStation,
+                                  QString str_Action);
+
+public slots:
+    void slot_SupplementRobotGetRequest(ushort us_FWStation,
+                                        QString str_Request);
 
 public slots:
     void slot_EnumUsbComplete();
@@ -346,9 +389,7 @@ public slots:
     void slot_UploadRFPowerResult(ushort us_SequenceNumber,
                                   QList<short> list_Power_db);
 
-public slots:
-    void slot_BoxOperator(ushort us_SequenceNumber,
-                          BOX_OPERATOR box_Operator);
+
 
 
 private slots:
@@ -388,10 +429,15 @@ private:
     QList<QString> m_listBoxIP;
     QList<Box *> m_listBox;
 
-    QString m_CatchRobotIP;
+    QString m_strCatchRobotIP;
     CatchRobot *m_pCatchRobot;
 
+    QString m_strSupplementRobotIP;
+    SupplementRoobot *m_pSupplementRoobot;
+
     QMap<ushort, BOX_OPERATOR> m_mapBoxOperator;
+    QMap<ushort, QString> m_mapCatchRobotAction;
+    QMap<ushort, QString> m_mapSupplementRobotRequest;
 
     QList<ushort> m_listSequenceNumber;
 };

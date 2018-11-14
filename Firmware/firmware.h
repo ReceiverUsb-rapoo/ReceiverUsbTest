@@ -120,8 +120,10 @@ private:
 
     bool PCACK_CompleteTest();
 
+public:
     bool PCACK_StartOneGroupPowerTest();
 
+private:
     bool PCACK_StartOneGroupEnumTesT();
 
     bool PCACK_UploadRFPowerResult();

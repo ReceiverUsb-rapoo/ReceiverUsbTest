@@ -16,26 +16,67 @@ MasterControl::MasterControl(QObject *parent)
 MasterControl::~MasterControl()
 {
 
-}
-
-void MasterControl::InitTest()
-{
 
 }
 
-void MasterControl::StartOneTest()
-{
+bool MasterControl::InitTest()
+{     
+    QList<ushort> list_SequenceNumber;
+    GetAllSequenceNumber(list_SequenceNumber);
 
+    if(list_SequenceNumber.isEmpty()){
+        return false;
+    }
+
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        m_pDeviceOperator->InitDUTTest(list_SequenceNumber.at(i));
+    }
+    return true;
 }
 
-void MasterControl::StartAutoTest()
-{
+bool MasterControl::StartOneTest()
+{   
+    QList<ushort> list_SequenceNumber;
+    GetAllSequenceNumber(list_SequenceNumber);
 
+    if(list_SequenceNumber.isEmpty()){
+        return false;
+    }
+
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        m_pDeviceOperator->StartWholeDUTTest(list_SequenceNumber.at(i));
+    }
+    return true;
 }
 
-void MasterControl::StopTest()
-{
+bool MasterControl::StartAutoTest()
+{  
+    QList<ushort> list_SequenceNumber;
+    GetAllSequenceNumber(list_SequenceNumber);
 
+    if(list_SequenceNumber.isEmpty()){
+        return false;
+    }
+
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        m_pDeviceOperator->StartWholeDUTTest(list_SequenceNumber.at(i));
+    }
+    return true;
+}
+
+bool MasterControl::StopTest()
+{
+    QList<ushort> list_SequenceNumber;
+    GetAllSequenceNumber(list_SequenceNumber);
+
+    if(list_SequenceNumber.isEmpty()){
+        return false;
+    }
+
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        m_pDeviceOperator->ExitDUTTest(list_SequenceNumber.at(i));
+    }
+    return true;
 }
 
 void MasterControl::GetAllSequenceNumber(QList<ushort> &list_SequenceNumber)
@@ -133,43 +174,37 @@ bool MasterControl::UpdataCatchRobot()
 
 bool MasterControl::SetAllFWPCConfig()
 {
-    QList<Firmware *> list_Firmware;
+    ConfigFile o_ConfigFile;
+    STRUCT_PCTESTCONFIG struct_PCTestConfig;
 
-    m_pDeviceObserver->GetFWObjectPointer(list_Firmware);
+    QList<ushort> list_SequenceNumber;
+    GetAllSequenceNumber(list_SequenceNumber);
 
-    if(list_Firmware.isEmpty()){
+    if(list_SequenceNumber.isEmpty()){
         return false;
     }
 
-    ConfigFile o_ConfigFile;
-    ushort us_FWSequence = 0;
-    STRUCT_PCTESTCONFIG struct_PCTestConfig;
-
-    foreach(Firmware *p_FWPoint, list_Firmware){
-        p_FWPoint->GetSequenceNumber(us_FWSequence);
-        o_ConfigFile.GetPCTestConfig(us_FWSequence, struct_PCTestConfig);
-        m_pDeviceOperator->SetFWPCConfig(us_FWSequence, struct_PCTestConfig);
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        o_ConfigFile.GetPCTestConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
+        m_pDeviceOperator->SetFWPCConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
     }
     return true;
 }
 
 bool MasterControl::SetAllUsbControlConfig()
 {
-    QList<Firmware *> list_Firmware;
-    m_pDeviceObserver->GetFWObjectPointer(list_Firmware);
+    ConfigFile o_ConfigFile;
+    STRUCT_USBCONTROLCONFIG struct_UsbControlConfig;
+    QList<ushort> list_SequenceNumber;
+    GetAllSequenceNumber(list_SequenceNumber);
 
-    if(list_Firmware.isEmpty()){
+    if(list_SequenceNumber.isEmpty()){
         return false;
     }
 
-    ConfigFile o_ConfigFile;
-    ushort us_FWSequence = 0;
-    STRUCT_USBCONTROLCONFIG struct_UsbControlConfig;
-
-    foreach(Firmware *p_FWPoint, list_Firmware){
-        p_FWPoint->GetSequenceNumber(us_FWSequence);
-        o_ConfigFile.GetUsbControlConfig(us_FWSequence, struct_UsbControlConfig);
-        m_mapUsbControlConfig.insert(us_FWSequence, struct_UsbControlConfig);
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        o_ConfigFile.GetUsbControlConfig(list_SequenceNumber.at(i), struct_UsbControlConfig);
+        m_mapUsbControlConfig.insert(list_SequenceNumber.at(i), struct_UsbControlConfig);
     }
     return true;
 }
@@ -312,7 +347,7 @@ bool MasterControl::StartUsbPowerTestByOneGroup(const ushort &us_SequenceNumber,
     Q_UNUSED(us_SequenceNumber);
     STRUCT_USBCONTROLCONFIG m_structUsbControlConfig;
     QMap<int,int> map_StationPort;
-    for(int i = 0; i< list_OneGroupSendTest.count(); i++){
+    for(int i = 0; i < list_OneGroupSendTest.count(); i++){
         if(list_OneGroupSendTest.at(i) != 0){
             map_StationPort.insert(list_OneGroupSendTest.at(i),
                                    m_structUsbControlConfig.
@@ -407,7 +442,3 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
 
 }
 
-void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
-{
-
-}

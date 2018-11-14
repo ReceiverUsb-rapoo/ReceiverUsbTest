@@ -53,6 +53,12 @@ bool DeviceOperator::SetCatchRobotObjectPoint(CatchRobot *&p_CatchRobot)
     return true;
 }
 
+bool DeviceOperator::SetSupplementRobotObjectPoint(SupplementRoobot *&p_SupplementRobot)
+{
+    m_pSupplementRoobot = p_SupplementRobot;
+    return true;
+}
+
 //bool DeviceOperator::SetUsbControlObjectPointer(UsbControl *p_UsbControl)
 //{
 //    m_pUsbControl = p_UsbControl;
@@ -79,7 +85,7 @@ bool DeviceOperator::CreatUsbControlObject()
 bool DeviceOperator::DeleteUsbControlObject()
 {
     if(m_pUsbControl != NULL){
-        delete m_pUsbControl;
+        m_pUsbControl->deleteLater();
         m_pUsbControl = NULL;
     }
     else{
@@ -141,6 +147,28 @@ bool DeviceOperator::CloseBox(const ushort &us_SequenceNumber)
     }
 
     p_Box->CloseBox();
+    return true;
+}
+
+bool DeviceOperator::SendCatchRobotAction(const ushort &us_FWStation,
+                                          const QString &str_RobotAction)
+{
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
+    m_pCatchRobot->SendAction(us_FWStation, str_RobotAction);
+    return true;
+}
+
+bool DeviceOperator::SendSupplementRobotData(const ushort &us_FWStation,
+                                             const QString &str_Data)
+{
+    if(m_pSupplementRoobot == NULL){
+        return false;
+    }
+
+    m_pSupplementRoobot->SendSupplementData(us_FWStation, str_Data);
     return true;
 }
 
@@ -318,6 +346,16 @@ bool DeviceOperator::PowerOnSwitch(const ushort &us_SequenceNumber,
     }
 
     return p_FW->PC_PowerOnSwitch(Switch, Group);
+}
+
+bool DeviceOperator::PCACK_StartOneGroupPowerTest(const ushort &us_SequenceNumber)
+{
+    Firmware *p_FW = NULL;
+    if(!GetFWPointer(us_SequenceNumber, p_FW)){
+        return false;
+    }
+
+    return p_FW->PCACK_StartOneGroupPowerTest();
 }
 
 void DeviceOperator::WorkSlepp(ushort un_Msec)

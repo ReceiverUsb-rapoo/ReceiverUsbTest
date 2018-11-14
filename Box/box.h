@@ -2,21 +2,7 @@
 #define BOX_H
 #include <QObject>
 #include "tcp/tcpserverinstancegetter.h"
-
-enum BOX_OPERATOR{
-    OPENBOX,
-    CLOSEBOX,
-    ERRORBOX
-};
-
-const QByteArray OpenCmd = "open";
-const QByteArray CloseCmd = "close";
-
-const QByteArray Open_ACK_Ok = "open/ok";
-const QByteArray Close_ACK_OK = "close/ok";
-
-const QByteArray Open_ACK_Faile = "open/ng";
-const QByteArray Close_ACK_Faile = "close/ng";
+#include "box_define.h"
 
 class Box : public QObject
 {

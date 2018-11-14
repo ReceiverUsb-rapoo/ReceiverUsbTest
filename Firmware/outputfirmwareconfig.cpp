@@ -87,9 +87,9 @@ bool OutPutFirmwareConfig::OutPutFWConfig(char *p_cFWConfig, uint &un_Lenght)
     memcpy(p_cFWConfig, cFWConfig, 241);
     un_Lenght = 218;
 
-    for(int i = 0; i < 218; i++){
-        qDebug()<<i<<" "<<(uchar)p_cFWConfig[i];
-    }
+//    for(int i = 0; i < 218; i++){
+//        qDebug()<<i<<" "<<(uchar)p_cFWConfig[i];
+//    }
 
     //address to 218 and no data
     return true;

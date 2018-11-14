@@ -1,4 +1,5 @@
 #include "usbcontrol.h"
+#include "QDebug"
 
 UsbControl::UsbControl(QObject *parent)
     :   QObject(parent)
@@ -42,6 +43,7 @@ bool UsbControl::SetEnumTestUsbConfig(const uint &un_Pid,
                                         n_Time,
                                         map_StationPort);
 
+
 /*
     bool b_Ret1 = m_pEnumUsb->SetEnumUsbConfig(un_Pid,
                                                un_Vid,
@@ -76,7 +78,12 @@ bool UsbControl::StartPowerTest()
     bool b_Ret1 = m_pEnumUsb->GetDevice(map_LDevice);
 
     bool b_Ret2 = m_pPowerTest->OpenUsbDevice(map_LDevice);
+
+    qDebug()<<"b_Ret1"<<b_Ret1;
+    qDebug()<<"b_Ret2"<<b_Ret2;
+
     if(!b_Ret1 || !b_Ret2){
+        emit sig_SendPowerTestComplete();
         return false;
     }
     return m_pPowerTest->StartPowerTest();

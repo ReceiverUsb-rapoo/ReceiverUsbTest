@@ -63,7 +63,8 @@ SOURCES += main.cpp\
     UI/equitmentconnectconfig.cpp \
     UI/usbcontrolconfig.cpp \
     tcp/tcpserverinstancegetter.cpp \
-    Robot/catchrobot.cpp
+    Robot/catchrobot.cpp \
+    Robot/supplementroobot.cpp
 
 HEADERS  += mainwindow.h \
     Firmware/firmware.h \
@@ -107,7 +108,10 @@ HEADERS  += mainwindow.h \
     UI/equitmentconnectconfig.h \
     UI/usbcontrolconfig.h \
     tcp/tcpserverinstancegetter.h \
-    Robot/catchrobot.h
+    Robot/catchrobot.h \
+    Robot/supplementroobot.h \
+    Robot/robot_define.h \
+    Box/box_define.h
 
 FORMS    += mainwindow.ui \
     UI/firmwareconfig.ui \

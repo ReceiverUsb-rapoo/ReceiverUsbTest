@@ -224,7 +224,6 @@ bool Firmware::PC_StartWholeDUTTest()
     char DATA[254];
     uint un_Datalength = 0;
 
-
     o_OutPutFirmwareConfig.InPutPCConfig(m_structPCConfig);
     o_OutPutFirmwareConfig.OutPutFWConfig(DATA, un_Datalength);
 
@@ -738,7 +737,7 @@ bool Firmware::FW_CompleteTest(char *p_cData,
 }
 
 bool Firmware::FW_StartOneGroupPowerTest(char *p_cData,
-                            const uint &un_DataLength)
+                                         const uint &un_DataLength)
 {
     if(un_DataLength != 6){
         return false;
@@ -754,7 +753,7 @@ bool Firmware::FW_StartOneGroupPowerTest(char *p_cData,
                        c_SurplusGroup,
                        n_TestDUTMask);
 
-    return PCACK_StartOneGroupPowerTest();
+//    return PCACK_StartOneGroupPowerTest();
 }
 
 bool Firmware::FW_StartOneGroupEnumTesT(char *p_cData,

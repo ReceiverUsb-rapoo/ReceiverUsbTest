@@ -13,13 +13,13 @@ public:
     ~MasterControl();
 
 public:
-    void InitTest();
+    bool InitTest();
 
-    void StartOneTest();
+    bool StartOneTest();
 
-    void StartAutoTest();
+    bool StartAutoTest();
 
-    void StopTest();
+    bool StopTest();
 
 public:
     void GetAllSequenceNumber(QList<ushort> &list_SequenceNumber);
@@ -56,6 +56,17 @@ private:
 //    void ShowResultStatisticalData();
 
 private:
+    bool OpenBox(const ushort &us_SequenceNumber);
+
+    bool CloseBox(const ushort &us_SequenceNumber);
+
+    bool SendCatchRobotAction(const ushort &us_FWStation,
+                              const QString &str_RobotAction);
+
+    bool SendSupplementRobotData(const ushort &us_FWStation,
+                                 const QString &str_Data);
+
+private:
     void WaitUsbEnumTestFinish();
 
     void WaitUsbPowerTestFinish();
@@ -78,6 +89,17 @@ public slots:
 
     void slot_CatchRobotRemove();
 
+    void slot_CatchRobotRemove();
+
+    void slot_SupplementRobotRemove();
+
+public slots:
+    void slot_BoxOperatorUpdata(ushort us_SequenceNumber);
+
+    void slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber);
+
+    void slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumber);
+
 public slots:
     void slot_EnumUsbComplete();
 
@@ -90,8 +112,6 @@ public slots:
     void slot_StartOneGroupPowerTest(ushort us_SequenceNumber);
 
     void slot_CompleteTest(ushort us_SequenceNumber);
-
-    void slot_BoxOperatorUpdata(ushort us_SequenceNumber);
 
 private slots:
 

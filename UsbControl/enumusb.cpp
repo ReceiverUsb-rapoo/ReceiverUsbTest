@@ -73,7 +73,7 @@ bool EnumUsb::GetEnumResult(QMap<int, bool> &map_EnumResult)
 //    qDebug()<<list_DevicePort;
 //    qDebug()<<m_mapStationPort;
 
-    if(list_DevicePort.isEmpty() || m_mapStationPort.isEmpty()){
+    if(/*list_DevicePort.isEmpty() || */m_mapStationPort.isEmpty()){
         return false;
     }
 

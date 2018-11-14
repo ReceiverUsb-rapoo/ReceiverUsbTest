@@ -122,6 +122,12 @@ bool DeviceObserver::SetCatchRobotIP(const QString &str_CatchRobotIP)
     return true;
 }
 
+bool DeviceObserver::SetSupplementRobotIP(const QString &str_SupplementRobotIP)
+{
+    m_strSupplementRobotIP = str_SupplementRobotIP;
+    return true;
+}
+
 bool DeviceObserver::GetBoxObjectPoint(QList<Box *> &list_Box)
 {
     list_Box = m_listBox;
@@ -131,6 +137,12 @@ bool DeviceObserver::GetBoxObjectPoint(QList<Box *> &list_Box)
 bool DeviceObserver::GetCatchRobotObjectPoint(CatchRobot *&p_CatchRobot)
 {
     p_CatchRobot = m_pCatchRobot;
+    return true;
+}
+
+bool DeviceObserver::GetSupplementRobotObjectPoint(SupplementRoobot *&p_SupplementRoobot)
+{
+    p_SupplementRoobot = m_pSupplementRoobot;
     return true;
 }
 
@@ -150,6 +162,39 @@ bool DeviceObserver::ClearPowerSendResult()
 bool DeviceObserver::GetAllSequenceNumber(QList<ushort> &list_SequenceNumber)
 {
     list_SequenceNumber = m_listSequenceNumber;
+    return true;
+}
+
+bool DeviceObserver::GetBoxOperator(const ushort &us_FWStation,
+                                    BOX_OPERATOR &box_Operator)
+{
+    if(!m_mapBoxOperator.contains(us_FWStation)){
+        return false;
+    }
+
+    box_Operator = m_mapBoxOperator.value(us_FWStation);
+    return true;
+}
+
+bool DeviceObserver::GetCatchRobotGetAction(const ushort &us_FWStation,
+                                            QString &str_Action)
+{
+    if(!m_mapCatchRobotAction.contains(us_FWStation)){
+        return false;
+    }
+
+    str_Action = m_mapCatchRobotAction.value(us_FWStation);
+    return true;
+}
+
+bool DeviceObserver::GetSupplementRobotGetRequest(const ushort &us_FWStation,
+                                                  QString &str_Request)
+{
+    if(!m_mapSupplementRobotRequest.contains(us_FWStation)){
+        return false;
+    }
+
+    str_Request = m_mapSupplementRobotRequest.contains(us_FWStation);
     return true;
 }
 
@@ -991,6 +1036,27 @@ bool DeviceObserver::RemoveCatchRobot(const QString &str_IP)
     return true;
 }
 
+bool DeviceObserver::AddSupplementRobot(const QString &str_IP)
+{
+    m_pSupplementRoobot = new SupplementRoobot;
+    m_pSupplementRoobot->SetIP(str_IP);
+    return true;
+}
+
+bool DeviceObserver::RemoveSupplementRobot(const QString &str_IP)
+{
+    QString str_ExistIP;
+    if(m_pSupplementRoobot != NULL){
+        m_pSupplementRoobot->GetIP(str_ExistIP);
+
+        if(str_ExistIP == str_IP){
+            delete m_pSupplementRoobot;
+            m_pSupplementRoobot = NULL;
+        }
+    }
+    return true;
+}
+
 void DeviceObserver::slot_FirmwareDiscoverd(QString str_Port,
                                             uint un_Pid,
                                             uint un_Vid)
@@ -1044,9 +1110,13 @@ void DeviceObserver::slot_ConnectClient(int n_ID,
         AddBox(str_IP);
         emit sig_BoxDiscoverd();
     }
-    else if(str_IP == m_CatchRobotIP){
+    else if(str_IP == m_strCatchRobotIP){
         AddCatchRobot(str_IP);
         emit sig_CatchRobotDiscoverd();
+    }
+    else if(str_IP == m_strSupplementRobotIP){
+        AddSupplementRobot(str_IP);
+        emit sig_SupplementRobotDiscoverd();
     }
 }
 
@@ -1061,10 +1131,39 @@ void DeviceObserver::slot_DisConnectClient(int n_ID,
         RemoveBox(str_IP);
         emit sig_BoxRemove();
     }
-    else if(str_IP == m_CatchRobotIP){
+    else if(str_IP == m_strCatchRobotIP){
         RemoveCatchRobot(str_IP);
-        sig_CatchRobotRemove();
+        emit sig_CatchRobotRemove();
     }
+    else if(str_IP == m_strSupplementRobotIP){
+        RemoveSupplementRobot(str_IP);
+        emit sig_SupplementRobotRemove();
+    }
+}
+
+void DeviceObserver::slot_BoxOperator(ushort us_FWStation,
+                                      BOX_OPERATOR box_Operator)
+{
+    m_mapBoxOperator.insert(us_FWStation,
+                            box_Operator);
+
+    emit sig_BoxOperatorUpdata(us_FWStation);
+}
+
+void DeviceObserver::slot_CatchRobotGetAction(ushort us_FWStation,
+                                              QString str_Action)
+{
+    m_mapCatchRobotAction.insert(us_FWStation, str_Action);
+
+    emit sig_CatchRobotGetActionUpdata(us_FWStation);
+}
+
+void DeviceObserver::slot_SupplementRobotGetRequest(ushort us_FWStation,
+                                                    QString str_Request)
+{
+    m_mapSupplementRobotRequest.insert(us_FWStation, str_Request);
+
+    emit sig_SupplementRobotGetRequestUpdata(us_FWStation);
 }
 
 void DeviceObserver::slot_EnumUsbComplete()
@@ -1411,11 +1510,4 @@ void DeviceObserver::slot_UploadRFPowerResult(ushort us_SequenceNumber,
     emit sig_UploadRFPowerResult(us_SequenceNumber);
 }
 
-void DeviceObserver::slot_BoxOperator(ushort us_SequenceNumber,
-                                      BOX_OPERATOR box_Operator)
-{
-    m_mapBoxOperator.insert(us_SequenceNumber,
-                            box_Operator);
 
-    emit sig_BoxOperatorUpdata(us_SequenceNumber);
-}

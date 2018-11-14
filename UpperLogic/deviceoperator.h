@@ -6,6 +6,7 @@
 #include "upperdefine.h"
 #include "Box/box.h"
 #include "Robot/catchrobot.h"
+#include "Robot/supplementroobot.h"
 
 
 class DeviceOperator : public QObject
@@ -29,6 +30,8 @@ public:
     bool SetBoxObjectPoint(QList<Box *> &list_Box);
 
     bool SetCatchRobotObjectPoint(CatchRobot * &p_CatchRobot);
+
+    bool SetSupplementRobotObjectPoint(SupplementRoobot * &p_SupplementRobot);
 
 //    bool SetFWPCConfig();
 
@@ -57,9 +60,16 @@ public:
     bool ExitUsbTest();
 
 public:
+    //us_SequenceNumber == us_FWStation
     bool OpenBox(const ushort &us_SequenceNumber);
 
     bool CloseBox(const ushort &us_SequenceNumber);
+
+    bool SendCatchRobotAction(const ushort &us_FWStation,
+                              const QString &str_RobotAction);
+
+    bool SendSupplementRobotData(const ushort &us_FWStation,
+                                 const QString &str_Data);
 
 public:
     //FW
@@ -106,6 +116,8 @@ public:
                        const ENUM_POWERONSWITCH &Switch,
                        const ENUM_POWERONGROUP &Group);
 
+    bool PCACK_StartOneGroupPowerTest(const ushort &us_SequenceNumber);
+
 private:
     void WorkSlepp(ushort un_Msec);
 
@@ -127,6 +139,7 @@ private:
 
     QList<Box *> m_listBox;
     CatchRobot *m_pCatchRobot;
+    SupplementRoobot *m_pSupplementRoobot;
 };
 
 #endif // DEVICEOPERATOR_H

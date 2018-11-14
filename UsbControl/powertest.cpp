@@ -32,6 +32,8 @@ PowerTest::~PowerTest()
 
 bool PowerTest::SetPowerTestConfig(const QMap<int, int> &map_StationPort)
 {
+    qDebug()<<"SetPowerTestConfig m_mapLDHandle.clear();";
+
     if(!m_mapStationPort.isEmpty()){
         m_mapStationPort.clear();
     }
@@ -101,9 +103,6 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
                     m_mapLDHandle.insert(map_IteratorStationPort.key(), p_LDHandle);
                     m_mapOpenDeviceResult.insert(map_IteratorStationPort.key(), true);
                 }
-                else{
-                    m_mapOpenDeviceResult.insert(map_IteratorStationPort.key(), false);
-                }
             }
         }
     }
@@ -118,6 +117,8 @@ bool PowerTest::CloseUsbDevice()
     if(m_mapLDHandle.isEmpty()){
         return false;
     }
+
+    qDebug()<<"CloseUsbDevice m_mapLDHandle.clear();";
 
     QMapIterator<int, libusb_device_handle *> map_IterationLDHandle(m_mapLDHandle);
     while(map_IterationLDHandle.hasNext()){
@@ -134,6 +135,13 @@ bool PowerTest::StartPowerTest()
 {
     m_bSendComplete = false;
 
+    if(m_mapLDHandle.isEmpty()){
+        CompletePowerTest();
+        return true;
+    }
+
+    qDebug()<<"StartPowerTest  m_mapLDHandle"<<m_mapLDHandle;
+
     QMapIterator<int, libusb_device_handle *> map_IterationLDHandle(m_mapLDHandle);
     while(map_IterationLDHandle.hasNext()){
         map_IterationLDHandle.next();
@@ -143,17 +151,17 @@ bool PowerTest::StartPowerTest()
             m_oQThreadPool.start(p_WriteCmdThread);
     }
 
-    m_pQTimer->start(1000);
+    m_pQTimer->start(200);
     return true;
 }
 
 bool PowerTest::GetPowerTestResult(QMap<int, bool> &map_OpenDeviceResult,
                                    QMap<int, bool> &map_SendCmdResult)
 {
-    if(m_mapOpenDeviceResult.isEmpty() ||
-       m_mapSendCmdResult.isEmpty()){
-        return false;
-    }
+//    if(m_mapOpenDeviceResult.isEmpty() ||
+//       m_mapSendCmdResult.isEmpty()){
+//        return false;
+//    }
 
     QMapIterator<int,int> map_IteratorStationPort(m_mapStationPort);
     while(map_IteratorStationPort.hasNext()){
@@ -170,9 +178,24 @@ bool PowerTest::GetPowerTestResult(QMap<int, bool> &map_OpenDeviceResult,
                                         map_IterationSendCmdResult.value());
             }
         }
+
+
+        map_OpenDeviceResult.insert(map_IteratorStationPort.key(), false);
+        QMapIterator<int, bool> map_IteratorOpenDeviceResult(m_mapOpenDeviceResult);
+        while(map_IteratorOpenDeviceResult.hasNext()){
+            map_IteratorOpenDeviceResult.next();
+
+            if(map_IteratorOpenDeviceResult.key() == map_IteratorStationPort.key()){
+                map_OpenDeviceResult.insert(map_IteratorOpenDeviceResult.key(),
+                                            map_IteratorOpenDeviceResult.value());
+            }
+        }
     }
 
-    map_OpenDeviceResult = m_mapOpenDeviceResult;
+    qDebug()<<"GetPowerTestResult m_mapStationPort  "<<m_mapStationPort;
+    qDebug()<<"GetPowerTestResult map_OpenDeviceResult  "<<map_OpenDeviceResult;
+    qDebug()<<"GetPowerTestResult map_SendCmdResult  "<<map_SendCmdResult;
+
     return true;
 }
 
@@ -256,7 +279,7 @@ bool PowerTest::SendCmdToDogle(libusb_device_handle *p_LDHandle, uchar *uc_Data,
     if(b_Ret){
         uchar ucData[2] = {0x00, 0x00};
         for(int i = 0; i<3 || ucData[0] == 0x01 ; i++){
-            WorkSleep(50);
+            WorkSleep(30);
             ReadDetailsFromDongle(p_LDHandle, ucData, 2);
             if(ucData[0] == 0x01){
                 return true;
@@ -303,14 +326,20 @@ void PowerTest::WorkSleep(uint un_Msec)
 
 void PowerTest::slot_TimeOut()
 {
-    if(m_oQThreadPool.activeThreadCount() == 0){
-        if(!m_bSendComplete){
-            CompletePowerTest();
-        }
+//    if(m_oQThreadPool.activeThreadCount() == 0){
+//        if(!){
+//            CompletePowerTest();
+//        }
 
 //        if(m_pQTimer->isActive()){
 
 //            m_pQTimer->stop();
 //        }
+//    }
+
+    m_oQThreadPool.releaseThread();
+    m_oQThreadPool.clear();
+    if(!m_bSendComplete){
+        CompletePowerTest();
     }
 }

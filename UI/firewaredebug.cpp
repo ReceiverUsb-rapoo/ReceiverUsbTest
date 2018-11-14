@@ -202,6 +202,8 @@ bool FirewareDebug::StartUsbEnumTest(const uint &un_Pid,
                                             n_Time,
                                             map_StationPort);
 
+    qDebug()<<"n_Time FWD"<<n_Time;
+
     return m_pDeviceOperator->StartUsbEnumTest();
 }
 
@@ -399,9 +401,10 @@ void FirewareDebug::TestSendPower()
 void FirewareDebug::TestWholeDUT()
 {
     InitUsbEnumAndSendTest();
-    m_pDeviceOperator->InitDUTTest(m_usSequenceNumber);
-    WorkSleep(500);
-    m_pDeviceOperator->StartOneTest(m_usSequenceNumber);
+//    m_pDeviceOperator->InitDUTTest(m_usSequenceNumber);
+//    WorkSleep(500);
+//    m_pDeviceOperator->StartOneTest(m_usSequenceNumber);
+    m_pDeviceOperator->StartWholeDUTTest(m_usSequenceNumber);
     m_bAllDeviceEnum = false;
 }
 
@@ -683,6 +686,9 @@ void FirewareDebug::slot_SendPowerTestComplete()
         GetSendPowerTestCompleteData();
         m_bAllDeviceEnum = false;
     }
+    else{
+        m_pDeviceOperator->PCACK_StartOneGroupPowerTest(m_usSequenceNumber);
+    }
 }
 
 void FirewareDebug::slot_ReceiveCmd(ushort us_SequenceNumber,
@@ -768,8 +774,10 @@ void FirewareDebug::slot_CompleteTest(ushort us_SequenceNumber)
     if(us_SequenceNumber != m_usSequenceNumber)
         return;
 
-    GetEnumUsbComplete();
+//    GetEnumUsbComplete();
     GetSendPowerTestCompleteData();
     GetCompleteTestData();
+
+//    WorkSleep(50);
     ExitUsbEnumAndSendTest();
 }

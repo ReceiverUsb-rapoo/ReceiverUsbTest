@@ -44,7 +44,7 @@
        </font>
       </property>
       <property name="text">
-       <string>编号1-IP</string>
+       <string>搬运机器人-IP</string>
       </property>
      </widget>
     </item>
@@ -65,7 +65,7 @@
        </font>
       </property>
       <property name="text">
-       <string>编号2-IP</string>
+       <string>补料机器人-IP</string>
       </property>
      </widget>
     </item>

@@ -157,7 +157,7 @@ void FirmwareConfig::SaveData()
 
     struct_PCTestConfig.us_DischargeTimeSelect = ui->le_DischargeTime->text().toUShort();
     struct_PCTestConfig.us_EnumTime = ui->le_EnumTime->text().toUShort();
-    struct_PCTestConfig.us_SinglePowerTime = ui->le_SingleTestCount->text().toUShort();
+    struct_PCTestConfig.us_SinglePowerTime = ui->le_SinglePowerTime->text().toUShort();
 
     struct_PCTestConfig.us_PoweredDelay = ui->le_PoweredDelay->text().toUShort();
     struct_PCTestConfig.us_ReadRFDelay = ui->le_ReadRFDelay->text().toUShort();

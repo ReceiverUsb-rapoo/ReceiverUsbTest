@@ -62,16 +62,17 @@ void EquitmentConnectConfig::ShowConfig()
         return;
     }
 
-    ui->le_BoxIP_1->setText(struct_EquitmentConfig.list_BoxIP.at(0));
-    ui->le_BoxIP_2->setText(struct_EquitmentConfig.list_BoxIP.at(1));
+    ui->le_BoxIP_1->setText(struct_EquitmentConfig.list_BoxIP.value(0));
+    ui->le_BoxIP_2->setText(struct_EquitmentConfig.list_BoxIP.value(1));
 
-    ui->le_RobotIP->setText(struct_EquitmentConfig.list_RobotIP.at(0));
+    ui->le_RobotIP->setText(struct_EquitmentConfig.list_RobotIP.value(0));
+    ui->le_RobotIP_2->setText(struct_EquitmentConfig.list_RobotIP.value(1));
 
     ui->le_ComputerIP->setText(struct_EquitmentConfig.str_ComputerIP);
     ui->le_ComputerPort->setText(QString::number(struct_EquitmentConfig.us_ComputerPort));
 
-    ui->le_ComName_1->setText(struct_EquitmentConfig.list_ComName.at(0));
-    ui->le_ComName_2->setText(struct_EquitmentConfig.list_ComName.at(1));
+    ui->le_ComName_1->setText(struct_EquitmentConfig.list_ComName.value(0));
+    ui->le_ComName_2->setText(struct_EquitmentConfig.list_ComName.value(1));
 
     ui->le_ComPID->setText(QString::number(struct_EquitmentConfig.un_ComPid, 16).toUpper());
     ui->le_ComVID->setText(QString::number(struct_EquitmentConfig.un_ComVid, 16).toUpper());
@@ -119,6 +120,7 @@ void EquitmentConnectConfig::SaveConfig()
     list_BoxIP.append(ui->le_BoxIP_2->text());
 
     list_RobotIP.append(ui->le_RobotIP->text());
+    list_RobotIP.append(ui->le_RobotIP_2->text());
 
     struct_EquitmentConfig.list_ComName = list_ConName;
     struct_EquitmentConfig.list_BoxIP = list_BoxIP;

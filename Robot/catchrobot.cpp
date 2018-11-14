@@ -3,7 +3,7 @@
 CatchRobot::CatchRobot(QObject *parent)
     :QObject(parent)
 {
-
+    InitCatchRobot();
 }
 
 CatchRobot::~CatchRobot()
@@ -23,11 +23,12 @@ bool CatchRobot::GetIP(QString &str_IP)
     return true;
 }
 
-void CatchRobot::SendCatchData(const QString &str_Data)
+void CatchRobot::SendAction(const ushort &us_FWStation,
+                            const QString &str_RobotAction)
 {
-    QByteArray byte_Data = str_Data.toLatin1();
+    QString str_Action = str_RobotAction + QString::number(us_FWStation);
 
-    emit sig_SendData(byte_Data,
+    emit sig_SendData(str_Action.toLatin1(),
                       m_strIP);
 }
 
@@ -46,4 +47,14 @@ void CatchRobot::slot_CatchRobotReceiveData(STRUCT_TCPDATA struct_TcpData)
     if(struct_TcpData.str_IP != m_strIP){
         return;
     }
+
+    if(struct_TcpData.byte_Data.count() != 2){
+        return;
+    }
+
+    ushort us_FWStation = (ushort)struct_TcpData.byte_Data.at(1);
+    QString str_RobotAction = (QString)struct_TcpData.byte_Data.at(0);
+
+    emit sig_GetAction(us_FWStation, str_RobotAction);
+
 }
