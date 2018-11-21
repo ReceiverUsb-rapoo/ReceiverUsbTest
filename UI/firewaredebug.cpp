@@ -12,6 +12,7 @@ FirewareDebug::FirewareDebug(ushort us_SequenceNumber, QWidget *parent) :
     m_bAllDeviceEnum = false;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowTitle("FirewareDebug");
 
     InitFirewareDebug();
 }
@@ -663,10 +664,6 @@ void FirewareDebug::GetCompleteTestData()
 
 void FirewareDebug::slot_EnumUsbComplete()
 {
-//    if(us_SequenceNumber != m_usSequenceNumber)
-//        return;
-
-
     if(m_bAllDeviceEnum){
         GetEnumUsbComplete();
         TestSendPower();
@@ -678,15 +675,13 @@ void FirewareDebug::slot_EnumUsbComplete()
 
 void FirewareDebug::slot_SendPowerTestComplete()
 {
-//    if(us_SequenceNumber != m_usSequenceNumber)
-//        return;
-
     if(m_bAllDeviceEnum){
         ExitUsbEnumAndSendTest();
         GetSendPowerTestCompleteData();
         m_bAllDeviceEnum = false;
     }
     else{
+        m_pDeviceOperator->ExitSendPowerTest();
         m_pDeviceOperator->PCACK_StartOneGroupPowerTest(m_usSequenceNumber);
     }
 }

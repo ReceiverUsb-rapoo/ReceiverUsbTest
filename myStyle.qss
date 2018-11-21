@@ -1,0 +1,101 @@
+﻿QTabWidget::pane {
+border: 1px solid grey;
+padding: 3px;
+margin: 0px;
+border-radius: 2px;
+font-size: 9px;
+}
+
+QTabWidget::tab-bar{
+alignment:left;
+font-size: 9px;
+}
+
+QTabBar::tab{
+background:rgb(211, 215, 207);
+color:rgb(0, 0, 0);
+border-top-left-radius: 2px;
+border-top-right-radius: 1px;
+border-color:black;
+padding:1px;
+font-size: 9px;
+}
+
+QTabBar::tab:hover{
+background:rgb(136, 138, 133);
+font-size: 9px;
+}
+
+QTabBar::tab:selected{
+border-color: rgb(46, 54, 52);
+background:rgb(255, 255, 255);
+color:rgb(0, 0, 0);
+font-size: 9px;
+}
+
+QTabBar:!enable::tab {
+color: gray;
+border-top-left-radius: 9px;
+border-top-right-radius: 5px;
+padding:1px;
+background:white;
+font-size: 9px;
+}
+
+QPushButton{
+background: rgb(238, 238, 238);
+border-color: rgb(0, 0, 0);
+border-radius: 3px;
+color:rgb(24, 28, 27);
+font-size: 9px;
+}
+
+QPushButton::hover{
+background: grey;
+color:rgb(38, 48, 48);
+font-size: 9px;
+}
+
+QPushButton::pressed{
+background-color: rgb(114, 159, 207);
+color:rgb(0, 0, 0);
+font-size: 9px;
+}
+
+QLineEdit{
+background-color:white;
+border-radius:2px;
+border:1px solid  rgb(46, 54, 52);
+font-size: 9px;
+}
+
+QCheckBox{
+spacing: 1px;
+font-size: 9px;
+}
+
+QTextEdit{
+padding:2px 4px;
+background-color:transparent;
+border-color:rgb(42, 46, 45);
+border: 0.5px solid rgb(241, 243, 240);
+border-radius: 2px;
+color:black;
+font-size: 9px;
+}
+
+QLabel{
+border-radius:8px;
+}
+
+QProgressBar{
+color: white;
+text-align:center;
+background:rgb(68, 69, 73);
+border-radius:8px;
+}
+
+QProgressBar::chunk {
+background:rgb(0, 160, 230);
+border-radius:8px;
+}

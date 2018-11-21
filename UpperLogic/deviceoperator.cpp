@@ -123,6 +123,16 @@ bool DeviceOperator::StartSendPowerTest()
     return m_pUsbControl->StartPowerTest();
 }
 
+bool DeviceOperator::ExitUsbEnumTest()
+{
+    return m_pUsbControl->ExitEnumUsbTest();
+}
+
+bool DeviceOperator::ExitSendPowerTest()
+{
+    return m_pUsbControl->ExitPowerTest();
+}
+
 bool DeviceOperator::ExitUsbTest()
 {
     return m_pUsbControl->ExitUsbControl();

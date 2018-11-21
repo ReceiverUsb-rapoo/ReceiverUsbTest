@@ -4,7 +4,9 @@
 
 enum BOX_OPERATOR{
     OPENBOX,
+    OPENBOX_OK,
     CLOSEBOX,
+    CLOSEBOX_OK,
     ERRORBOX
 };
 

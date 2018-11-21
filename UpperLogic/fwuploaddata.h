@@ -52,50 +52,50 @@ public:
 
 
 public:
-    inline FWUploadData& operator == (const FWUploadData& o_FWData){
-        this->us_SequenceNumber = o_FWData.us_SequenceNumber;
-        this->str_PortName = o_FWData.str_PortName;
+    FWUploadData operator == (const FWUploadData* o_FWData){
+        this->us_SequenceNumber = o_FWData->us_SequenceNumber;
+        this->str_PortName = o_FWData->str_PortName;
 
-        this->struct_GetFWInfo = o_FWData.struct_GetFWInfo;
+        this->struct_GetFWInfo = o_FWData->struct_GetFWInfo;
 
-        this->n_TestTimeOut = o_FWData.n_TestTimeOut;
+        this->n_TestTimeOut = o_FWData->n_TestTimeOut;
 
-        this->MachineDUTState = o_FWData.MachineDUTState;
-        this->MachineTestState = o_FWData.MachineTestState;
+        this->MachineDUTState = o_FWData->MachineDUTState;
+        this->MachineTestState = o_FWData->MachineTestState;
 
-        this->s_AdjustPowerVslop = o_FWData.s_AdjustPowerVslop;
-        this->s_AdjustPowerVslopAdc = o_FWData.s_AdjustPowerVslopAdc;
-        this->s_AdjustPowerIntercept = o_FWData.s_AdjustPowerIntercept;
+        this->s_AdjustPowerVslop = o_FWData->s_AdjustPowerVslop;
+        this->s_AdjustPowerVslopAdc = o_FWData->s_AdjustPowerVslopAdc;
+        this->s_AdjustPowerIntercept = o_FWData->s_AdjustPowerIntercept;
 
-        this->list_ReadPowerVslop = o_FWData.list_ReadPowerVslop;
-        this->list_ReadPowerVslopAdc = o_FWData.list_ReadPowerVslopAdc;
-        this->list_ReadPowerIntercept = o_FWData.list_ReadPowerIntercept;
-        this->list_ReadPower_db_Compensation = o_FWData.list_ReadPower_db_Compensation;
-        this->s_ReadPowerReferenceVoltage_1 = o_FWData.s_ReadPowerReferenceVoltage_1;
-        this->s_ReadPowerReferenceVoltage_2 = o_FWData.s_ReadPowerReferenceVoltage_2;
+        this->list_ReadPowerVslop = o_FWData->list_ReadPowerVslop;
+        this->list_ReadPowerVslopAdc = o_FWData->list_ReadPowerVslopAdc;
+        this->list_ReadPowerIntercept = o_FWData->list_ReadPowerIntercept;
+        this->list_ReadPower_db_Compensation = o_FWData->list_ReadPower_db_Compensation;
+        this->s_ReadPowerReferenceVoltage_1 = o_FWData->s_ReadPowerReferenceVoltage_1;
+        this->s_ReadPowerReferenceVoltage_2 = o_FWData->s_ReadPowerReferenceVoltage_2;
 
-        this->list_PowerSelfTestSelfVoltage = o_FWData.list_PowerSelfTestSelfVoltage;
+        this->list_PowerSelfTestSelfVoltage = o_FWData->list_PowerSelfTestSelfVoltage;
 
-        this->struct_FWBoot = o_FWData.struct_FWBoot;
+        this->struct_FWBoot = o_FWData->struct_FWBoot;
 
-        this->FWIntact = o_FWData.FWIntact;
+        this->FWIntact = o_FWData->FWIntact;
 
-        this->struct_HandBag = o_FWData.struct_HandBag;
+        this->struct_HandBag = o_FWData->struct_HandBag;
 
-        this->c_StartTestNoticeTestType = o_FWData.c_StartTestNoticeTestType;
-        this->c_StartTestNoticeTotalGroup = o_FWData.c_StartTestNoticeTotalGroup;
-        this->c_StartTestNoticAmoutOfAGroup = o_FWData.c_StartTestNoticAmoutOfAGroup;
-        this->list_StartTestNoticUsefulDUT = o_FWData.list_StartTestNoticUsefulDUT;
+        this->c_StartTestNoticeTestType = o_FWData->c_StartTestNoticeTestType;
+        this->c_StartTestNoticeTotalGroup = o_FWData->c_StartTestNoticeTotalGroup;
+        this->c_StartTestNoticAmoutOfAGroup = o_FWData->c_StartTestNoticAmoutOfAGroup;
+        this->list_StartTestNoticUsefulDUT = o_FWData->list_StartTestNoticUsefulDUT;
 
-        this->list_CompleteTestUsefulResult = o_FWData.list_CompleteTestUsefulResult;
+        this->list_CompleteTestUsefulResult = o_FWData->list_CompleteTestUsefulResult;
 
-        this->c_StartOneGroupPowerTestSurplusGroup = o_FWData.c_StartOneGroupPowerTestSurplusGroup;
-        this->n_StartOneGroupPowerTestDUTMask = o_FWData.n_StartOneGroupPowerTestDUTMask;
+        this->c_StartOneGroupPowerTestSurplusGroup = o_FWData->c_StartOneGroupPowerTestSurplusGroup;
+        this->n_StartOneGroupPowerTestDUTMask = o_FWData->n_StartOneGroupPowerTestDUTMask;
 
-        this->c_StartOneGroupEnumTestSurplusGroup = o_FWData.c_StartOneGroupEnumTestSurplusGroup;
-        this->n_StartOneGroupEnumTestDUTMask = o_FWData.n_StartOneGroupEnumTestDUTMask;
+        this->c_StartOneGroupEnumTestSurplusGroup = o_FWData->c_StartOneGroupEnumTestSurplusGroup;
+        this->n_StartOneGroupEnumTestDUTMask = o_FWData->n_StartOneGroupEnumTestDUTMask;
 
-        this->list_UploadRFPowerResult_db = o_FWData.list_UploadRFPowerResult_db;
+        this->list_UploadRFPowerResult_db = o_FWData->list_UploadRFPowerResult_db;
 
         return *this;
     }

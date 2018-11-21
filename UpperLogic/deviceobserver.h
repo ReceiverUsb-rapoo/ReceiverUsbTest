@@ -57,7 +57,13 @@ public:
 
     bool ClearPowerSendResult();
 
-    bool GetAllSequenceNumber(QList<ushort> &list_SequenceNumber);
+    bool GetAllFWSequenceNumber(QList<ushort> &list_SequenceNumber);
+
+    bool GetAllBoxSequenceNumber(QList<ushort> &list_SequenceNumber);
+
+    bool GetCatchRobotConnectState();
+
+    bool GetSupplementRobotConnectState();
 
 public:
     bool GetBoxOperator(const ushort &us_FWStation,
@@ -161,10 +167,6 @@ public:
 
     void ClearFWTestData(EMUN_TESTDATAPOINT Point,
                          const ushort &us_SequenceNumber);
-
-public:
-    void GetBoxOperator(const ushort &us_SequenceNumber,
-                        BOX_OPERATOR &box_Operator);
 
 
 private:
@@ -390,8 +392,6 @@ public slots:
                                   QList<short> list_Power_db);
 
 
-
-
 private slots:
 
 private:
@@ -439,7 +439,11 @@ private:
     QMap<ushort, QString> m_mapCatchRobotAction;
     QMap<ushort, QString> m_mapSupplementRobotRequest;
 
-    QList<ushort> m_listSequenceNumber;
+    QList<ushort> m_listFWSequenceNumber;
+    QList<ushort> m_listBoxSequenceNumber;
+
+    bool m_bCatchRobotConnect;
+    bool m_bSupplementRobotConnect;
 };
 
 #endif // DEVICEOBSERVER_H

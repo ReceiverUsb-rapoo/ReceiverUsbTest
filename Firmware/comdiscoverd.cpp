@@ -7,8 +7,6 @@
 ComDiscoverd::ComDiscoverd(QObject *parent)
     :QObject(parent)
 {
-    qDebug()<<"enter com disc";
-
     m_pQTimer = NULL;
     m_pQTimer = new QTimer;
     connect(m_pQTimer,SIGNAL(timeout()),

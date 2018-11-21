@@ -57,6 +57,10 @@ public:
 
     bool StartSendPowerTest();
 
+    bool ExitUsbEnumTest();
+
+    bool ExitSendPowerTest();
+
     bool ExitUsbTest();
 
 public:

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Image/Receiver_Faile.png</file>
+        <file>Image/Receiver_Pass.png</file>
+        <file>Image/Receiver_Run.png</file>
+        <file>Image/Receiver_Ready.png</file>
+    </qresource>
+</RCC>

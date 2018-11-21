@@ -753,6 +753,7 @@ bool Firmware::FW_StartOneGroupPowerTest(char *p_cData,
                        c_SurplusGroup,
                        n_TestDUTMask);
 
+    return true;
 //    return PCACK_StartOneGroupPowerTest();
 }
 

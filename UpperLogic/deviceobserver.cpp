@@ -8,11 +8,21 @@ DeviceObserver::DeviceObserver(QObject *parent)
     :   QObject(parent)
 {
     m_OpenFWModel = BYCOM;
-    m_bManuallyCreatUsbControl = false;
-
     m_pUsbControl = NULL;
     m_pComDiscoverd = NULL;
     m_pQThread = NULL;
+    m_pTcpServer = NULL;
+    m_pSupplementRoobot = NULL;
+
+    m_bManuallyCreatUsbControl = false;
+    m_bCatchRobotConnect = false;
+    m_bSupplementRobotConnect = false;
+
+    m_strLocalTcpServerIP = "";
+    m_strCatchRobotIP = "";
+    m_strSupplementRobotIP = "";
+
+    m_usLocalTcpServerPort  = 0;
 
     InitComDiscover();
     InitTcpServer();
@@ -159,10 +169,26 @@ bool DeviceObserver::ClearPowerSendResult()
     return true;
 }
 
-bool DeviceObserver::GetAllSequenceNumber(QList<ushort> &list_SequenceNumber)
+bool DeviceObserver::GetAllFWSequenceNumber(QList<ushort> &list_SequenceNumber)
 {
-    list_SequenceNumber = m_listSequenceNumber;
+    list_SequenceNumber = m_listFWSequenceNumber;
     return true;
+}
+
+bool DeviceObserver::GetAllBoxSequenceNumber(QList<ushort> &list_SequenceNumber)
+{
+    list_SequenceNumber = m_listBoxSequenceNumber;
+    return true;
+}
+
+bool DeviceObserver::GetCatchRobotConnectState()
+{
+    return m_bCatchRobotConnect;
+}
+
+bool DeviceObserver::GetSupplementRobotConnectState()
+{
+    return m_bSupplementRobotConnect;
 }
 
 bool DeviceObserver::GetBoxOperator(const ushort &us_FWStation,
@@ -579,7 +605,6 @@ void DeviceObserver::InitComDiscover()
             this, SLOT(slot_FirmwareDiscoverd(QString,uint,uint)));
     connect(m_pComDiscoverd, SIGNAL(sig_ComRemove(QString,uint,uint)),
             this, SLOT(slot_FirmwareRemove(QString,uint,uint)));
-
 }
 
 void DeviceObserver::InitTcpServer()
@@ -726,7 +751,7 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
         return false;
     }
 
-    m_listSequenceNumber.append(us_SequenceNumber);
+    m_listFWSequenceNumber.append(us_SequenceNumber);
     m_listFirmware.append(p_Firmware);
     return true;
 }
@@ -827,7 +852,7 @@ bool DeviceObserver::RemoveFW(const QString &str_PortName,
         }
     }
 
-    m_listSequenceNumber.removeAll(us_SequenceNumber);
+    m_listFWSequenceNumber.removeAll(us_SequenceNumber);
     return RemoveFWUploadDataObject(us_SequenceNumber, str_PortName);
 }
 
@@ -987,6 +1012,7 @@ bool DeviceObserver::AddBox(const QString &str_IP)
             Box *p_Box = new Box;
             p_Box->SetIP(str_IP);
             p_Box->SetSequenceNumber(i+1);
+            m_listBoxSequenceNumber.append(i+1);
 
             connect(p_Box, SIGNAL(sig_BoxOperator(ushort,BOX_OPERATOR)),
                     this, SLOT(slot_BoxOperator(ushort,BOX_OPERATOR)));
@@ -1000,10 +1026,14 @@ bool DeviceObserver::AddBox(const QString &str_IP)
 bool DeviceObserver::RemoveBox(const QString &str_IP)
 {
     QString str_ExistIP;
+    ushort us_SequenceNumber = 0;
     foreach(Box *p_Box, m_listBox){
         p_Box->GetIP(str_ExistIP);
         if(str_ExistIP == str_IP){
             m_listBox.removeAll(p_Box);
+
+            p_Box->GetSequenceNumber(us_SequenceNumber);
+            m_listBoxSequenceNumber.removeAll(us_SequenceNumber);
 
             disconnect(p_Box, SIGNAL(sig_BoxOperator(ushort,BOX_OPERATOR)),
                        this, SLOT(slot_BoxOperator(ushort,BOX_OPERATOR)));
@@ -1019,6 +1049,7 @@ bool DeviceObserver::AddCatchRobot(const QString &str_IP)
 {
     m_pCatchRobot = new CatchRobot;
     m_pCatchRobot->SetIP(str_IP);
+    m_bCatchRobotConnect = true;
     return true;
 }
 
@@ -1033,6 +1064,7 @@ bool DeviceObserver::RemoveCatchRobot(const QString &str_IP)
             m_pCatchRobot = NULL;
         }
     }
+    m_bCatchRobotConnect = false;
     return true;
 }
 
@@ -1040,6 +1072,7 @@ bool DeviceObserver::AddSupplementRobot(const QString &str_IP)
 {
     m_pSupplementRoobot = new SupplementRoobot;
     m_pSupplementRoobot->SetIP(str_IP);
+    m_bSupplementRobotConnect = true;
     return true;
 }
 
@@ -1054,6 +1087,7 @@ bool DeviceObserver::RemoveSupplementRobot(const QString &str_IP)
             m_pSupplementRoobot = NULL;
         }
     }
+    m_bSupplementRobotConnect = false;
     return true;
 }
 

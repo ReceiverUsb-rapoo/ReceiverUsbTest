@@ -36,7 +36,6 @@ SOURCES += main.cpp\
     UI/equitmentcontrol.cpp \
     UI/firmwareconfig.cpp \
     UI/firewaredebug.cpp \
-    UI/resultshow.cpp \
     UsbControl/usboperator.cpp \
     UsbControl/writecmdthread.cpp \
     Firmware/firmwarecom.cpp \
@@ -64,7 +63,11 @@ SOURCES += main.cpp\
     UI/usbcontrolconfig.cpp \
     tcp/tcpserverinstancegetter.cpp \
     Robot/catchrobot.cpp \
-    Robot/supplementroobot.cpp
+    Robot/supplementroobot.cpp \
+    UpperLogic/starttest_msgqueue.cpp \
+    UI/resultview.cpp \
+    UI/resultlabel.cpp \
+    DataFile/testdatafile.cpp
 
 HEADERS  += mainwindow.h \
     Firmware/firmware.h \
@@ -76,7 +79,6 @@ HEADERS  += mainwindow.h \
     UI/equitmentcontrol.h \
     UI/firmwareconfig.h \
     UI/firewaredebug.h \
-    UI/resultshow.h \
     UsbControl/usboperator.h \
     UsbControl/writecmdthread.h \
     Firmware/firmwarecom.h \
@@ -111,12 +113,15 @@ HEADERS  += mainwindow.h \
     Robot/catchrobot.h \
     Robot/supplementroobot.h \
     Robot/robot_define.h \
-    Box/box_define.h
+    Box/box_define.h \
+    UpperLogic/starttest_msgqueue.h \
+    UI/resultview.h \
+    UI/resultlabel.h \
+    DataFile/testdatafile.h
 
 FORMS    += mainwindow.ui \
     UI/firmwareconfig.ui \
     UI/firewaredebug.ui \
-    UI/resultshow.ui \
     UI/pointtable.ui \
     UI/enumpointtable.ui \
     UI/powerdebug.ui \
@@ -132,3 +137,10 @@ LIBS += -L"/usr/lib/x86_64-linux-gnu" -lusb-1.0
 INCLUDEPATH += /usr/include/libusb-1.0
 
 include(qextserial/qextserialport.pri)
+
+RESOURCES += \
+    image.qrc
+
+DISTFILES += \
+    myStyle.qss
+

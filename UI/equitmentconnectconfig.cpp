@@ -8,6 +8,7 @@ EquitmentConnectConfig::EquitmentConnectConfig(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowTitle("EquitmentConnectConfig");
 
     InitEquitmentConfig();
     ShowConfig();

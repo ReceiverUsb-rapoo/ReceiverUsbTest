@@ -20,7 +20,7 @@ bool ConfigFile::SavePCTestConfig(const ushort &us_SequenceNumber,
 
 
     str_FilePath += "/" + QString::number(us_SequenceNumber) +
-    PCConfigFileName;
+                    PCConfigFileName;
 
 
     QFile o_QFileConfig(str_FilePath);

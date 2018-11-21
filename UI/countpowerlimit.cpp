@@ -16,6 +16,7 @@ CountPowerLimit::CountPowerLimit(ushort us_SequenceNumber, QWidget *parent) :
 
     InitCountPowerLimit();
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowTitle("CountPowerLimit");
 }
 
 CountPowerLimit::~CountPowerLimit()

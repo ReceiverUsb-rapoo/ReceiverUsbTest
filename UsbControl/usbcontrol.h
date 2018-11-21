@@ -39,9 +39,10 @@ public:
 
     bool ExitUsbControl();
 
-private:
     bool ExitEnumUsbTest();
+
     bool ExitPowerTest();
+private:
 
     void WorkSleep(ushort un_Msec);
 

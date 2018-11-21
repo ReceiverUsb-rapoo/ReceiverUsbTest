@@ -70,11 +70,11 @@ void Box::slot_BoxReceiveData(STRUCT_TCPDATA struct_TcpData)
 
     if(struct_TcpData.byte_Data == Open_ACK_Ok){
         m_nCountResendOpen = 0;
-        emit sig_BoxOperator(m_usSequenceNumber, OPENBOX);
+        emit sig_BoxOperator(m_usSequenceNumber, OPENBOX_OK);
     }
     else if(struct_TcpData.byte_Data == Close_ACK_OK){
         m_nCountResendClose = 0;
-        emit sig_BoxOperator(m_usSequenceNumber, CLOSEBOX);
+        emit sig_BoxOperator(m_usSequenceNumber, CLOSEBOX_OK);
     }
     else if(struct_TcpData.byte_Data == Open_ACK_Faile){
         if(m_nCountResendOpen != 3){

@@ -15,6 +15,7 @@ StatisticalTable::StatisticalTable(ushort us_SequenceNumber, QWidget *parent) :
     m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowTitle("StatisticalTable");
 
     QFont o_QFont;
     o_QFont.setPointSize(9);
@@ -39,6 +40,13 @@ void StatisticalTable::SetSequenceNumber(const ushort &us_SequenceNumber)
 void StatisticalTable::SaveStatisticalTable()
 {
     SaveAsTableData();
+}
+
+void StatisticalTable::SaveTableLog()
+{
+    TableFile o_TableFile;
+    o_TableFile.SaveTableData_Log(m_usSequenceNumber,
+                                  m_pQTableWidget);
 }
 
 void StatisticalTable::SaveAsTableData()
@@ -66,6 +74,9 @@ void StatisticalTable::InitStatisticalTable()
 {
     m_pCountTestData = m_oCountTestResultInstanceGetter.GetInstance();
 
+    connect(m_pCountTestData, SIGNAL(sig_ResultUpdata()),
+            this, SLOT(slot_ResultUpdata()));
+
     InitUI();
     InitResultData();
 }
@@ -82,18 +93,21 @@ void StatisticalTable::InitUI()
     QStringList strlist_HHeaderLabels;
     strlist_HHeaderLabels<<"枚举异常"<<"打开设备异常"<<"发送指令异常"<<"RF功率异常";
     m_pQTableWidget->setHorizontalHeaderLabels(strlist_HHeaderLabels);
+    QFont o_QFont;
+    o_QFont.setPointSize(9);
+    m_pQTableWidget->setFont(o_QFont);
 
     QPushButton *p_QPushButton_UpdataAndSave = new QPushButton(this);
     p_QPushButton_UpdataAndSave->setText("更新/保存");
-    p_QPushButton_UpdataAndSave->setGeometry(100, 620, 70, 30);
+    p_QPushButton_UpdataAndSave->setGeometry(100, 630, 70, 30);
 
     QPushButton *p_QPushButton_Save = new QPushButton(this);
     p_QPushButton_Save->setText("另保为");
-    p_QPushButton_Save->setGeometry(240, 620, 70, 30);
+    p_QPushButton_Save->setGeometry(240, 630, 70, 30);
 
     QPushButton *p_QPushButton_Clear = new QPushButton(this);
     p_QPushButton_Clear->setText("清除");
-    p_QPushButton_Clear->setGeometry(390, 620, 70, 30);
+    p_QPushButton_Clear->setGeometry(390, 630, 70, 30);
 
     connect(p_QPushButton_UpdataAndSave, &QPushButton::clicked,
             this, &StatisticalTable::UpdateCurrentDataAndSave);
@@ -155,4 +169,9 @@ void StatisticalTable::UpdataTableData()
         }
 
     }
+}
+
+void StatisticalTable::slot_ResultUpdata()
+{
+    UpdataTableData();
 }

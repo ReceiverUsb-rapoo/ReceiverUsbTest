@@ -17,6 +17,7 @@ PowerDebug::PowerDebug(ushort us_SequenceNumber, QWidget *parent) :
     m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowTitle("PowerDebug");
 
     InitPowerDebug();
 }

@@ -12,6 +12,7 @@ UsbControlConfig::UsbControlConfig(ushort us_SequenceNumber, QWidget *parent) :
     m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
+    this->setWindowTitle("UsbControlConfig");
 
     InitUsbControlConfig();
 }

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QMetaType>
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,11 @@ int main(int argc, char *argv[])
 //    qRegisterMetaType<ENUM_MACHINEDUTSTATE>("ENUM_MACHINEDUTSTATE");
 //    qRegisterMetaType<ENUM_MACHINETESTSTATE>("ENUM_MACHINETESTSTATE");
 //    qRegisterMetaType<ENUM_MSGDEFINE>("ENUM_MSGDEFINE");
+
+//    QFile o_QFile(":/myStyle.qss");
+//    o_QFile.open(QFile::ReadOnly);
+//    qApp->setStyleSheet(o_QFile.readAll());
+//    o_QFile.close();
 
     return a.exec();
 }

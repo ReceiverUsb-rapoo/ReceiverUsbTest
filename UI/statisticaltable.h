@@ -15,6 +15,8 @@ public:
 
     void SaveStatisticalTable();
 
+    void SaveTableLog();
+
 private:
     void SaveAsTableData();
 
@@ -32,6 +34,9 @@ private:
     void InsertTableRow();
 
     void UpdataTableData();
+
+public slots:
+    void slot_ResultUpdata();
 
 private:
     QTableWidget *m_pQTableWidget;

@@ -13,6 +13,9 @@ public:
     bool SaveTableData_SelectAddress(const ushort &us_SequenceNumber,
                                      QTableWidget *p_QTableWidget);
 
+    bool SaveTableData_Log(const ushort &us_SequenceNumber,
+                           QTableWidget *p_QTableWidget);
+
 private:
     bool SaveTableData(const ushort &us_SequenceNumber,
                        const QString &str_FilePath,

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>689</width>
-    <height>354</height>
+    <height>377</height>
    </rect>
   </property>
   <property name="font">
@@ -21,10 +21,10 @@
   <widget class="QTextBrowser" name="tb_Info">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>420</x>
      <y>20</y>
-     <width>341</width>
-     <height>321</height>
+     <width>251</width>
+     <height>341</height>
     </rect>
    </property>
   </widget>
@@ -33,8 +33,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>291</width>
-     <height>71</height>
+     <width>381</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="title">
@@ -42,16 +42,30 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QPushButton" name="pb_Open">
+     <widget class="QPushButton" name="pb_Open_1">
       <property name="text">
-       <string>Open</string>
+       <string>Open-1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pb_Open_2">
+      <property name="text">
+       <string>Open-2</string>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QPushButton" name="pb_Close">
+     <widget class="QPushButton" name="pb_Close_1">
       <property name="text">
-       <string>Close</string>
+       <string>Close-1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pb_Close_2">
+      <property name="text">
+       <string>Close-2</string>
       </property>
      </widget>
     </item>
@@ -61,13 +75,13 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>110</y>
-     <width>291</width>
-     <height>211</height>
+     <y>120</y>
+     <width>381</width>
+     <height>97</height>
     </rect>
    </property>
    <property name="title">
-    <string>Robot</string>
+    <string>CatchRobot</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
@@ -77,18 +91,143 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="le_ReceiveData"/>
+    <item row="0" column="2" colspan="2">
+     <widget class="QLineEdit" name="le_ReceiveCatchData">
+      <property name="text">
+       <string>A1</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QPushButton" name="pb_Send">
+     <widget class="QPushButton" name="pb_Put_1">
       <property name="text">
-       <string>Send</string>
+       <string>Put-1</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="le_SendData"/>
+     <widget class="QPushButton" name="pb_Put_2">
+      <property name="text">
+       <string>Put-2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="pb_Get_1">
+      <property name="text">
+       <string>Get-1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="pb_Get_2">
+      <property name="text">
+       <string>Get-2</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>381</width>
+     <height>127</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>SupplementRobot</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Receive</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" colspan="2">
+     <widget class="QLineEdit" name="le_ReceiveSupplementData">
+      <property name="text">
+       <string>R1</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pb_SendSupplement_1">
+      <property name="text">
+       <string>Send-1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>1-10</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLineEdit" name="le_SupplementData_1">
+      <property name="text">
+       <string>00000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_SupplementData_2">
+      <property name="text">
+       <string>00000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>10-20</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLineEdit" name="le_SupplementData_3">
+      <property name="text">
+       <string>00000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLineEdit" name="le_SupplementData_4">
+      <property name="text">
+       <string>00000</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pb_SendSupplement_2">
+      <property name="text">
+       <string>Send-2</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

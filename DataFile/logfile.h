@@ -3,7 +3,6 @@
 #include <QString>
 #include "datafile_define.h"
 
-
 class LogFile
 {
 public:
