@@ -19,18 +19,18 @@ bool ResultView::CreatResultView(const ushort &us_SequenceNumber)
 
     QWidget *p_QWidget = new QWidget;
     QGridLayout *p_QGridLayout = new QGridLayout(p_QWidget);
-    for(int i  = 20; i < OneGroupUsbNumber_ResultView; i++){
+    for(int i = 0; i < OneGroupUsbNumber_ResultView; i++){
         ResultLabel *p_ResultLabel = new ResultLabel;
         p_ResultLabel->setParent(p_QWidget);
         p_ResultLabel->SetState(Ready_Test);
-        p_QGridLayout->addWidget(p_ResultLabel,i/5,i%5,1,1);
+        p_QGridLayout->addWidget(p_ResultLabel,i/5,i%5 + 1,1,1);
         list_ResultLabel.append(p_ResultLabel);
     }
 
-    m_pQStackedWidget->insertWidget(us_SequenceNumber, p_QWidget);
-
-    m_mapResultView.insert(us_SequenceNumber, list_ResultLabel);
     m_mapStackedWidget.insert(us_SequenceNumber, p_QWidget);
+    m_mapResultView.insert(us_SequenceNumber, list_ResultLabel);
+
+    m_pQStackedWidget->insertWidget(us_SequenceNumber, p_QWidget);
 
     return true;
 }

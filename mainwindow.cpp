@@ -29,10 +29,10 @@ MainWindow::~MainWindow()
         m_pQButtonGroup = NULL;
     }
 
-    if(m_pResultView != NULL){
-        delete m_pResultView;
-        m_pResultView = NULL;
-    }
+//    if(m_pResultView != NULL){
+//        delete m_pResultView;
+//        m_pResultView = NULL;
+//    }
 
     if(m_pMasterControl != NULL){
         delete m_pMasterControl;
@@ -50,17 +50,35 @@ void MainWindow::InitMainWindow()
     connect(m_pQButtonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(slot_ButtonClick(int)));
 
-    InitUI();
 
     InitMasterControl();
 
     ConnectClick();
+
+    InitUI();
 }
 
 void MainWindow::InitUI()
 {
-    m_pResultView = new ResultView;
-    m_pResultView->setGeometry(30,160,850,500);
+    m_pResultView = new ResultView();
+    m_pResultView->setGeometry(30,160,860,490);
+    m_pResultView->setParent(this);
+//    m_pResultView->show();
+
+    m_pMasterControl->GetAllFWSequenceNumber(m_listSequenceNumber);
+
+    for(int i = 0; i < m_listSequenceNumber.count(); i++){
+        QPushButton *p_QPushButton = new QPushButton;
+        p_QPushButton->setText("夹具 - " + QString::number(m_listSequenceNumber.at(i)));
+        ui->gl_Button->addWidget(p_QPushButton,0,i,1,1);
+        m_pQButtonGroup->addButton(p_QPushButton, m_listSequenceNumber.at(i));
+        m_pResultView->CreatResultView(m_listSequenceNumber.at(i));
+    }
+
+    if(!m_listSequenceNumber.isEmpty()){
+        m_pResultView->ShowResultView(m_listSequenceNumber.first());
+    }
+
 
     ui->lb_BoxState_1->setText("屏蔽箱-1 未连接");
     ui->lb_BoxState_2->setText("屏蔽箱-2 未连接");
@@ -88,6 +106,10 @@ void MainWindow::InitMasterControl()
             this, SLOT(slot_SRobotDiscoverd()));
     connect(m_pMasterControl, SIGNAL(sig_SRobotRemove()),
             this, SLOT(slot_SRobotRemove()));
+    connect(m_pMasterControl, SIGNAL(sig_StartTest(ushort)),
+            this, SLOT(slot_StartTest(ushort)));
+    connect(m_pMasterControl, SIGNAL(sig_CompleteTest(ushort)),
+            this, SLOT(slot_CompleteTest(ushort)));
 }
 
 void MainWindow::ConnectClick()
@@ -166,7 +188,7 @@ void MainWindow::EMControlUI()
 
 void MainWindow::PWDebugUI()
 {
-    PowerDebug *p_PowerDebug = new PowerDebuLg(m_SelectSequenceNumber);
+    PowerDebug *p_PowerDebug = new PowerDebug(m_SelectSequenceNumber);
     p_PowerDebug->SetSequenceNumber(m_SelectSequenceNumber);
     p_PowerDebug->show();
 }
@@ -412,6 +434,8 @@ void MainWindow::slot_CompleteTest(ushort us_SequenceNumber)
 
 void MainWindow::slot_ButtonClick(int n_ID)
 {
+    qDebug()<<"n_ID"<<n_ID;
+
     m_SelectSequenceNumber = (ushort)n_ID;
     m_pResultView->ShowResultView((ushort)n_ID);
 }

@@ -151,7 +151,7 @@ bool PowerTest::StartPowerTest()
             m_oQThreadPool.start(p_WriteCmdThread);
     }
 
-    m_pQTimer->start(200);
+    m_pQTimer->start(100);
     return true;
 }
 

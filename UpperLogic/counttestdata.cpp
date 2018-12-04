@@ -36,9 +36,10 @@ void CountTestData::ClearTestTotal()
     m_nTestNumber = 0;
 }
 
-void CountTestData::SetRetest(const bool &b_Retest)
+void CountTestData::SetRetest(const ushort &us_SequenceNumber,
+                              const bool &b_Retest)
 {
-    m_bRetest = b_Retest;
+    m_mapRetest.insert(us_SequenceNumber, b_Retest);
 }
 
 void CountTestData::SetRFPowerDBLimit(const ushort &us_SequenceNumber,
@@ -71,9 +72,9 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
         return false;
     }
 
-    if(m_mapDUTFWPosition.count() != 32 ||
-            m_mapRFPowerDBLowerLimit.count() != 32 ||
-            m_mapRFPowerDBUpperLimit.count() != 32){
+    if(m_mapDUTFWPosition.value(us_SequenceNumber).count() != 32 ||
+            m_mapRFPowerDBLowerLimit.value(us_SequenceNumber).count() != 32 ||
+            m_mapRFPowerDBUpperLimit.value(us_SequenceNumber).count() != 32){
         return false;
     }
 
@@ -133,7 +134,7 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
         n_OneRang ++;
     }
 
-    if(m_bRetest){
+    if(m_mapRetest.value(us_SequenceNumber)){
         if(list_Result.contains(false)){
             m_mapResultString.insert(us_SequenceNumber, list_ErrorString);
             m_mapResult.insert(us_SequenceNumber, list_Result);

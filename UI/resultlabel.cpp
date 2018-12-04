@@ -10,22 +10,22 @@ void ResultLabel::SetState(const ENUM_TESTSTATE &TestState)
 {
     switch(TestState) {
     case Ready_Test:{
-        QString str_Qss = "{border-image:url(" + ReadyImagePath + ");}";
+        QString str_Qss = "QWidget{image:url(" + ReadyImagePath + ");}";
         this->setStyleSheet(str_Qss);
         break;
     }
     case Run_Test:{
-        QString str_Qss = "{border-image:url(" + RunImagePath + ");}";
+        QString str_Qss = "QWidget{image:url(" + RunImagePath + ");}";
         this->setStyleSheet(str_Qss);
         break;
     }
     case Faile_Test:{
-        QString str_Qss = "{border-image:url(" + FaileImagePath + ");}";
+        QString str_Qss = "QWidget{image:url(" + FaileImagePath + ");}";
         this->setStyleSheet(str_Qss);
         break;
     }
     case Pass_Test:{
-        QString str_Qss = "{border-image:url(" + PassImagePath + ");}";
+        QString str_Qss = "QWidget{image:url(" + PassImagePath + ");}";
         this->setStyleSheet(str_Qss);
         break;
     }
@@ -36,6 +36,6 @@ void ResultLabel::SetState(const ENUM_TESTSTATE &TestState)
 
 void ResultLabel::InitResultLable()
 {
-    QString str_Qss = "{border-image:url(" + ReadyImagePath + ");}";
+    QString str_Qss = "QWidget{image:url(" + ReadyImagePath + ");}";
     this->setStyleSheet(str_Qss);
 }

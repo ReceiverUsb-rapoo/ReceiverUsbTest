@@ -1,6 +1,9 @@
 #include "mastercontrol.h"
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QDebug>
+
+
 
 MasterControl::MasterControl(QObject *parent)
     :QObject(parent)
@@ -53,8 +56,8 @@ bool MasterControl::StartOneTest()
         if(m_bBoxSwitchClose){
             m_oStartTest_MsgQueue.PushFront(list_SequenceNumber.at(i));
 
-            emit sig_StartTest(i);
-//            m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
+           emit sig_StartTest(i);
+           m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
         }
 
         if(m_bRobotSwitchClose){
@@ -84,7 +87,7 @@ bool MasterControl::StartAutoTest()
             m_oStartTest_MsgQueue.PushFront(list_SequenceNumber.at(i));
 
             emit sig_StartTest(i);
-//            m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
+            m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
         }
 
         if(m_bRobotSwitchClose){
@@ -195,7 +198,7 @@ bool MasterControl::SetEquitmentConfig()
 
     if(m_bBoxSwitchClose){
         m_bRobotSwitchClose = m_bBoxSwitchClose;
-    }
+    }    
 
     return true;
 }
@@ -244,6 +247,10 @@ bool MasterControl::SetAllFWPCConfig()
 {
     ConfigFile o_ConfigFile;
     STRUCT_PCTESTCONFIG struct_PCTestConfig;
+    QList<int> list_RFPowerDBUpperLimit;
+    QList<int> list_RFPowerDBLowerLimit;
+    QList<int> list_DUTFWPosition;
+
 
     QList<ushort> list_SequenceNumber;
     GetAllFWSequenceNumber(list_SequenceNumber);
@@ -256,7 +263,24 @@ bool MasterControl::SetAllFWPCConfig()
         o_ConfigFile.GetPCTestConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
         m_pDeviceOperator->SetFWPCConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
         m_mapRetestSwitch.insert(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_RetestTimes);
+
+        list_RFPowerDBUpperLimit.clear();
+        list_RFPowerDBLowerLimit.clear();
+        list_DUTFWPosition.clear();
+
+        o_ConfigFile.TransformToList(struct_PCTestConfig.str_RFPowerDBUponLimit, list_RFPowerDBUpperLimit);
+        o_ConfigFile.TransformToList(struct_PCTestConfig.str_RFPowerDBLowerLimit, list_RFPowerDBLowerLimit);
+        o_ConfigFile.TransformToList(struct_PCTestConfig.str_DUTFWPositions, list_DUTFWPosition);
+
+        m_pCountTestData->SetRetest(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_RetestTimes);
+
+        m_pCountTestData->SetRFPowerDBLimit(list_SequenceNumber.at(i),
+                                            list_RFPowerDBUpperLimit,
+                                            list_RFPowerDBLowerLimit);
+
+        m_pCountTestData->SetDUTFWPositions(list_SequenceNumber.at(i), list_DUTFWPosition);
     }
+
     return true;
 }
 
@@ -637,11 +661,13 @@ void MasterControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumbe
 
 void MasterControl::slot_EnumUsbComplete()
 {
+    qDebug()<<"slot_EnumUsbComplete";
     m_pDeviceOperator->CompleteEnumTest(m_usWorkingSequenceNumber);
 }
 
 void MasterControl::slot_SendPowerTestComplete()
 {
+    qDebug()<<"slot_SendPowerTestComplete";
     m_pDeviceOperator->ExitSendPowerTest();
     m_pDeviceOperator->PCACK_StartOneGroupPowerTest(m_usWorkingSequenceNumber);
 }
@@ -649,7 +675,7 @@ void MasterControl::slot_SendPowerTestComplete()
 void MasterControl::slot_StartTestNotice(ushort us_SequenceNumber)
 {
     Q_UNUSED(us_SequenceNumber);
- //   m_usWorkingSequenceNumber = us_SequenceNumber;
+    m_usWorkingSequenceNumber = us_SequenceNumber;
 }
 
 void MasterControl::slot_StartOneGroupEnumTest(ushort us_SequenceNumber)
@@ -663,6 +689,8 @@ void MasterControl::slot_StartOneGroupEnumTest(ushort us_SequenceNumber)
                                                     c_SurplusGroup,
                                                     n_TestDUTMask,
                                                     list_OneGroupEnumTestMaskCode);
+
+    qDebug()<<list_OneGroupEnumTestMaskCode;
 
     StartUsbEnumTestByOneGroup(us_SequenceNumber,list_OneGroupEnumTestMaskCode);
 }
@@ -679,6 +707,7 @@ void MasterControl::slot_StartOneGroupPowerTest(ushort us_SequenceNumber)
                                                      n_TestDUTMask,
                                                      list_OneGroupPowerTestMaskCode);
 
+    qDebug()<<list_OneGroupPowerTestMaskCode;
     StartUsbPowerTestByOneGroup(us_SequenceNumber, list_OneGroupPowerTestMaskCode);
 }
 
@@ -699,7 +728,6 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     m_pDeviceObserver->GetUploadRFPowerResultData(CURRENT,
                                                   us_SequenceNumber,
                                                   list_Power_db);
-
 
     if(b_RetestSwitch){
         if(!m_bRetested){

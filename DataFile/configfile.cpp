@@ -494,6 +494,10 @@ bool ConfigFile::TransformToList(const QString &str_Data,
         return false;
     }
 
+    if(!list_Data.isEmpty()){
+        list_Data.clear();
+    }
+
     for(int i = 0; i < strlist_Data.count(); i++){
         str_OneData = strlist_Data.at(i);
         list_Data.append(str_OneData.toInt());

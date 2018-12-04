@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QFileDialog>
 #include <QDebug>
+#include <QTableWidgetItem>
 
 bool TableFile::SaveTableData_FixeAddress(const ushort &us_SequenceNumber,
                                           QTableWidget *p_QTableWidget)

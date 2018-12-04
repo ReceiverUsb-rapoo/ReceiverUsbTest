@@ -211,9 +211,15 @@ void CountPowerLimit::CountAverageData()
 {
     int n_CountVaule = 0;
     for(int i = 0; i < 32; i++){
+
+        if(m_listAverageVaule.at(i)->text().toInt() == 0){
+            m_listAverageVaule.at(i)->setText(QString::number(m_listCollectVaule.at(i)->text().toInt()));
+        }
+
         n_CountVaule = (m_listAverageVaule.at(i)->text().toInt() +
                         m_listCollectVaule.at(i)->text().toInt())/2;
-        m_listDowmLimit.at(i)->setText(QString::number(n_CountVaule));
+
+        m_listAverageVaule.at(i)->setText(QString::number(n_CountVaule));
     }
 }
 

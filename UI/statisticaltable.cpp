@@ -2,6 +2,7 @@
 #include <QTableWidget>
 #include <QPushButton>
 #include <QFont>
+#include <QDebug>
 #include "DataFile/tablefile.h"
 
 const int n_TableColumnCount = 4;
@@ -90,6 +91,7 @@ void StatisticalTable::InitUI()
     m_pQTableWidget->setGeometry(30,20,500,590);
     m_pQTableWidget->setFrameShape(QFrame::NoFrame); //设置无边框
     m_pQTableWidget->setShowGrid(false);             //设置不显示格子线
+    m_pQTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QStringList strlist_HHeaderLabels;
     strlist_HHeaderLabels<<"枚举异常"<<"打开设备异常"<<"发送指令异常"<<"RF功率异常";
     m_pQTableWidget->setHorizontalHeaderLabels(strlist_HHeaderLabels);
@@ -123,22 +125,36 @@ void StatisticalTable::InitResultData()
     m_pCountTestData->GetAllResultData(m_usSequenceNumber,
                                        map_ErrorAmount);
     QMap<ENUM_RESULTTYPE, uint> map_TypeErrorTimes;
+    uint un_TypeErrorTimes = 0;
+    QStringList strlist_HHeaderLabels;
 
     for(int i = 0; i < map_ErrorAmount.count(); i++){
         InsertTableRow();
         map_TypeErrorTimes = map_ErrorAmount.value(i + 1);
 
+        strlist_HHeaderLabels.append(QString::number(i));
+
         for(int j = 0; j < n_TableColumnCount; j++){
-            m_pQTableWidget->item(i, j)->setText(
-                        QString::number(map_TypeErrorTimes.value((ENUM_RESULTTYPE)j)));
+            un_TypeErrorTimes =  map_TypeErrorTimes.value((ENUM_RESULTTYPE)j);
+            m_pQTableWidget->item(i, j)->setText(QString::number(un_TypeErrorTimes));
         }
     }
+
+    m_pQTableWidget->setVerticalHeaderLabels(strlist_HHeaderLabels);
 }
 
 void StatisticalTable::InsertTableRow()
 {
+    qDebug()<<"m_pQTableWidget->rowCount()"<<m_pQTableWidget->rowCount();
+
     int n_RowCount = m_pQTableWidget->rowCount();
     m_pQTableWidget->insertRow(n_RowCount);
+
+    qDebug()<<"m_pQTableWidget->rowCount()"<<m_pQTableWidget->rowCount();
+
+    for(int j = 0; j < n_TableColumnCount; j++){
+        m_pQTableWidget->setItem(n_RowCount, j, new QTableWidgetItem("0"));
+    }
 }
 
 void StatisticalTable::UpdataTableData()
@@ -152,6 +168,11 @@ void StatisticalTable::UpdataTableData()
         return;
     }
 
+    qDebug()<<map_ErrorAmount.count();
+
+    qDebug()<<m_pQTableWidget->rowCount();
+
+
     if(map_ErrorAmount.count() != m_pQTableWidget->rowCount() ||
             m_pQTableWidget->rowCount() == 0){
         InitResultData();
@@ -161,11 +182,11 @@ void StatisticalTable::UpdataTableData()
 
     for(int j = 0; j < n_TableColumnCount; j++){
         if(map_TypeErrorTimes.contains((ENUM_RESULTTYPE)j)){
-            m_pQTableWidget->item(map_ErrorAmount.count(), j)->setText(
+            m_pQTableWidget->item(map_ErrorAmount.count() - 1, j)->setText(
                         QString::number(map_TypeErrorTimes.value((ENUM_RESULTTYPE)j)));
         }
         else{
-            m_pQTableWidget->item(map_ErrorAmount.count(), j)->setText("0");
+            m_pQTableWidget->item(map_ErrorAmount.count() - 1, j)->setText("0");
         }
 
     }

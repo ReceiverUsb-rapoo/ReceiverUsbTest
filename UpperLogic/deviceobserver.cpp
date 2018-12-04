@@ -954,7 +954,7 @@ bool DeviceObserver::UpdataLastFWTestData(const ushort &us_SequenceNumber)
 //    m_mapLastEnumResult = m_mapEnumResult;
 //    m_mapLastSendCmdResult = m_mapSendCmdResult;
 
-    p_FWCurrentData->ClearFWData();
+//    p_FWCurrentData->ClearFWData();
 
 //    m_mapOpenDeviceResult.clear();
 //    m_mapEnumResult.clear();

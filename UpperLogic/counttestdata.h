@@ -27,7 +27,8 @@ public:
 
     void ClearTestTotal();
 
-    void SetRetest(const bool &b_Retest);
+    void SetRetest(const ushort &us_SequenceNumber,
+                   const bool &b_Retest);
 
     void SetRFPowerDBLimit(const ushort &us_SequenceNumber,
                            const QList<int> &list_RFPowerDBUpperLimit,
@@ -82,7 +83,7 @@ private:
     QMap<ushort,QList<QString>> m_mapResultString;
     QMap<ushort,QList<QList<bool>>> m_mapAllResult;
 
-    bool m_bRetest;
+    QMap<ushort,bool> m_mapRetest;
 
     int m_nTestTotal;
     int m_nRetestTotal;
