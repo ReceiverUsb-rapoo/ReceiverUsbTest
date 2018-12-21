@@ -6,6 +6,8 @@
 #include <QThread>
 #include "stdint.h"
 
+//不使用，不考虑使用多个本地tcp服务器
+
 class BoxServer : public QTcpServer
 {
     Q_OBJECT

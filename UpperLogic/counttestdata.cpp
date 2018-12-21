@@ -2,11 +2,7 @@
 
 CountTestData::CountTestData()
 {
-    m_nTestTotal = 0;
-    m_nRetestTotal = 0;
-    m_nPassTotal = 0;
-    m_nFaileTotal = 0;
-    m_nTestNumber = 0;
+    ClearTestTotal();
 }
 
 CountTestData::~CountTestData()

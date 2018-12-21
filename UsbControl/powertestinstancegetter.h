@@ -2,6 +2,8 @@
 #define POWERTESTINSTANCEGETTER_H
 #include "powertest.h"
 
+//功率测试类管理类，主要用于并发 单例类处理 
+
 class PowerTestInstanceGetter
 {
 public:

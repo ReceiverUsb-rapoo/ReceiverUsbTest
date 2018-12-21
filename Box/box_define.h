@@ -2,6 +2,7 @@
 #define BOX_DEFINE_H
 #include  <QString>
 
+//箱子动作集和
 enum BOX_OPERATOR{
     OPENBOX,
     OPENBOX_OK,
@@ -10,6 +11,7 @@ enum BOX_OPERATOR{
     ERRORBOX
 };
 
+//箱子动作 cmd
 const QByteArray OpenCmd = "open";
 const QByteArray CloseCmd = "close";
 

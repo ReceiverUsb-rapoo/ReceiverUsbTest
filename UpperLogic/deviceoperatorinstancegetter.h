@@ -2,6 +2,10 @@
 #define DEVICEOPERATORINSTANCEGETTER_H
 #include "deviceoperator.h"
 
+/*
+* 操作者类管理类
+*/
+
 class DeviceOperatorInstanceGetter
 {
 public:

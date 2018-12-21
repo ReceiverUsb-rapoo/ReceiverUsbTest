@@ -3,6 +3,10 @@
 
 #include <QWidget>
 
+/*
+* 保存外围设备配置参数，无其作用
+*/
+
 namespace Ui {
 class EquitmentConnectConfig;
 }
@@ -16,10 +20,11 @@ public:
     ~EquitmentConnectConfig();
 
 private:
+    //初始化 显示配置参数
     void InitEquitmentConfig();
-
+    //显示配置参数
     void ShowConfig();
-
+    //保存配置参数
     void SaveConfig();
 
 private:

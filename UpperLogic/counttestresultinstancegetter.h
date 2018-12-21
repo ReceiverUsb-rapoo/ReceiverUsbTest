@@ -2,6 +2,10 @@
 #define COUNTTESTRESULTINSTANCEGETTER_H
 #include "counttestdata.h"
 
+/*
+* 计算测试结果类管理类
+*/
+
 class CountTestResultInstanceGetter
 {
 public:

@@ -4,53 +4,59 @@
 #include <QString>
 #include "Firmware/firmware_define.h"
 
+/*
+* 固件数据缓存类
+* 保存所有固件上传到pc端的的数据，便于查询，或者后期用于异常恢复
+*/
+
 class FWUploadData{
 public:
-    ushort us_SequenceNumber;
-    QString str_PortName;
+    ushort us_SequenceNumber;                       //工作序号
+    QString str_PortName;                           //com名称
 
-    STRUCT_FWINFO struct_GetFWInfo;
+    STRUCT_FWINFO struct_GetFWInfo;                 //FW信息
 
-    int n_TestTimeOut;
+    int n_TestTimeOut;                              //测试时间
 
-    ENUM_MACHINEDUTSTATE MachineDUTState;
-    ENUM_MACHINETESTSTATE MachineTestState;
+    ENUM_MACHINEDUTSTATE MachineDUTState;           //设备DUT状态
+    ENUM_MACHINETESTSTATE MachineTestState;         //设备测试状态 
 
-    short s_AdjustPowerVslop;
-    short s_AdjustPowerVslopAdc;
-    short s_AdjustPowerIntercept;
+    short s_AdjustPowerVslop;                       //校准功率 Vslop
+    short s_AdjustPowerVslopAdc;                    //校准功率 VslopAdc
+    short s_AdjustPowerIntercept;                   //校准功率 Intercept
 
-    QList<short> list_ReadPowerVslop;
-    QList<short> list_ReadPowerVslopAdc;
-    QList<short> list_ReadPowerIntercept;
-    QList<char> list_ReadPower_db_Compensation;
-    short s_ReadPowerReferenceVoltage_1;
-    short s_ReadPowerReferenceVoltage_2;
+    QList<short> list_ReadPowerVslop;               //读取校准功率 32 Vslop
+    QList<short> list_ReadPowerVslopAdc;            //读取校准功率 32 VslopAdc
+    QList<short> list_ReadPowerIntercept;           //读取校准功率 32 Intercept
+    QList<char> list_ReadPower_db_Compensation;     //读取校准功率 32 补偿db
+    short s_ReadPowerReferenceVoltage_1;            //读取校准功率 参考电压1
+    short s_ReadPowerReferenceVoltage_2;            //读取校准功率 参考电压2
 
-    QList<short> list_PowerSelfTestSelfVoltage;
+    QList<short> list_PowerSelfTestSelfVoltage;     //功率自检测试 自检电压
 
-    STRUCT_FWINFO struct_FWBoot;
+    STRUCT_FWINFO struct_FWBoot;                    //boot数据
 
-    ENUM_MSGDEFINE FWIntact;
+    ENUM_MSGDEFINE FWIntact;                        //固件设备状态 
 
-    STRUCT_HANDBAG struct_HandBag;
+    STRUCT_HANDBAG struct_HandBag;                  //心跳包
 
-    char c_StartTestNoticeTestType;
-    char c_StartTestNoticeTotalGroup;
-    char c_StartTestNoticAmoutOfAGroup;
-    QList<char> list_StartTestNoticUsefulDUT;
+    char c_StartTestNoticeTestType;                 //开始测试通知 测试类型
+    char c_StartTestNoticeTotalGroup;               //开始测试通知 测试总组数
+    char c_StartTestNoticAmoutOfAGroup;             //开始测试通知 测试每组数量
+    QList<char> list_StartTestNoticUsefulDUT;       //开始测试通知 有效DUT
 
-    QList<char> list_CompleteTestUsefulResult;
+    QList<char> list_CompleteTestUsefulResult;      //完成测试通知 有效结果DUT
 
-    char c_StartOneGroupPowerTestSurplusGroup;
-    int n_StartOneGroupPowerTestDUTMask;
+    char c_StartOneGroupPowerTestSurplusGroup;      //开始一组功率测试剩余分组
+    int n_StartOneGroupPowerTestDUTMask;            //开始一组功率测试DUT掩码
 
-    char c_StartOneGroupEnumTestSurplusGroup;
-    int n_StartOneGroupEnumTestDUTMask;
+    char c_StartOneGroupEnumTestSurplusGroup;       //开始一组枚举测试剩余分组
+    int n_StartOneGroupEnumTestDUTMask;             //开始一组枚举测试DUT掩码
 
-    QList<short> list_UploadRFPowerResult_db;
+    QList<short> list_UploadRFPowerResult_db;       //上传RF功率结果数据 
 
 
+//类复制，数据复制
 public:
     FWUploadData operator == (const FWUploadData* o_FWData){
         this->us_SequenceNumber = o_FWData->us_SequenceNumber;
@@ -100,6 +106,7 @@ public:
         return *this;
     }
 
+    //初始化数据
     void ClearFWData(){
 
         n_TestTimeOut = 0;

@@ -7,7 +7,7 @@ class LogFile
 {
 public:
     LogFile();
-
+    //log保存
     QString Addlog(const QString &str_Info);
 };
 

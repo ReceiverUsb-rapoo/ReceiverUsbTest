@@ -4,6 +4,11 @@
 #include <QWidget>
 #include <QLineEdit>
 
+/*
+* 用于保存夹具20位置的com端口识别ID
+* 作为一个嵌入型ui（控件），只提供数据显示，数据保存，数据重复识别 
+*/
+
 namespace Ui {
 class EnumPointTable;
 }

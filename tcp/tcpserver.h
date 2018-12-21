@@ -19,12 +19,12 @@ public:
 
     //重写设置最大连接数函数
     void SetMaxPendingConnections(int n_NumConnections);
-
+    //开始监听port
     bool StartListen(quint16 us_Port,
                      const QString &str_HostIP = "Any");
-
+    //停止监听port
     void CloseListen();
-
+    //关闭服务器
     void CloseServer();
 
 signals:

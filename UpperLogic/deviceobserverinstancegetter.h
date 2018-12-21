@@ -2,6 +2,10 @@
 #define DEVICEOBSERVERINSTANCEGETTER_H
 #include "deviceobserver.h"
 
+/*
+* 观察者类管理类
+*/
+
 class DeviceObserverInstanceGetter
 {
 public:
