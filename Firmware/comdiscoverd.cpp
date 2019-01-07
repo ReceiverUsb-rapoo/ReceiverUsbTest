@@ -16,12 +16,19 @@ ComDiscoverd::ComDiscoverd(QObject *parent)
 
 ComDiscoverd::~ComDiscoverd()
 {
+    qDebug()<<"~ComDiscoverd";
+
     if(m_pQTimer != NULL){
         m_pQTimer->stop();
         delete m_pQTimer;
         m_pQTimer = NULL;
     }
 }
+
+/*
+* 遍历串口设备
+* 识别一个新设备断开或连接，匹对已查找到的设备，新设备发送消息，旧设备移除发送消息 
+*/
 
 void ComDiscoverd::slot_TimerOut()
 {
@@ -30,12 +37,14 @@ void ComDiscoverd::slot_TimerOut()
     QList<QSerialPortInfo> list_PortInfo = QSerialPortInfo::availablePorts();
 
     for(int i = 0; i < list_PortInfo.count(); i++){
-//        qDebug()<<list_PortInfo.at(i).portName();
-//        qDebug()<<list_PortInfo.at(i).productIdentifier();
-//        qDebug()<<list_PortInfo.at(i).vendorIdentifier();
-//        qDebug()<<list_PortInfo.at(i).description();
-//        qDebug()<<list_PortInfo.at(i).serialNumber();
-//        qDebug()<<list_PortInfo.at(i).systemLocation();
+        if(m_listPortInfo.count() == 0){
+            m_listPortInfo.append(list_PortInfo.at(i));
+            emit sig_ComDiscoverd(list_PortInfo.at(i).portName(),
+                                  (uint)list_PortInfo.at(i).productIdentifier(),
+                                  (uint)list_PortInfo.at(i).vendorIdentifier());
+            b_DiscoverdEqual = false;
+            continue;
+        }
 
         for(int j = 0; j < m_listPortInfo.count(); j++){
             if(m_listPortInfo.at(j).portName() == list_PortInfo.at(i).portName() &&
@@ -43,17 +52,10 @@ void ComDiscoverd::slot_TimerOut()
                     m_listPortInfo.at(j).vendorIdentifier() == list_PortInfo.at(i).vendorIdentifier()){
                 b_DiscoverdEqual = true;
             }
-            if(!b_DiscoverdEqual){
-
-                m_listPortInfo.append(list_PortInfo.at(i));
-                emit sig_ComDiscoverd(list_PortInfo.at(i).portName(),
-                                      (uint)list_PortInfo.at(i).productIdentifier(),
-                                      (uint)list_PortInfo.at(i).vendorIdentifier());
-                b_DiscoverdEqual = false;
-            }
         }
 
-        if(m_listPortInfo.count() == 0){
+        if(!b_DiscoverdEqual){
+
             m_listPortInfo.append(list_PortInfo.at(i));
             emit sig_ComDiscoverd(list_PortInfo.at(i).portName(),
                                   (uint)list_PortInfo.at(i).productIdentifier(),
@@ -64,23 +66,25 @@ void ComDiscoverd::slot_TimerOut()
 
     bool b_RemoveEqual = false;
     for(int i = 0; i < m_listPortInfo.count(); i++){
+        if(list_PortInfo.count() == 0){
+            emit sig_ComRemove(m_listPortInfo.at(i).portName(),
+                               (uint)m_listPortInfo.at(i).productIdentifier(),
+                               (uint)m_listPortInfo.at(i).vendorIdentifier());
+
+            m_listPortInfo.removeAt(i);
+            b_RemoveEqual = false;
+            continue;
+        }
+
         for(int j = 0; j < list_PortInfo.count(); j++){
             if(list_PortInfo.at(j).portName() == m_listPortInfo.at(i).portName() &&
                     list_PortInfo.at(j).productIdentifier() == m_listPortInfo.at(i).productIdentifier() &&
                     list_PortInfo.at(j).vendorIdentifier() == m_listPortInfo.at(i).vendorIdentifier()){
                 b_RemoveEqual = true;
             }
-            if(!b_RemoveEqual){
-                emit sig_ComRemove(m_listPortInfo.at(i).portName(),
-                                   (uint)m_listPortInfo.at(i).productIdentifier(),
-                                   (uint)m_listPortInfo.at(i).vendorIdentifier());
-
-                m_listPortInfo.removeAt(i);
-                b_RemoveEqual = false;
-            }
         }
 
-        if(list_PortInfo.count() == 0){
+        if(!b_RemoveEqual){
             emit sig_ComRemove(m_listPortInfo.at(i).portName(),
                                (uint)m_listPortInfo.at(i).productIdentifier(),
                                (uint)m_listPortInfo.at(i).vendorIdentifier());
@@ -90,6 +94,8 @@ void ComDiscoverd::slot_TimerOut()
         }
     }
 
+
+    //removeAll 结构体， 导致崩溃
 
     /*
     QString str_PortName = "";

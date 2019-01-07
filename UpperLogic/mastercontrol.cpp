@@ -2,23 +2,24 @@
 #include <QCoreApplication>
 #include <QEventLoop>
 #include <QDebug>
-
-
+#include <DataFile/logfile.h>
 
 MasterControl::MasterControl(QObject *parent)
     :QObject(parent)
 {
     m_pDeviceObserver = NULL;
     m_pDeviceOperator = NULL;
-    m_bEnumTestWorkState = false;
-    m_bPowerTestWorkState = false;
+
+    m_bEnumTestNoWorkState = true;
+    m_bPowerTestNoWorkState = true;
+    m_bTest = false;
+    m_unStartTimes = 0;
 
     InitMasterControl();
 }
 
 MasterControl::~MasterControl()
 {
-
 
 }
 
@@ -54,10 +55,10 @@ bool MasterControl::StartOneTest()
 
     for(int i = 0; i < list_SequenceNumber.count(); i++){
         if(m_bBoxSwitchClose){
+            emit sig_ReadyTest(list_SequenceNumber.at(i));
             m_oStartTest_MsgQueue.PushFront(list_SequenceNumber.at(i));
 
-           emit sig_StartTest(i);
-           m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
+//           m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
         }
 
         if(m_bRobotSwitchClose){
@@ -70,6 +71,9 @@ bool MasterControl::StartOneTest()
 
     m_bAutoTest = false;
     m_unStartTimes ++;
+
+    m_bTest = true;
+
     return true;
 }
 
@@ -84,10 +88,10 @@ bool MasterControl::StartAutoTest()
 
     for(int i = 0; i < list_SequenceNumber.count(); i++){
         if(m_bBoxSwitchClose){
+            emit sig_ReadyTest(list_SequenceNumber.at(i));
             m_oStartTest_MsgQueue.PushFront(list_SequenceNumber.at(i));
 
-            emit sig_StartTest(i);
-            m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
+//            m_pDeviceOperator->StartOneTest(list_SequenceNumber.at(i));
         }
 
         if(m_bRobotSwitchClose){
@@ -100,6 +104,8 @@ bool MasterControl::StartAutoTest()
 
     m_bAutoTest = true;
     m_unStartTimes ++;
+
+    m_bTest = true;
 
     return true;
 }
@@ -119,9 +125,35 @@ bool MasterControl::StopTest()
         m_pDeviceOperator->ExitDUTTest(list_SequenceNumber.at(i));
     }
 
+    WaitUsbEnumTestFinish();
+    WaitUsbPowerTestFinish();
+
     ExitUsbEnumAndSendTest();
 
+    m_bTest = false;
+    m_bAutoTest = false;
+
     return true;
+}
+
+bool MasterControl::Resetting()
+{
+    QList<ushort> list_SequenceNumber;
+    GetAllFWSequenceNumber(list_SequenceNumber);
+
+    if(list_SequenceNumber.isEmpty()){
+        return false;
+    }
+
+    for(int i = 0; i < list_SequenceNumber.count(); i++){
+        m_pDeviceOperator->RestartFW(list_SequenceNumber.at(i));
+    }
+
+    SetEquitmentConfig();
+
+    UpdataFWDevice();
+
+    return m_oStartTest_MsgQueue.ClearAndResetting();
 }
 
 void MasterControl::GetAllFWSequenceNumber(QList<ushort> &list_SequenceNumber)
@@ -264,15 +296,17 @@ bool MasterControl::SetAllFWPCConfig()
         m_pDeviceOperator->SetFWPCConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
         m_mapRetestSwitch.insert(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_RetestTimes);
 
-        list_RFPowerDBUpperLimit.clear();
-        list_RFPowerDBLowerLimit.clear();
-        list_DUTFWPosition.clear();
+//        list_RFPowerDBUpperLimit.clear();
+//        list_RFPowerDBLowerLimit.clear();
+//        list_DUTFWPosition.clear();
 
         o_ConfigFile.TransformToList(struct_PCTestConfig.str_RFPowerDBUponLimit, list_RFPowerDBUpperLimit);
         o_ConfigFile.TransformToList(struct_PCTestConfig.str_RFPowerDBLowerLimit, list_RFPowerDBLowerLimit);
         o_ConfigFile.TransformToList(struct_PCTestConfig.str_DUTFWPositions, list_DUTFWPosition);
 
         m_pCountTestData->SetRetest(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_RetestTimes);
+        m_pCountTestData->SetEnumSwitch(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_EnumTestSwitch);
+        m_pCountTestData->SetPowerTestSwitch(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_PowerTestSwitch);
 
         m_pCountTestData->SetRFPowerDBLimit(list_SequenceNumber.at(i),
                                             list_RFPowerDBUpperLimit,
@@ -327,7 +361,6 @@ bool MasterControl::ConnectAllPath()
             this,  SLOT(slot_SupplementRobotDiscoverd()));
     connect(m_pDeviceObserver,  SIGNAL(sig_SupplementRobotRemove()),
             this, SLOT(slot_SupplementRobotRemove()));
-
 
     return true;
 }
@@ -416,6 +449,8 @@ bool MasterControl::DisConnectAllPath()
 
 bool MasterControl::InitUsbEnumAndSendTest()
 {
+    qDebug()<<"InitUsbEnumAndSendTest";
+
     UsbControl *p_UsbControl = NULL;
     if(!m_pDeviceOperator->CreatUsbControlObject()){
         m_pDeviceObserver->RemoveUsbControlObjectPoint();
@@ -431,6 +466,8 @@ bool MasterControl::InitUsbEnumAndSendTest()
 
 bool MasterControl::ExitUsbEnumAndSendTest()
 {
+    //注意 此处容易出现崩溃（待解决）
+    qDebug()<<"ExitUsbEnumAndSendTest";
     bool b_Ret1 = m_pDeviceObserver->RemoveUsbControlObjectPoint();
     bool b_Ret2 = m_pDeviceOperator->ExitUsbTest();
     bool b_Ret3 = m_pDeviceOperator->DeleteUsbControlObject();
@@ -491,6 +528,9 @@ bool MasterControl::OpenBox(const ushort &us_SequenceNumber)
 {
     if(m_bBoxSwitchClose)
         return false;
+
+    LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 打开箱子"));
+
     return m_pDeviceOperator->OpenBox(us_SequenceNumber);
 }
 
@@ -498,6 +538,9 @@ bool MasterControl::CloseBox(const ushort &us_SequenceNumber)
 {
     if(m_bBoxSwitchClose)
         return false;
+
+    LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 关闭箱子"));
+
     return m_pDeviceOperator->CloseBox(us_SequenceNumber);
 }
 
@@ -506,6 +549,9 @@ bool MasterControl::SendCatchRobotAction(const ushort &us_FWStation,
 {
     if(m_bRobotSwitchClose)
         return false;
+
+    LogFile::Addlog("CatchRobot-" + QString::number(us_FWStation) + (" 发送抓取机器人动作 ") + str_RobotAction);
+
     return m_pDeviceOperator->SendCatchRobotAction(us_FWStation,str_RobotAction);
 }
 
@@ -514,25 +560,38 @@ bool MasterControl::SendSupplementRobotData(const ushort &us_FWStation,
 {
     if(m_bRobotSwitchClose)
         return false;
+
+    LogFile::Addlog("SupplementRobot-" + QString::number(us_FWStation) + (" 发送分料机器人数据 ") + str_Data);
+        
     return m_pDeviceOperator->SendSupplementRobotData(us_FWStation, str_Data);
 }
 
 void MasterControl::WaitUsbEnumTestFinish()
 {
     QTime o_DieTime = QTime::currentTime().addMSecs(7000);
-    while(QTime::currentTime() < o_DieTime  || !m_bEnumTestWorkState){
+    while(QTime::currentTime() < o_DieTime){
+        if(m_bEnumTestNoWorkState)
+            break;
+
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
         QThread::msleep(10);
     }
+
+    m_bEnumTestNoWorkState = true;
 }
 
 void MasterControl::WaitUsbPowerTestFinish()
 {
     QTime o_DieTime = QTime::currentTime().addMSecs(2000);
-    while(QTime::currentTime() < o_DieTime || !m_bPowerTestWorkState){
+    while(QTime::currentTime() < o_DieTime){
+        if(m_bPowerTestNoWorkState)
+            break;
+
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
         QThread::msleep(10);
     }
+
+    m_bEnumTestNoWorkState = true;
 }
 
 void MasterControl::WorkSleep(uint un_Msec)
@@ -602,13 +661,15 @@ void MasterControl::slot_SupplementRobotRemove()
 
 void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
 {
-    if(m_bBoxSwitchClose){
+    if(m_bBoxSwitchClose && !m_bTest){
         return;
     }
 
     BOX_OPERATOR box_Operator;
 
     m_pDeviceObserver->GetBoxOperator(us_SequenceNumber, box_Operator);
+
+    LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 收到箱子命令 ") + QString::number(box_Operator));
 
     if(box_Operator == OPENBOX_OK){
         if(m_bAutoTest){
@@ -618,21 +679,22 @@ void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
         }
     }
     else if(box_Operator == CLOSEBOX_OK){
+        emit sig_ReadyTest(us_SequenceNumber);
         m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
-
-        emit sig_StartTest(us_SequenceNumber);
 //        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
     }
 }
 
 void MasterControl::slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber)
 {
-    if(m_bRobotSwitchClose){
+    if(m_bRobotSwitchClose && !m_bTest){
         return;
     }
     QString str_Action;
 
     m_pDeviceObserver->GetCatchRobotGetAction(us_SequenceNumber, str_Action);
+
+    LogFile::Addlog("CatchRobot-" + QString::number(us_SequenceNumber) + (" 收到抓取机器人命令 ") + str_Action);
 
     if(str_Action == CatchRobot_Put_Ok){
         CloseBox(us_SequenceNumber);
@@ -647,14 +709,18 @@ void MasterControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumbe
     if(m_bRobotSwitchClose){
         return;
     }
+
     QString str_RequestCmd;
     QString str_RequestData;
 
-    m_pDeviceObserver->GetSupplementRobotGetRequest(us_SequenceNumber, str_RequestCmd);
+    bool b_Ret1 = m_pDeviceObserver->GetSupplementRobotGetRequest(us_SequenceNumber, str_RequestCmd);
 
-    m_pCountTestData->GetResultData(us_SequenceNumber, str_RequestData);
+    LogFile::Addlog("SupplementRobot-" + QString::number(us_SequenceNumber) + (" 收到分料机器人命令 ") + str_RequestCmd);
 
-    SendSupplementRobotData(us_SequenceNumber, str_RequestData);
+    bool b_Ret2 = m_pCountTestData->GetResultData(us_SequenceNumber, str_RequestData);
+
+    if(b_Ret1 && b_Ret2)
+        SendSupplementRobotData(us_SequenceNumber, str_RequestData);
 
     //result
 }
@@ -663,26 +729,33 @@ void MasterControl::slot_EnumUsbComplete()
 {
     qDebug()<<"slot_EnumUsbComplete";
     m_pDeviceOperator->CompleteEnumTest(m_usWorkingSequenceNumber);
+    m_bEnumTestNoWorkState = true;
 }
 
 void MasterControl::slot_SendPowerTestComplete()
 {
+    //注意 此处容易出现崩溃（待解决）
     qDebug()<<"slot_SendPowerTestComplete";
     m_pDeviceOperator->ExitSendPowerTest();
     m_pDeviceOperator->PCACK_StartOneGroupPowerTest(m_usWorkingSequenceNumber);
+    m_bPowerTestNoWorkState = true;
 }
 
 void MasterControl::slot_StartTestNotice(ushort us_SequenceNumber)
 {
     Q_UNUSED(us_SequenceNumber);
+    m_bEnumTestNoWorkState = false;
+    m_bPowerTestNoWorkState = false;
     m_usWorkingSequenceNumber = us_SequenceNumber;
+
+    emit sig_StartTest(us_SequenceNumber);
 }
 
 void MasterControl::slot_StartOneGroupEnumTest(ushort us_SequenceNumber)
 {
     QList<int> list_OneGroupEnumTestMaskCode;
-    char c_SurplusGroup;
-    int n_TestDUTMask;
+    char c_SurplusGroup = 0x00;
+    int n_TestDUTMask = 0;
 
     m_pDeviceObserver->GetStartOneGroupEnumTestData(CURRENT,
                                                     us_SequenceNumber,
@@ -690,7 +763,7 @@ void MasterControl::slot_StartOneGroupEnumTest(ushort us_SequenceNumber)
                                                     n_TestDUTMask,
                                                     list_OneGroupEnumTestMaskCode);
 
-    qDebug()<<list_OneGroupEnumTestMaskCode;
+    qDebug()<<"list_OneGroupEnumTestMaskCode"<<list_OneGroupEnumTestMaskCode;
 
     StartUsbEnumTestByOneGroup(us_SequenceNumber,list_OneGroupEnumTestMaskCode);
 }
@@ -707,7 +780,8 @@ void MasterControl::slot_StartOneGroupPowerTest(ushort us_SequenceNumber)
                                                      n_TestDUTMask,
                                                      list_OneGroupPowerTestMaskCode);
 
-    qDebug()<<list_OneGroupPowerTestMaskCode;
+    qDebug()<<"list_OneGroupPowerTestMaskCode"<<list_OneGroupPowerTestMaskCode;
+
     StartUsbPowerTestByOneGroup(us_SequenceNumber, list_OneGroupPowerTestMaskCode);
 }
 
@@ -719,6 +793,9 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     QList<short> list_Power_db;
     bool b_Result;
     bool b_RetestSwitch = m_mapRetestSwitch.value(us_SequenceNumber);
+    m_oStartTest_MsgQueue.CompleteOneTest();
+
+    qDebug()<<"slot_CompleteTest\n\n\n\n\n";
 
     m_pDeviceObserver->GetSendPowerTestCompleteData(CURRENT,
                                                     map_EnumResult,
@@ -728,6 +805,13 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     m_pDeviceObserver->GetUploadRFPowerResultData(CURRENT,
                                                   us_SequenceNumber,
                                                   list_Power_db);
+
+    qDebug()<<"us_SequenceNumber"<<us_SequenceNumber;
+    qDebug()<<"map_EnumResult"<<map_EnumResult;
+    qDebug()<<"map_OpenDeviceResult"<<map_OpenDeviceResult;
+    qDebug()<<"map_SendCmdResult"<<map_SendCmdResult;
+    qDebug()<<"list_Power_db"<<list_Power_db;
+    qDebug()<<"m_unStartTimes"<<m_unStartTimes;
 
     if(b_RetestSwitch){
         if(!m_bRetested){
@@ -744,25 +828,28 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
                                         b_Result);
 
             if(!b_Result){
+                emit sig_ReadyTest(us_SequenceNumber);
                 m_oStartTest_MsgQueue.PushFront(us_SequenceNumber);
-                m_oStartTest_MsgQueue.CompleteOneTest();
-                emit sig_StartTest(us_SequenceNumber);
+//                m_oStartTest_MsgQueue.CompleteOneTest();
+
 //                m_pDeviceOperator->StartOneTest(us_SequenceNumber);
                 m_bRetested = true;
             }
             else{
                 if(m_bBoxSwitchClose){
                     if(m_bAutoTest){
-                        m_oStartTest_MsgQueue.PushFront(us_SequenceNumber);
-                        m_oStartTest_MsgQueue.CompleteOneTest();
+                        WorkSleep(5000);
 
-                        WorkSleep(1000);
-                        emit sig_StartTest(us_SequenceNumber);
-//                        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+                        if(m_bTest){
+                            emit sig_ReadyTest(us_SequenceNumber);
+                            m_oStartTest_MsgQueue.PushFront(us_SequenceNumber);
+
+    //                        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+                        }
+
                     }
                 }
                 else{
-                    m_oStartTest_MsgQueue.CompleteOneTest();
                     OpenBox(us_SequenceNumber);
                 }
             }
@@ -797,16 +884,17 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
 
             if(m_bBoxSwitchClose){
                 if(m_bAutoTest){
-                    m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
-                    m_oStartTest_MsgQueue.CompleteOneTest();
+                    WorkSleep(5000);
 
-                    WorkSleep(1000);
-                    emit sig_StartTest(us_SequenceNumber);
-//                    m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+                    if(m_bTest){
+                        emit sig_ReadyTest(us_SequenceNumber);
+                        m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
+
+    //                    m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+                    }
                 }
             }
             else{
-                m_oStartTest_MsgQueue.CompleteOneTest();
                 OpenBox(us_SequenceNumber);
             }
             m_bRetested = false;
@@ -824,16 +912,17 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
 
         if(m_bBoxSwitchClose){
             if(m_bAutoTest){
-                m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
-                m_oStartTest_MsgQueue.CompleteOneTest();
+                WorkSleep(5000);
 
-                WorkSleep(1000);
-                emit sig_StartTest(us_SequenceNumber);
-//                m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+                if(m_bTest){
+                    emit sig_ReadyTest(us_SequenceNumber);
+                    m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
+
+    //                m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+                }
             }
         }
         else{
-            m_oStartTest_MsgQueue.CompleteOneTest();
             OpenBox(us_SequenceNumber);
         }
     }

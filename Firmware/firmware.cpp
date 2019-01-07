@@ -5,6 +5,7 @@
 #include <QEventLoop>
 #include <QThread>
 #include <QDebug>
+#include <QDateTime>
 
 Firmware::Firmware(QObject *parent)
     : QObject(parent)
@@ -52,6 +53,8 @@ bool Firmware::InitFirmware()
 
 bool Firmware::ExitFirmware()
 {
+    qDebug()<<"~ExitFirmware";
+
     if(m_pFirmwareCom != NULL){
         m_pFirmwareCom->ExitFirmwareCom();
         delete m_pFirmwareCom;
@@ -128,8 +131,14 @@ bool Firmware::OpenFirmware()
         return false;
     }
 
+//    qDebug()<<"OpenFirmwareCom ok";
 //   return true;
-    return PC_GetFWInfo();
+
+    bool b_Ret1 = PC_GetFWInfo();
+
+    bool b_Ret2 = PC_RestartFW();
+
+    return b_Ret1&&b_Ret2;
 }
 
 bool Firmware::CloseFirmware()
@@ -441,6 +450,12 @@ bool Firmware::FWCMDControl(uchar &uc_Command,
                             QByteArray &byte_Data,
                             uint &un_DataLength)
 {
+//    ENUM_FIRMWARECOMMAND FWComamd = (ENUM_FIRMWARECOMMAND)uc_Command;
+
+//    if(!TntervalTimeReceive(FWComamd)){
+//        return false;
+//    }
+
     switch(uc_Command){
     case FW_BOOT:{
         FW_boot(byte_Data.data(), un_DataLength);
@@ -459,10 +474,12 @@ bool Firmware::FWCMDControl(uchar &uc_Command,
         break;
     }
     case FW_STARTTEST:{
+        TntervalTimeReceive(FW_STARTTEST);
         FW_StartTest(byte_Data.data(), un_DataLength);
         break;
     }
     case FW_COMPLETETEST:{
+        TntervalTimeReceive(FW_COMPLETETEST);
         FW_CompleteTest(byte_Data.data(), un_DataLength);
         break;
     }
@@ -544,6 +561,35 @@ bool Firmware::FWCMDControl(uchar &uc_Command,
     }
     default:
         break;
+    }
+
+    return true;
+}
+
+/*
+* 间隔时间内 屏蔽已接收cmd，防止二次上传。
+* 短时间内二次以上上传cmd，造成测试流程错乱
+*/
+
+bool Firmware::TntervalTimeReceive(ENUM_FIRMWARECOMMAND FWCommad)
+{
+    if(m_mapFWCommand_Interval.contains(FWCommad)){
+        QDateTime o_QDateTime = QDateTime::fromString(m_mapFWCommand_Interval.value(FWCommad),
+                                                      "yyyy.MM.dd hh.mm.ss.zzz");
+        if(o_QDateTime.msecsTo(QDateTime::currentDateTime()) > 1000){
+            QString str_Time;
+            str_Time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh.mm.ss.zzz");
+            m_mapFWCommand_Interval.insert(FWCommad, str_Time);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        QString str_Time;
+        str_Time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh.mm.ss.zzz");
+        m_mapFWCommand_Interval.insert(FWCommad, str_Time);
     }
 
     return true;
@@ -723,6 +769,11 @@ bool Firmware::FW_CompleteTest(char *p_cData,
         return false;
     }
 
+    bool b_Ret = PCACK_CompleteTest();
+    if(!b_Ret){
+        return false;
+    }
+
     QList<char> list_UsefulResult;
     char c_UsefulResult;
 
@@ -731,9 +782,9 @@ bool Firmware::FW_CompleteTest(char *p_cData,
         list_UsefulResult.append(c_UsefulResult);
     }
 
-    emit sig_CompleteTest(m_usSequenceNumber, list_UsefulResult);
 
-    return PCACK_CompleteTest();
+    emit sig_CompleteTest(m_usSequenceNumber, list_UsefulResult);
+    return true;
 }
 
 bool Firmware::FW_StartOneGroupPowerTest(char *p_cData,
@@ -1045,6 +1096,11 @@ void Firmware::slot_WriteCommand(char c_Command,
                           un_DataLength);
 }
 
+/*
+* 短超时处理，短超时内FW回复，ACK即取消重发送cmd，移除重发cmd
+* 三次重发
+*/
+
 void Firmware::slot_ShortTimeOut()
 {
     if(m_mapPCCommand_ShortTimeOut.isEmpty()){
@@ -1088,6 +1144,11 @@ void Firmware::slot_ShortTimeOut()
         }
     }
 }
+
+/*
+* 长超时 处理，长超时内FW回复，ACK即取消重发送cmd，移除重发cmd
+* 三次重发
+*/
 
 void Firmware::slot_LongTimeOut()
 {

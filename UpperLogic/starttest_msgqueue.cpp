@@ -1,33 +1,36 @@
 #include "starttest_msgqueue.h"
+#include <QDebug>
 
-StartTest_MsgQueue::StartTest_MsgQueue()
+StartTest_MsgQueue::StartTest_MsgQueue(QObject *parent)
+    :QObject(parent)
 {
     m_pDeviceOperator = m_oDeviceOperatorInstanceGetter.GetInstance();
+    m_bTesting = false;
+
+    m_pQTimer = new QTimer(this);
+    connect(m_pQTimer, SIGNAL(timeout()),
+            this, SLOT(slot_TimeOut()));
+    m_pQTimer->start(500);
+}
+
+StartTest_MsgQueue::~StartTest_MsgQueue()
+{
+
 }
 
 void StartTest_MsgQueue::PushBack(const ushort &us_SequenceNumber)
 {
     m_Queue.push_back(us_SequenceNumber);
-
-    if(!CheckQueueWorkState()){
-        StartOneTest();
-    }
 }
 
 void StartTest_MsgQueue::PushFront(const ushort &us_SequenceNumber)
 {
     m_Queue.push_front(us_SequenceNumber);
-
-    if(!CheckQueueWorkState()){
-        StartOneTest();
-    }
 }
 
 void StartTest_MsgQueue::CompleteOneTest()
 {
     m_bTesting = false;
-
-    StartOneTest();
 }
 
 bool StartTest_MsgQueue::GetTaskState()
@@ -38,12 +41,16 @@ bool StartTest_MsgQueue::GetTaskState()
         return false;
 }
 
+bool StartTest_MsgQueue::ClearAndResetting()
+{
+    m_bTesting = false;
+    m_Queue.clear();
+    return true;
+}
+
 bool StartTest_MsgQueue::CheckQueueWorkState()
 {
-    if(m_bTesting)
-        return true;
-    else
-        return false;
+    return m_bTesting;
 }
 
 void StartTest_MsgQueue::StartOneTest()
@@ -58,4 +65,9 @@ void StartTest_MsgQueue::StartOneTest()
 
     m_pDeviceOperator->StartOneTest(m_Queue.takeFirst());
     m_bTesting = true;
+}
+
+void StartTest_MsgQueue::slot_TimeOut()
+{
+    StartOneTest();
 }

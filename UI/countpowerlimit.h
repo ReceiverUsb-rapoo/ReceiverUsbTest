@@ -5,6 +5,7 @@
 #include <QLineEdit>
 #include "UpperLogic/deviceobserverinstancegetter.h"
 #include "UpperLogic/deviceoperatorinstancegetter.h"
+#include "UpperLogic/counttestresultinstancegetter.h"
 
 /*
  * 用于计算功率上下限，并设置测试上下限。
@@ -46,6 +47,10 @@ private:
     //完成测试
     void CompleteTest();
 
+private:
+    //延时时间
+    void WorkSleep(uint un_Msec);
+
 public slots:
     //开始测试通知
     void slot_StartTestNotice(ushort us_SequenceNumber);
@@ -57,9 +62,11 @@ private:
 
     DeviceObserverInstanceGetter m_oDeviceObserverInstanceGetter;   //观察者管理类
     DeviceOperatorInstanceGetter m_oDeviceOperatorInstanceGetter;   //操作者管理类
+    CountTestResultInstanceGetter m_oCountTestResultInstanceGetter;
 
     DeviceObserver *m_pDeviceObserver;
     DeviceOperator *m_pDeviceOperator;
+    CountTestData *m_pCountTestData;
 
     ushort m_usSequenceNumber;      //工作序号
 

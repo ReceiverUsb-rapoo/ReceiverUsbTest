@@ -142,7 +142,7 @@
        </font>
       </property>
       <property name="text">
-       <string>PID</string>
+       <string>时间</string>
       </property>
      </widget>
     </item>

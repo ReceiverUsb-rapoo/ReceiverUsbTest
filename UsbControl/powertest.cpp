@@ -13,19 +13,21 @@ PowerTest::PowerTest(QObject *parent)
     m_pQTimer       = new QTimer;
 
     m_pQTimer->setSingleShot(true);
-    m_oQThreadPool.setMaxThreadCount(30);
+    m_oQThreadPool.setMaxThreadCount(20);
     connect(m_pQTimer, SIGNAL(timeout()), this, SLOT(slot_TimeOut()));
 }
 
 PowerTest::~PowerTest()
 {
+    qDebug()<<"~PowerTest";
+
     CloseUsbDevice();
 
     if(m_pQTimer != NULL){
         if(m_pQTimer->isActive()){
             m_pQTimer->stop();
         }
-        delete m_pQTimer;
+        m_pQTimer->deleteLater();
         m_pQTimer = NULL;
     }
 }
@@ -54,13 +56,21 @@ bool PowerTest::SetPowerTestConfig(const QMap<int, int> &map_StationPort)
     return true;
 }
 
+/*
+* 遍历配置参数usb <位置, 标示码>
+* 匹配相同的标示码，打开设备，认领接口，然后记录结果
+*
+*
+* m_mapStationPort, <station, port>
+* m_mapOpenDeviceResult, <station, OpenResult>
+* m_mapLDHandle, <station, libusb_device_handle*>
+* map_LDevice, <port, libusb_device*>
+* 
+*/
+
+
 bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
 {
-    //m_mapStationPort, <station, port>
-    //m_mapOpenDeviceResult, <station, OpenResult>
-    //m_mapLDHandle, <station, libusb_device_handle*>
-    //map_LDevice, <port, libusb_device*>
-
     if(map_LDevice.isEmpty() || m_mapStationPort.isEmpty()){
         return false;
     }
@@ -90,10 +100,6 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
                             continue;
                         }
                     }
-//                    if(libusb_set_configuration(p_LDHandle, 1) != 0){
-//                        libusb_close(p_LDHandle);
-//                        continue;
-//                    }
 
                     if(libusb_claim_interface(p_LDHandle, 1) != 0){
                         libusb_close(p_LDHandle);
@@ -148,10 +154,11 @@ bool PowerTest::StartPowerTest()
             WriteCmdThread *p_WriteCmdThread = new WriteCmdThread();
             p_WriteCmdThread->SetStation(map_IterationLDHandle.key());
             p_WriteCmdThread->SetLDHandle(map_IterationLDHandle.value());
+            p_WriteCmdThread->setAutoDelete(true);
             m_oQThreadPool.start(p_WriteCmdThread);
     }
 
-    m_pQTimer->start(100);
+    m_pQTimer->start(200);
     return true;
 }
 
@@ -162,6 +169,9 @@ bool PowerTest::GetPowerTestResult(QMap<int, bool> &map_OpenDeviceResult,
 //       m_mapSendCmdResult.isEmpty()){
 //        return false;
 //    }
+
+//    qDebug<<"map_OpenDeviceResult"<<map_OpenDeviceResult;
+//    qDebug<<"map_SendCmdResult"<<map_SendCmdResult;
 
     QMapIterator<int,int> map_IteratorStationPort(m_mapStationPort);
     while(map_IteratorStationPort.hasNext()){
@@ -205,11 +215,15 @@ bool PowerTest::WriteSendCmdResult(int n_Station,
     m_oQMutex.lock();
 
     m_mapSendCmdResult.insert(n_Station, b_Result);
-    if(m_mapSendCmdResult.count() == m_mapLDHandle.count()){
-        if(!m_bSendComplete){
-            CompletePowerTest();
-        }
-    }
+
+    //此处调用，cmd发送次数等于打开设备数量，send complete,容易导致崩溃.
+    //线程池并未关闭，局部线程没关闭
+
+//    if(m_mapSendCmdResult.count() == m_mapLDHandle.count()){
+//        if(!m_bSendComplete){
+//            CompletePowerTest();
+//        }
+//    }
     qDebug()<<"m_mapSendCmdResult"<<m_mapSendCmdResult;
 
     m_oQMutex.unlock();
@@ -244,7 +258,7 @@ bool PowerTest::WriteCmdInDongle(libusb_device_handle *p_LDHandle,
                                         1,      /* interface id */
                                         uc_Data,
                                         us_Length,
-                                        1000);
+                                        80);
 
 //    qDebug()<<"WriteCmdInDongle"<<n_Ret;
 
@@ -265,7 +279,7 @@ bool PowerTest::ReadDetailsFromDongle(libusb_device_handle *p_LDHandle,
                                         1,      /* interface id */
                                         uc_Data,
                                         us_Length,
-                                        1000);
+                                        80);
 
     if(n_Ret == 0)
         return true;
@@ -277,9 +291,9 @@ bool PowerTest::SendCmdToDogle(libusb_device_handle *p_LDHandle, uchar *uc_Data,
 {
     bool b_Ret = WriteCmdInDongle(p_LDHandle, uc_Data, us_Length);
     if(b_Ret){
-        uchar ucData[2] = {0x00, 0x00};
+        uchar ucData[3] = {0x00, 0x00, 0x00};
         for(int i = 0; i<3 || ucData[0] == 0x01 ; i++){
-            WorkSleep(30);
+            WorkSleep(35);
             ReadDetailsFromDongle(p_LDHandle, ucData, 2);
             if(ucData[0] == 0x01){
                 return true;
@@ -337,8 +351,16 @@ void PowerTest::slot_TimeOut()
 //        }
 //    }
 
-    m_oQThreadPool.releaseThread();
-    m_oQThreadPool.clear();
+//    m_oQThreadPool.releaseThread();
+//    m_oQThreadPool.clear();
+
+    if(m_mapSendCmdResult.count() != m_mapLDHandle.count()){
+        m_pQTimer->start(100);
+        return;
+    }
+
+    m_oQThreadPool.waitForDone(200);
+
     if(!m_bSendComplete){
         CompletePowerTest();
     }

@@ -100,9 +100,9 @@ bool DeviceObserver::RemoveUsbControlObjectPoint()
     }
 
     disconnect(m_pUsbControl, SIGNAL(sig_EnumUsbComplete()),
-            this, SLOT(slot_EnumUsbComplete()));
+               this, SLOT(slot_EnumUsbComplete()));
     disconnect(m_pUsbControl, SIGNAL(sig_SendPowerTestComplete()),
-            this, SLOT(slot_SendPowerTestComplete()));
+               this, SLOT(slot_SendPowerTestComplete()));
 
     m_pUsbControl = NULL;
 
@@ -116,6 +116,9 @@ bool DeviceObserver::SetLocalTcpServer(const QString &str_IP,
         m_pTcpServer->close();
     }
 
+//    qDebug()<<"StartListen str_IP"<<str_IP;
+//    qDebug()<<"StartListen us_Port"<<us_Port;
+
     return m_pTcpServer->StartListen(us_Port,
                                      str_IP);
 }
@@ -128,7 +131,7 @@ bool DeviceObserver::SetBoxIP(const QList<QString> &list_BoxIP)
 
 bool DeviceObserver::SetCatchRobotIP(const QString &str_CatchRobotIP)
 {
-    m_strLocalTcpServerIP = str_CatchRobotIP;
+    m_strCatchRobotIP = str_CatchRobotIP;
     return true;
 }
 
@@ -676,6 +679,8 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
                            const uint &un_Pid,
                            const uint &un_Vid)
 {
+//    qDebug()<<"AddFW";
+
     Firmware *p_Firmware = new Firmware;
 
     connect(p_Firmware, SIGNAL(sig_ReceiveCommand(ushort,uchar,QByteArray,uint)),
@@ -726,6 +731,8 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
         p_Firmware = NULL;
     }
 
+//    qDebug()<<"OpenFirmware";
+
     bool b_Ret = p_Firmware->OpenFirmware();
 
     if(!b_Ret){
@@ -733,6 +740,8 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
         p_Firmware = NULL;
         return false;
     }
+
+//    qDebug()<<"OpenFirmware ok";
 
 
     //wait fot that get bootInfo(SequenceNumber) from fw
@@ -752,7 +761,13 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
     }
 
     m_listFWSequenceNumber.append(us_SequenceNumber);
+
+    if(m_listFWSequenceNumber.size() > 1){
+        qSort(m_listFWSequenceNumber.begin(), m_listFWSequenceNumber.end());
+    }
+
     m_listFirmware.append(p_Firmware);
+
     return true;
 }
 
@@ -853,6 +868,11 @@ bool DeviceObserver::RemoveFW(const QString &str_PortName,
     }
 
     m_listFWSequenceNumber.removeAll(us_SequenceNumber);
+
+    if(m_listFWSequenceNumber.size() > 1){
+        qSort(m_listFWSequenceNumber.begin(), m_listFWSequenceNumber.end());
+    }
+
     return RemoveFWUploadDataObject(us_SequenceNumber, str_PortName);
 }
 
@@ -1050,6 +1070,10 @@ bool DeviceObserver::AddCatchRobot(const QString &str_IP)
     m_pCatchRobot = new CatchRobot;
     m_pCatchRobot->SetIP(str_IP);
     m_bCatchRobotConnect = true;
+
+    connect(m_pCatchRobot, SIGNAL(sig_GetAction(ushort,QString)),
+            this, SLOT(slot_CatchRobotGetAction(ushort,QString)));
+
     return true;
 }
 
@@ -1060,6 +1084,9 @@ bool DeviceObserver::RemoveCatchRobot(const QString &str_IP)
         m_pCatchRobot->GetIP(str_ExistIP);
 
         if(str_ExistIP == str_IP){
+            disconnect(m_pCatchRobot, SIGNAL(sig_GetAction(ushort,QString)),
+                       this, SLOT(slot_CatchRobotGetAction(ushort,QString)));
+
             delete m_pCatchRobot;
             m_pCatchRobot = NULL;
         }
@@ -1073,6 +1100,10 @@ bool DeviceObserver::AddSupplementRobot(const QString &str_IP)
     m_pSupplementRoobot = new SupplementRoobot;
     m_pSupplementRoobot->SetIP(str_IP);
     m_bSupplementRobotConnect = true;
+
+    connect(m_pSupplementRoobot, SIGNAL(sig_GetRequest(ushort,QString)),
+            this, SLOT(slot_SupplementRobotGetRequest(ushort,QString)));
+
     return true;
 }
 
@@ -1083,6 +1114,9 @@ bool DeviceObserver::RemoveSupplementRobot(const QString &str_IP)
         m_pSupplementRoobot->GetIP(str_ExistIP);
 
         if(str_ExistIP == str_IP){
+            disconnect(m_pSupplementRoobot, SIGNAL(sig_GetRequest(ushort,QString)),
+                       this, SLOT(slot_SupplementRobotGetRequest(ushort,QString)));
+
             delete m_pSupplementRoobot;
             m_pSupplementRoobot = NULL;
         }
@@ -1140,6 +1174,10 @@ void DeviceObserver::slot_ConnectClient(int n_ID,
     Q_UNUSED(n_ID);
     Q_UNUSED(us_Port);
 
+    qDebug()<<"slot_ConnectClient"<<str_IP<<us_Port;
+    qDebug()<<"m_strCatchRobotIP"<<m_strCatchRobotIP;
+    qDebug()<<"m_strSupplementRobotIP"<<m_strSupplementRobotIP;
+
     if(m_listBoxIP.contains(str_IP)){
         AddBox(str_IP);
         emit sig_BoxDiscoverd();
@@ -1160,6 +1198,8 @@ void DeviceObserver::slot_DisConnectClient(int n_ID,
 {
     Q_UNUSED(n_ID);
     Q_UNUSED(us_Port);
+
+    qDebug()<<"slot_DisConnectClient";
 
     if(m_listBoxIP.contains(str_IP)){
         RemoveBox(str_IP);
@@ -1248,6 +1288,8 @@ void DeviceObserver::slot_ReceiveCommand(ushort us_SequenceNumber,
                 return;
             }
         }
+
+        //removeall 自定义结构体或者实体类，导致崩溃
 /*
         foreach(STRUCT_COMMANDANDDATA struct_Data, m_listReceiveCommandAndData){
             if(struct_Data.us_SequenceNumber == us_SequenceNumber&&
@@ -1306,6 +1348,7 @@ void DeviceObserver::slot_WriteCommand(ushort us_SequenceNumber,
                 return;
             }
         }
+        //removeall 自定义结构体或者实体类，导致崩溃
 /*
         foreach(STRUCT_COMMANDANDDATA struct_Data, m_listWriteCommandAndData){
             if(struct_Data.us_SequenceNumber == us_SequenceNumber &&

@@ -12,7 +12,7 @@ class TcpServer : public QTcpServer
     Q_OBJECT
     friend class TcpServerInstanceGetter;
 private:
-    explicit TcpServer(QObject *parent = 0,int numConnections = 10000);
+    explicit TcpServer(QObject *parent = 0,int numConnections = 30);
 
 public:
     ~TcpServer();

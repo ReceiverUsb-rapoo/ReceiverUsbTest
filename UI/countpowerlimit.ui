@@ -129,6 +129,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -140,6 +143,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -192,6 +198,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -203,6 +212,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -255,6 +267,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -266,6 +281,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -318,6 +336,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -329,6 +350,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -381,6 +405,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -392,6 +419,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -444,6 +474,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -455,6 +488,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -507,6 +543,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -518,6 +557,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -570,6 +612,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -581,6 +626,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -633,6 +681,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -644,6 +695,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -696,6 +750,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -707,6 +764,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -759,6 +819,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -770,6 +833,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -822,6 +888,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -833,6 +902,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -885,6 +957,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -896,6 +971,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -948,6 +1026,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -959,6 +1040,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1011,6 +1095,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1022,6 +1109,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1074,6 +1164,9 @@
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1085,6 +1178,9 @@
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="text">
+       <string>-60</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1125,6 +1221,9 @@
    <layout class="QGridLayout" name="gridLayout_1">
     <item row="15" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_15">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1168,6 +1267,9 @@
     </item>
     <item row="12" column="4">
      <widget class="QLineEdit" name="le_DownLimit_12">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1175,6 +1277,9 @@
     </item>
     <item row="7" column="4">
      <widget class="QLineEdit" name="le_DownLimit_7">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1211,6 +1316,9 @@
     </item>
     <item row="5" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_5">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1225,6 +1333,9 @@
     </item>
     <item row="10" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_10">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1232,6 +1343,9 @@
     </item>
     <item row="13" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_13">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1246,6 +1360,9 @@
     </item>
     <item row="8" column="4">
      <widget class="QLineEdit" name="le_DownLimit_8">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1253,6 +1370,9 @@
     </item>
     <item row="11" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_11">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1282,6 +1402,9 @@
     </item>
     <item row="15" column="4">
      <widget class="QLineEdit" name="le_DownLimit_15">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1289,6 +1412,9 @@
     </item>
     <item row="9" column="4">
      <widget class="QLineEdit" name="le_DownLimit_9">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1333,6 +1459,9 @@
     </item>
     <item row="6" column="4">
      <widget class="QLineEdit" name="le_DownLimit_6">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1340,6 +1469,9 @@
     </item>
     <item row="16" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_16">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1347,6 +1479,9 @@
     </item>
     <item row="6" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_6">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1354,6 +1489,9 @@
     </item>
     <item row="9" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_9">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1361,6 +1499,9 @@
     </item>
     <item row="12" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_12">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1375,6 +1516,9 @@
     </item>
     <item row="10" column="4">
      <widget class="QLineEdit" name="le_DownLimit_10">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1419,6 +1563,9 @@
     </item>
     <item row="7" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_7">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1448,6 +1595,9 @@
     </item>
     <item row="11" column="4">
      <widget class="QLineEdit" name="le_DownLimit_11">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1462,6 +1612,9 @@
     </item>
     <item row="16" column="4">
      <widget class="QLineEdit" name="le_DownLimit_16">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1469,6 +1622,9 @@
     </item>
     <item row="13" column="4">
      <widget class="QLineEdit" name="le_DownLimit_13">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1483,6 +1639,9 @@
     </item>
     <item row="8" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_8">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1511,6 +1670,9 @@
     </item>
     <item row="5" column="4">
      <widget class="QLineEdit" name="le_DownLimit_5">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1553,6 +1715,9 @@
     </item>
     <item row="14" column="4">
      <widget class="QLineEdit" name="le_DownLimit_14">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1590,6 +1755,9 @@
     </item>
     <item row="14" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_14">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1612,6 +1780,9 @@
     </item>
     <item row="2" column="4">
      <widget class="QLineEdit" name="le_DownLimit_2">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1641,6 +1812,9 @@
     </item>
     <item row="1" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_1">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1648,6 +1822,9 @@
     </item>
     <item row="1" column="4">
      <widget class="QLineEdit" name="le_DownLimit_1">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1684,6 +1861,9 @@
     </item>
     <item row="4" column="4">
      <widget class="QLineEdit" name="le_DownLimit_4">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1721,6 +1901,9 @@
     </item>
     <item row="4" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_4">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1809,6 +1992,9 @@
     </item>
     <item row="3" column="4">
      <widget class="QLineEdit" name="le_DownLimit_3">
+      <property name="text">
+       <string>-60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1838,6 +2024,9 @@
     </item>
     <item row="2" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_2">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1852,6 +2041,9 @@
     </item>
     <item row="3" column="3">
      <widget class="QLineEdit" name="le_UpperLimit_3">
+      <property name="text">
+       <string>60</string>
+      </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
@@ -1990,14 +2182,14 @@
   <widget class="QLabel" name="label_44">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>540</x>
      <y>640</y>
-     <width>71</width>
-     <height>16</height>
+     <width>81</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>单位：db</string>
+    <string>单位：10db</string>
    </property>
   </widget>
  </widget>

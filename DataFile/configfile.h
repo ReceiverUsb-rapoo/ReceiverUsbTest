@@ -40,8 +40,6 @@ public:
     bool TransformToQString(const QMap<int,int> &map_SequenceData,
                             QString &str_Data);
 
-
-private:
     //转换数据类型 Qmap<int,int> to QString 带序号 
     bool TransformToQString(const ushort &us_SequenceNumber,
                             const QMap<int,int> &map_SequenceData,

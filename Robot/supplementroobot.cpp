@@ -26,10 +26,12 @@ bool SupplementRoobot::GetIP(QString &str_IP)
 void SupplementRoobot::SendSupplementData(ushort us_FWStation,
                                           const QString &str_Data)
 {
-    QString str_Action = SupplementRobot_Request +
+    Q_UNUSED(us_FWStation);
+    QString str_Action = /*SupplementRobot_Request +
                          QString::number(us_FWStation) +
-                         "-" +
-                         str_Data;
+                         "-" +*/
+                         str_Data +
+                         "\r\n";
 
     emit sig_SendData(str_Action.toLatin1(),
                        m_strIP);
@@ -51,7 +53,7 @@ void SupplementRoobot::slot_SupplementReceiveData(STRUCT_TCPDATA struct_TcpData)
         return;
     }
 
-    if(struct_TcpData.byte_Data.count() != 2){
+    if(struct_TcpData.byte_Data.count() != 6){
         return;
     }
 

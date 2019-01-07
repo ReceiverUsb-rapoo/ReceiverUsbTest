@@ -15,7 +15,7 @@ FirmwareConfig::FirmwareConfig(ushort us_SequenceNumber, QWidget *parent) :
     m_usSequenceNumber = us_SequenceNumber;
 
 //    this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowTitle("FirmwareConfig");
+    this->setWindowTitle("FirmwareConfig-夹具-" + QString::number(m_usSequenceNumber));
 
     InitFirmwareConfig();
 }
@@ -48,6 +48,7 @@ FirmwareConfig::~FirmwareConfig()
 void FirmwareConfig::SetSequenceNumber(const ushort &us_SequenceNumber)
 {
     m_usSequenceNumber = us_SequenceNumber;
+    this->setWindowTitle("FirmwareConfig-夹具-" + QString::number(m_usSequenceNumber));
 }
 
 void FirmwareConfig::SaveCofig()

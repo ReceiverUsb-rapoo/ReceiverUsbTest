@@ -1,6 +1,7 @@
 #include "equitmentcontrol.h"
 #include "ui_equitmentcontrol.h"
 #include <QRegExp>
+#include "DataFile/logfile.h"
 
 EquitmentControl::EquitmentControl(QWidget *parent) :
     QWidget(parent),
@@ -96,7 +97,7 @@ void EquitmentControl::InitEquitmentState()
         ui->pb_SendSupplement_2->setEnabled(true);
     }
 
-    QRegExp o_QRegExp("^(//d{5})$");
+    QRegExp o_QRegExp("^([0-1]{5})$");
     ui->le_SupplementData_1->setValidator(new QRegExpValidator(o_QRegExp, this));
     ui->le_SupplementData_2->setValidator(new QRegExpValidator(o_QRegExp, this));
     ui->le_SupplementData_3->setValidator(new QRegExpValidator(o_QRegExp, this));
@@ -117,29 +118,26 @@ void EquitmentControl::InitUI()
 
     ui->pb_SendSupplement_1->setEnabled(false);
     ui->pb_SendSupplement_2->setEnabled(false);
-
-
-
 }
 
 void EquitmentControl::OpenBox(const ushort &us_SequenceNumber)
 {
     m_pDeviceOperator->OpenBox(us_SequenceNumber);
 
-    ui->tb_Info->append("Send Box-" +
-                        QString::number(us_SequenceNumber) +
-                        "\n" +
-                        QString(OpenCmd));
+    ui->tb_Info->append(LogFile::Addlog("Send Box-" +
+                                 QString::number(us_SequenceNumber) +
+                                 "\n" +
+                                 QString(OpenCmd)));
 }
 
 void EquitmentControl::CloseBox(const ushort &us_SequenceNumber)
 {
     m_pDeviceOperator->CloseBox(us_SequenceNumber);
 
-    ui->tb_Info->append("Send Box-" +
-                        QString::number(us_SequenceNumber) +
-                        "\n" +
-                        QString(CloseCmd));
+    ui->tb_Info->append(LogFile::Addlog("Send Box-" +
+                                        QString::number(us_SequenceNumber) +
+                                        "\n" +
+                                        QString(CloseCmd)));
 }
 
 void EquitmentControl::SendCatchRobotAction(const ushort &us_FWStation,
@@ -148,9 +146,9 @@ void EquitmentControl::SendCatchRobotAction(const ushort &us_FWStation,
     m_pDeviceOperator->SendCatchRobotAction(us_FWStation,
                                             str_RobotAction);
 
-    ui->tb_Info->append("Send CatchRobot \n" +
-                        str_RobotAction +
-                        QString::number(us_FWStation));
+    ui->tb_Info->append(LogFile::Addlog("Send CatchRobot \n" +
+                                        str_RobotAction +
+                                        QString::number(us_FWStation)));
 }
 
 void EquitmentControl::SendSupplementRobotData(const ushort &us_FWStation)
@@ -165,9 +163,9 @@ void EquitmentControl::SendSupplementRobotData(const ushort &us_FWStation)
     m_pDeviceOperator->SendSupplementRobotData(us_FWStation,
                                                str_SupplementData);
 
-    ui->tb_Info->append("Send SupplementRobot \n" +
-                        str_SupplementData +
-                        QString::number(us_FWStation));
+    ui->tb_Info->append(LogFile::Addlog("Send SupplementRobot \n" +
+                                        str_SupplementData/* +
+                                        QString::number(us_FWStation)*/));
 }
 
 void EquitmentControl::slot_BoxDiscoverd()
@@ -252,11 +250,14 @@ void EquitmentControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
     else if(box_Operator == CLOSEBOX_OK){
         str_Operator = "CLOSEBOX_OK";
     }
+    else if(box_Operator == ERRORBOX){
+        str_Operator = "ERRORBOX";
+    }
 
-    ui->tb_Info->append("Receiver Box-" +
-                        QString::number(us_SequenceNumber) +
-                        "\n" +
-                        str_Operator);
+    ui->tb_Info->append(LogFile::Addlog("Receiver Box-" +
+                                         QString::number(us_SequenceNumber) +
+                                         "\n" +
+                                         str_Operator));
 }
 
 void EquitmentControl::slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber)
@@ -264,9 +265,11 @@ void EquitmentControl::slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber)
     QString str_Action;
     m_pDeviceObserver->GetCatchRobotGetAction(us_SequenceNumber, str_Action);
 
-    ui->tb_Info->append("Receiver CatchRobot \n" +
-                        str_Action +
-                        QString::number(us_SequenceNumber));
+    ui->tb_Info->append(LogFile::Addlog("Receiver CatchRobot \n" +
+                                        str_Action +
+                                        QString::number(us_SequenceNumber)));
+
+    ui->le_ReceiveCatchData->setText(str_Action + QString::number(us_SequenceNumber));
 }
 
 void EquitmentControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumber)
@@ -275,7 +278,7 @@ void EquitmentControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNu
 
     m_pDeviceObserver->GetSupplementRobotGetRequest(us_SequenceNumber, str_Request);
 
-    ui->tb_Info->append("Receiver SupplementRobot \n" +
-                        str_Request +
-                        QString::number(us_SequenceNumber));
+    ui->tb_Info->append(LogFile::Addlog("Receiver SupplementRobot \n" +
+                                        str_Request +
+                                        QString::number(us_SequenceNumber)));
 }

@@ -23,6 +23,8 @@ public:
     bool StartAutoTest();
     //停止测试
     bool StopTest();
+    //重置测试 
+    bool Resetting();
 
 public:
     //获取所有固件工作序号
@@ -107,6 +109,7 @@ signals:
     void sig_SRobotRemove();
 
 signals:
+    void sig_ReadyTest(ushort us_SequenceNumber);
     //发送 开始测试通知
     void sig_StartTest(ushort us_SequenceNumber);
     //发送 完成测试通知
@@ -167,8 +170,8 @@ private:
 
     QMap<ushort, STRUCT_USBCONTROLCONFIG> m_mapUsbControlConfig;    //UsbControl参数 包括点位Port ID <工作序号,配置参数>
 
-    bool m_bEnumTestWorkState;          //枚举测试状态 （只能单一测试） 
-    bool m_bPowerTestWorkState;         //功率测试状态 （只能单一测试）
+    bool m_bEnumTestNoWorkState;          //枚举测试状态 （只能单一测试）
+    bool m_bPowerTestNoWorkState;         //功率测试状态 （只能单一测试）
 
     ushort m_usWorkingSequenceNumber;       //当前工作序号
     bool m_bBoxSwitchClose;                 //自动测试流程 屏蔽 箱子 开关 
@@ -180,6 +183,10 @@ private:
 
     bool m_bFirstTest;  //第一次测试状态
     uint m_unStartTimes;    //测试序号 （第一次，第二次......）
+
+    bool m_bTest;       //测试状态
+
+//    bool m_bInitUsbTest;
 };
 
 #endif // MASTERCONTROL_H

@@ -1,4 +1,5 @@
 #include "powertestinstancegetter.h"
+#include <QDebug>
 
 PowerTest *PowerTestInstanceGetter::m_pPowerTestInstance = NULL;
 uint PowerTestInstanceGetter::m_unPowerTestReference = 0;
@@ -9,7 +10,7 @@ PowerTestInstanceGetter::PowerTestInstanceGetter()
         m_pPowerTestInstance = new PowerTest;
     }
 
-    m_unPowerTestReference++;
+    m_unPowerTestReference ++;
 }
 
 PowerTestInstanceGetter::~PowerTestInstanceGetter()
@@ -17,6 +18,7 @@ PowerTestInstanceGetter::~PowerTestInstanceGetter()
     m_unPowerTestReference --;
     if(m_unPowerTestReference == 0){
         if(m_pPowerTestInstance != NULL){
+            qDebug()<<"PowerTestInstanceGetter";
             delete m_pPowerTestInstance;
             m_pPowerTestInstance = NULL;
         }

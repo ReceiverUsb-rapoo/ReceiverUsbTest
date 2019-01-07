@@ -1,5 +1,6 @@
 #include "resultview.h"
 #include "ui_resultview.h"
+#include <QDebug>
 
 ResultView::ResultView(QWidget *parent) :
     QWidget(parent)
@@ -17,7 +18,7 @@ bool ResultView::CreatResultView(const ushort &us_SequenceNumber)
 {
     QList<ResultLabel *> list_ResultLabel;
 
-    QWidget *p_QWidget = new QWidget;
+    QWidget *p_QWidget = new QWidget();
     QGridLayout *p_QGridLayout = new QGridLayout(p_QWidget);
     for(int i = 0; i < OneGroupUsbNumber_ResultView; i++){
         ResultLabel *p_ResultLabel = new ResultLabel;
@@ -29,8 +30,9 @@ bool ResultView::CreatResultView(const ushort &us_SequenceNumber)
 
     m_mapStackedWidget.insert(us_SequenceNumber, p_QWidget);
     m_mapResultView.insert(us_SequenceNumber, list_ResultLabel);
+    m_pQStackedWidget->addWidget(p_QWidget);
 
-    m_pQStackedWidget->insertWidget(us_SequenceNumber, p_QWidget);
+//    m_pQStackedWidget->insertWidget((int)us_SequenceNumber, p_QWidget);
 
     return true;
 }
@@ -44,6 +46,9 @@ bool ResultView::RemoveResultView(const ushort &us_SequenceNumber)
     QWidget *p_QWidget = m_mapStackedWidget.value(us_SequenceNumber);
     m_mapStackedWidget.remove(us_SequenceNumber);
     m_mapResultView.remove(us_SequenceNumber);
+
+    m_pQStackedWidget->removeWidget(p_QWidget);
+
     delete p_QWidget;
     p_QWidget = NULL;
 
@@ -52,7 +57,9 @@ bool ResultView::RemoveResultView(const ushort &us_SequenceNumber)
 
 bool ResultView::ShowResultView(const ushort &us_SequenceNumber)
 {
-    m_pQStackedWidget->setCurrentIndex(us_SequenceNumber);
+//    m_pQStackedWidget->setCurrentIndex(us_SequenceNumber);
+
+    m_pQStackedWidget->setCurrentWidget(m_mapStackedWidget.value(us_SequenceNumber));
 
     return true;
 }
@@ -89,7 +96,7 @@ bool ResultView::UpdataResultView(const ushort &us_SequenceNumber,
         }
         else{
             m_mapResultView.value(us_SequenceNumber).at(i)->SetState(Faile_Test);
-            m_mapResultView.value(us_SequenceNumber).at(i)->setText(list_ResultInfo.at(i));
+            m_mapResultView.value(us_SequenceNumber).at(i)->setText("\n" +list_ResultInfo.at(i));
         }
     }
     return true;

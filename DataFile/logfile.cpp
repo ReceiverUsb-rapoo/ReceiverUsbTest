@@ -4,11 +4,6 @@
 #include <QApplication>
 #include <QDateTime>
 
-LogFile::LogFile()
-{
-
-}
-
 QString LogFile::Addlog(const QString &str_Info)
 {
     QDir o_QDir;
@@ -16,7 +11,7 @@ QString LogFile::Addlog(const QString &str_Info)
     QString str_Path = QDir::currentPath() + LogPath;
 
     if(!o_QDir.exists(str_Path)){
-        o_QDir.mkpath(str_Info);
+        o_QDir.mkpath(str_Path);
     }
 
     QDateTime o_QDateTime = QDateTime::currentDateTime();
@@ -31,11 +26,16 @@ QString LogFile::Addlog(const QString &str_Info)
         return str_Info;
     }
 
-    QString str_InfoAddTime = QString("%1:%2:%3 %4\r\n").
+    QString str_InfoAddTime = QString("%1:%2:%3").
             arg(o_QDateTime.time().hour()).
             arg(o_QDateTime.time().minute()).
-            arg(o_QDateTime.time().second()).
-            arg(str_Info);
+            arg(o_QDateTime.time().second());
+
+    for(int i = str_InfoAddTime.count(); i < 10; i++){
+        str_InfoAddTime += " ";
+    }
+
+    str_InfoAddTime += str_Info + "\r\n";
 
     o_QFile.write(str_InfoAddTime.toStdString().c_str());
 

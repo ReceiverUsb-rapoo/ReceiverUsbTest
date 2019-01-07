@@ -21,9 +21,9 @@
   <widget class="QTextBrowser" name="tb_Info">
    <property name="geometry">
     <rect>
-     <x>420</x>
+     <x>410</x>
      <y>20</y>
-     <width>251</width>
+     <width>261</width>
      <height>341</height>
     </rect>
    </property>

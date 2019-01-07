@@ -16,7 +16,7 @@ StatisticalTable::StatisticalTable(ushort us_SequenceNumber, QWidget *parent) :
     m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowTitle("StatisticalTable");
+    this->setWindowTitle("StatisticalTable-夹具-" + QString::number(m_usSequenceNumber));
 
     QFont o_QFont;
     o_QFont.setPointSize(9);
@@ -36,6 +36,7 @@ StatisticalTable::~StatisticalTable()
 void StatisticalTable::SetSequenceNumber(const ushort &us_SequenceNumber)
 {
     m_usSequenceNumber = us_SequenceNumber;
+    this->setWindowTitle("StatisticalTable-夹具-" + QString::number(m_usSequenceNumber));
 }
 
 void StatisticalTable::SaveStatisticalTable()
@@ -90,7 +91,7 @@ void StatisticalTable::InitUI()
     m_pQTableWidget->setParent(this);
     m_pQTableWidget->setGeometry(30,20,500,590);
     m_pQTableWidget->setFrameShape(QFrame::NoFrame); //设置无边框
-    m_pQTableWidget->setShowGrid(false);             //设置不显示格子线
+//    m_pQTableWidget->setShowGrid(false);             //设置不显示格子线
     m_pQTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QStringList strlist_HHeaderLabels;
     strlist_HHeaderLabels<<"枚举异常"<<"打开设备异常"<<"发送指令异常"<<"RF功率异常";
@@ -122,25 +123,28 @@ void StatisticalTable::InitUI()
 void StatisticalTable::InitResultData()
 {
     QMap<uint, QMap<ENUM_RESULTTYPE, uint>> map_ErrorAmount;
+
     m_pCountTestData->GetAllResultData(m_usSequenceNumber,
                                        map_ErrorAmount);
+
     QMap<ENUM_RESULTTYPE, uint> map_TypeErrorTimes;
     uint un_TypeErrorTimes = 0;
-    QStringList strlist_HHeaderLabels;
+//    QStringList m_strlistVHeaderLabels;
 
     for(int i = 0; i < map_ErrorAmount.count(); i++){
         InsertTableRow();
         map_TypeErrorTimes = map_ErrorAmount.value(i + 1);
 
-        strlist_HHeaderLabels.append(QString::number(i));
+//        m_strlistVHeaderLabels.append(QString::number(i + 1));
 
         for(int j = 0; j < n_TableColumnCount; j++){
-            un_TypeErrorTimes =  map_TypeErrorTimes.value((ENUM_RESULTTYPE)j);
+            un_TypeErrorTimes = map_TypeErrorTimes.value((ENUM_RESULTTYPE)j);
             m_pQTableWidget->item(i, j)->setText(QString::number(un_TypeErrorTimes));
+            m_pQTableWidget->item(i, j)->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         }
     }
 
-    m_pQTableWidget->setVerticalHeaderLabels(strlist_HHeaderLabels);
+//    m_pQTableWidget->setVerticalHeaderLabels(m_strlistVHeaderLabels);
 }
 
 void StatisticalTable::InsertTableRow()
@@ -149,6 +153,9 @@ void StatisticalTable::InsertTableRow()
 
     int n_RowCount = m_pQTableWidget->rowCount();
     m_pQTableWidget->insertRow(n_RowCount);
+
+    m_strlistVHeaderLabels.append(QString::number(n_RowCount + 1));
+    m_pQTableWidget->setVerticalHeaderLabels(m_strlistVHeaderLabels);
 
     qDebug()<<"m_pQTableWidget->rowCount()"<<m_pQTableWidget->rowCount();
 
@@ -160,22 +167,23 @@ void StatisticalTable::InsertTableRow()
 void StatisticalTable::UpdataTableData()
 {
     QMap<uint, QMap<ENUM_RESULTTYPE, uint>> map_ErrorAmount;
+
     m_pCountTestData->GetAllResultData(m_usSequenceNumber,
                                        map_ErrorAmount);
+
     QMap<ENUM_RESULTTYPE, uint> map_TypeErrorTimes;
 
     if(map_ErrorAmount.isEmpty()){
         return;
     }
 
-    qDebug()<<map_ErrorAmount.count();
+    qDebug()<<"map_ErrorAmount.count()"<<map_ErrorAmount.count();;
 
-    qDebug()<<m_pQTableWidget->rowCount();
-
+    qDebug()<<"m_pQTableWidget->rowCount()"<<m_pQTableWidget->rowCount();
 
     if(map_ErrorAmount.count() != m_pQTableWidget->rowCount() ||
             m_pQTableWidget->rowCount() == 0){
-        InitResultData();
+        InsertTableRow();
     }
 
     map_TypeErrorTimes = map_ErrorAmount.value((uint)map_ErrorAmount.count());
@@ -184,9 +192,11 @@ void StatisticalTable::UpdataTableData()
         if(map_TypeErrorTimes.contains((ENUM_RESULTTYPE)j)){
             m_pQTableWidget->item(map_ErrorAmount.count() - 1, j)->setText(
                         QString::number(map_TypeErrorTimes.value((ENUM_RESULTTYPE)j)));
+            m_pQTableWidget->item(map_ErrorAmount.count() - 1, j)->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         }
         else{
             m_pQTableWidget->item(map_ErrorAmount.count() - 1, j)->setText("0");
+            m_pQTableWidget->item(map_ErrorAmount.count() - 1, j)->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         }
 
     }

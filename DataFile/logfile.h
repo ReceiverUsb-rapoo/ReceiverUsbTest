@@ -6,9 +6,8 @@
 class LogFile
 {
 public:
-    LogFile();
     //log保存
-    QString Addlog(const QString &str_Info);
+    static QString Addlog(const QString &str_Info);
 };
 
 #endif // LOGFILE_H

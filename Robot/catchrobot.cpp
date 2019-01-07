@@ -26,7 +26,9 @@ bool CatchRobot::GetIP(QString &str_IP)
 void CatchRobot::SendAction(const ushort &us_FWStation,
                             const QString &str_RobotAction)
 {
-    QString str_Action = str_RobotAction + QString::number(us_FWStation);
+    QString str_Action = str_RobotAction +
+                         QString::number(us_FWStation) +
+                         "\r\n";
 
     emit sig_SendData(str_Action.toLatin1(),
                       m_strIP);
@@ -48,11 +50,11 @@ void CatchRobot::slot_CatchRobotReceiveData(STRUCT_TCPDATA struct_TcpData)
         return;
     }
 
-    if(struct_TcpData.byte_Data.count() != 2){
+    if(struct_TcpData.byte_Data.count() != 6){
         return;
     }
 
-    ushort us_FWStation = (ushort)struct_TcpData.byte_Data.at(1);
+    ushort us_FWStation = (ushort)struct_TcpData.byte_Data.at(1) - 48;
     QString str_RobotAction = (QString)struct_TcpData.byte_Data.at(0);
 
     emit sig_GetAction(us_FWStation, str_RobotAction);

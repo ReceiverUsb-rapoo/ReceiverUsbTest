@@ -97,6 +97,10 @@ void UsbOperator::WorkSleep(uint un_Msec)
  *              |_current configuration number - 1
  *                  |_ current interface number - 0
  *
+ * 
+ * 遍历设备总线，查询匹配到VIDPID设备
+ * 查找到设备后，查询上层设备节点，叠加节点，得出port标识码 
+ * 
  */
 bool UsbOperator::FindUsbDevicePort(const uint &un_Pid,
                                     const uint &un_Vid,
@@ -181,6 +185,7 @@ void UsbOperator::run()
         if(FindUsbDevicePort(m_unPid, m_unVid, m_mapLDevice, m_listDevicePort)){
             //nothing to do
         }
+        //检测到10个以上，即未查找完成
         if(m_listDevicePort.count() >= m_nDeviceNumber){
             break;
         }

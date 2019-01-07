@@ -1,6 +1,11 @@
-﻿#include "mainwindow.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"DataFile/testdatafile.h"
+
+#include <QMessageBox>
+#include <QDebug>
+
+#include "DataFile/testdatafile.h"
+#include "DataFile/logfile.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,16 +18,27 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pMasterControl = NULL;
     m_pResultView = NULL;
     m_pQButtonGroup = NULL;
-    m_SelectSequenceNumber = 1;
+    m_pQTimer= NULL;
+
+    m_bInit = false;
+
+    m_ShowRecordData = TOTAL_SHOW;
+
+//    m_SelectSequenceNumber = 1;
 
     InitMainWindow();
 
-    QTimer::singleShot(1000*60*60, this, SLOT(slot_SaveStatisticalTableLog()));
+    m_pQTimer = new QTimer;
+    connect(m_pQTimer,SIGNAL(timeout()),
+            this, SLOT(slot_SaveStatisticalTableLog()));
+    m_pQTimer->start(1000*60*30);
 }
 
 MainWindow::~MainWindow()
 {
     SaveTestRecordData();
+
+    qDebug()<<"~MainWindow";
 
     if(m_pQButtonGroup != NULL){
         delete m_pQButtonGroup;
@@ -33,6 +49,12 @@ MainWindow::~MainWindow()
 //        delete m_pResultView;
 //        m_pResultView = NULL;
 //    }
+
+    if(m_pQTimer != NULL){
+        m_pQTimer->stop();
+        delete m_pQTimer;
+        m_pQTimer = NULL;
+    }
 
     if(m_pMasterControl != NULL){
         delete m_pMasterControl;
@@ -50,6 +72,8 @@ void MainWindow::InitMainWindow()
     connect(m_pQButtonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(slot_ButtonClick(int)));
 
+    TestDataFile o_TestDataFile;
+    o_TestDataFile.PooledData();
 
     InitMasterControl();
 
@@ -61,15 +85,15 @@ void MainWindow::InitMainWindow()
 void MainWindow::InitUI()
 {
     m_pResultView = new ResultView();
-    m_pResultView->setGeometry(30,160,860,490);
+    m_pResultView->setGeometry(65,160,800,490);
     m_pResultView->setParent(this);
-//    m_pResultView->show();
 
     m_pMasterControl->GetAllFWSequenceNumber(m_listSequenceNumber);
 
     for(int i = 0; i < m_listSequenceNumber.count(); i++){
         QPushButton *p_QPushButton = new QPushButton;
         p_QPushButton->setText("夹具 - " + QString::number(m_listSequenceNumber.at(i)));
+        p_QPushButton->setStyleSheet("QPushButton{background-color:rgb(211, 215, 207); color:black; border-radius:8px; border-style:inset; min-height:40px;}");
         ui->gl_Button->addWidget(p_QPushButton,0,i,1,1);
         m_pQButtonGroup->addButton(p_QPushButton, m_listSequenceNumber.at(i));
         m_pResultView->CreatResultView(m_listSequenceNumber.at(i));
@@ -79,11 +103,18 @@ void MainWindow::InitUI()
         m_pResultView->ShowResultView(m_listSequenceNumber.first());
     }
 
-
     ui->lb_BoxState_1->setText("屏蔽箱-1 未连接");
     ui->lb_BoxState_2->setText("屏蔽箱-2 未连接");
     ui->lb_SupplementRobotState->setText("补料机器手 未连接");
     ui->lb_CatchRobotState->setText("抓取机器手 未连接");
+
+    ui->pb_InitTest->setEnabled(true);
+    ui->pb_StartAutoTest->setEnabled(false);
+    ui->pb_StartOneTest->setEnabled(false);
+    ui->pb_StopTest->setEnabled(false);
+    ui->pb_ResettingTest->setEnabled(true);
+
+    ShowRecordDataSwitch();
 }
 
 void MainWindow::InitMasterControl()
@@ -106,6 +137,8 @@ void MainWindow::InitMasterControl()
             this, SLOT(slot_SRobotDiscoverd()));
     connect(m_pMasterControl, SIGNAL(sig_SRobotRemove()),
             this, SLOT(slot_SRobotRemove()));
+    connect(m_pMasterControl, SIGNAL(sig_ReadyTest(ushort)),
+            this, SLOT(slot_ReadyTest(ushort)));
     connect(m_pMasterControl, SIGNAL(sig_StartTest(ushort)),
             this, SLOT(slot_StartTest(ushort)));
     connect(m_pMasterControl, SIGNAL(sig_CompleteTest(ushort)),
@@ -139,6 +172,8 @@ void MainWindow::ConnectClick()
             this, &MainWindow::StartAutoTest);
     connect(ui->pb_StopTest, &QPushButton::clicked,
             this, &MainWindow::StopTest);
+    connect(ui->pb_ResettingTest, &QPushButton::clicked,
+            this, &MainWindow::Resetting);
 
     connect(ui->pb_ShowSwitch, &QPushButton::clicked,
             this, &MainWindow::ShowRecordDataSwitch);
@@ -168,9 +203,15 @@ void MainWindow::EMConfigUI()
 
 void MainWindow::CPLimitUI()
 {
-    CountPowerLimit *p_CountPowerLimit = new CountPowerLimit(m_SelectSequenceNumber);
-    p_CountPowerLimit->SetSequenceNumber(m_SelectSequenceNumber);
-    p_CountPowerLimit->show();
+    if(!m_bInit){
+        QMessageBox::information(NULL, "提示", "  请初始化测试       ", QMessageBox::Yes, QMessageBox::Yes);
+    }
+    else{
+        CountPowerLimit *p_CountPowerLimit = new CountPowerLimit(m_SelectSequenceNumber);
+        p_CountPowerLimit->SetSequenceNumber(m_SelectSequenceNumber);
+        p_CountPowerLimit->show();
+    }
+
 }
 
 void MainWindow::FWDebugUI()
@@ -202,23 +243,112 @@ void MainWindow::DataTableUI()
 
 void MainWindow::InitTest()
 {
+    qDebug()<<"InitTest";
     m_pMasterControl->InitTest();
+    ui->pb_InitTest->setEnabled(false);
+    ui->pb_StartAutoTest->setEnabled(true);
+    ui->pb_StartOneTest->setEnabled(true);
+    ui->pb_StopTest->setEnabled(true);
+    ui->pb_ResettingTest->setEnabled(false);
+
+    m_bInit = true;
+    LogFile::Addlog("初始化测试");
 }
 
 void MainWindow::StartOneTest()
 {
     m_pMasterControl->StartOneTest();
+    ui->pb_InitTest->setEnabled(false);
+    ui->pb_StartAutoTest->setEnabled(false);
+    ui->pb_StartOneTest->setEnabled(true);
+    ui->pb_StopTest->setEnabled(true);
+    ui->pb_ResettingTest->setEnabled(false);
+    SaveTestRecordData();
+    UpdataTestRecordData(m_ShowRecordData);
+    LogFile::Addlog("开始一次测试");
 }
 
 void MainWindow::StartAutoTest()
 {
     m_pMasterControl->StartAutoTest();
+    ui->pb_InitTest->setEnabled(false);
+    ui->pb_StartAutoTest->setEnabled(false);
+    ui->pb_StartOneTest->setEnabled(false);
+    ui->pb_StopTest->setEnabled(true);
+    ui->pb_ResettingTest->setEnabled(false);
+
+    LogFile::Addlog("开始自动测试");
 }
 
 void MainWindow::StopTest()
 {
+    qDebug()<<"StopTest";
     m_pMasterControl->StopTest();
+    ui->pb_InitTest->setEnabled(false);
+    ui->pb_StartAutoTest->setEnabled(false);
+    ui->pb_StartOneTest->setEnabled(false);
+    ui->pb_StopTest->setEnabled(true);
+    ui->pb_ResettingTest->setEnabled(true);
     SaveTestRecordData();
+    UpdataTestRecordData(m_ShowRecordData);
+
+    m_bInit = false;
+
+    LogFile::Addlog("停止测试");
+}
+
+void MainWindow::Resetting()
+{
+    m_pMasterControl->Resetting();
+    ui->pb_InitTest->setEnabled(true);
+    ui->pb_StartAutoTest->setEnabled(false);
+    ui->pb_StartOneTest->setEnabled(false);
+    ui->pb_StopTest->setEnabled(false);
+    ui->pb_ResettingTest->setEnabled(true);
+
+    LogFile::Addlog("重置测试");
+}
+
+void MainWindow::ShowTestState(const ENUM_TESTSTATE &TestState)
+{
+    switch(TestState) {
+    case Ready_Test:{
+        ui->lb_TestState->setStyleSheet("background:rgb(235, 255, 233)");
+        break;
+    }
+    case Run_Test:{
+        ui->lb_TestState->setStyleSheet("background:rgb(252, 233, 79)");
+        break;
+    }
+    case Faile_Test:{
+        ui->lb_TestState->setStyleSheet("background:rgb(204, 0, 0)");
+        break;
+    }
+    case Pass_Test:{
+        ui->lb_TestState->setStyleSheet("background:rgb(115, 210, 22)");
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+void MainWindow::ShowConnectState(QLabel *&p_QLabel,
+                                  const EMUN_CONNECTSTATE &ConnectState)
+{
+    if(ConnectState == CONNECTTOPC){
+        p_QLabel->setStyleSheet("color:rgb(78, 154, 6)");
+        QFont o_QFont;
+        o_QFont.setPointSize(11);
+        o_QFont.setBold(true);
+        p_QLabel->setFont(o_QFont);
+    }
+    else if(ConnectState == DISCONNECTTOPC){
+        p_QLabel->setStyleSheet("color:rgb(46, 52, 54)");
+        QFont o_QFont;
+        o_QFont.setPointSize(9);
+        p_QLabel->setFont(o_QFont);
+    }
 }
 
 void MainWindow::ShowRecordDataSwitch()
@@ -237,95 +367,54 @@ void MainWindow::ShowRecordDataSwitch()
 
 void MainWindow::UpdataTestRecordData(const ENUM_SHOWRECORDDATA &ShowRecordData)
 {
-    int n_TestTotal = 0;
-    int n_RetestTotal = 0;
-    int n_PassTotal = 0;
-    int n_FaileTotal = 0;
-    int n_TestNumber = 0;
+    RECORDDATA CurrentData;
+    RECORDDATA TotalData;
 
-    int n_AllTestTotal = 0;
-    int n_AllRetestTotal = 0;
-    int n_AllPassTotal = 0;
-    int n_AllFaileTotal = 0;
-    int n_AllTestNumber = 0;
+    m_pCountTestData->GetTestTotal(CurrentData.n_TestTotal,
+                                   CurrentData.n_RetestTotal,
+                                   CurrentData.n_PassTotal,
+                                   CurrentData.n_FaileTotal,
+                                   CurrentData.n_TestNumber);
 
-    m_pCountTestData->GetTestTotal(n_TestTotal,
-                                   n_RetestTotal,
-                                   n_PassTotal,
-                                   n_FaileTotal,
-                                   n_TestNumber);
     TestDataFile o_TestDataFile;
-    o_TestDataFile.GetTestRecordData(n_AllTestTotal,
-                                     n_AllRetestTotal,
-                                     n_AllPassTotal,
-                                     n_AllFaileTotal,
-                                     n_AllTestNumber);
+    o_TestDataFile.GetTestTotalRecordData(TotalData);
 
-    n_AllTestTotal += n_TestTotal;
-    n_AllRetestTotal += n_RetestTotal;
-    n_AllPassTotal += n_PassTotal;
-    n_AllFaileTotal += n_FaileTotal;
-    n_AllTestNumber += n_TestNumber;
+    o_TestDataFile.SaveCurrentTestRecordData(CurrentData);
+
+    TotalData.n_TestTotal += CurrentData.n_TestTotal;
+    TotalData.n_RetestTotal += CurrentData.n_RetestTotal;
+    TotalData.n_PassTotal += CurrentData.n_PassTotal;
+    TotalData.n_FaileTotal += CurrentData.n_FaileTotal;
+    TotalData.n_TestNumber += CurrentData.n_TestNumber;
 
     if(ShowRecordData == CURRENT_SHOW){
-        ui->le_TestTotal->setText(QString::number(n_TestTotal));
-        ui->le_RetestTotal->setText(QString::number(n_RetestTotal));
-        ui->le_PassTotal->setText(QString::number(n_PassTotal));
-        ui->le_FaileTotal->setText(QString::number(n_FaileTotal));
-        ui->le_TestNumber->setText(QString::number(n_TestNumber));
+        ui->le_TestTotal->setText(QString::number(CurrentData.n_TestTotal));
+        ui->le_RetestTotal->setText(QString::number(CurrentData.n_RetestTotal));
+        ui->le_PassTotal->setText(QString::number(CurrentData.n_PassTotal));
+        ui->le_FaileTotal->setText(QString::number(CurrentData.n_FaileTotal));
+        ui->le_TestNumber->setText(QString::number(CurrentData.n_TestNumber));
     }
     else if(ShowRecordData == TOTAL_SHOW){
-        ui->le_TestTotal->setText(QString::number(n_AllTestTotal));
-        ui->le_RetestTotal->setText(QString::number(n_AllRetestTotal));
-        ui->le_PassTotal->setText(QString::number(n_AllPassTotal));
-        ui->le_FaileTotal->setText(QString::number(n_AllFaileTotal));
-        ui->le_TestNumber->setText(QString::number(n_AllTestNumber));
+        ui->le_TestTotal->setText(QString::number(TotalData.n_TestTotal));
+        ui->le_RetestTotal->setText(QString::number(TotalData.n_RetestTotal));
+        ui->le_PassTotal->setText(QString::number(TotalData.n_PassTotal));
+        ui->le_FaileTotal->setText(QString::number(TotalData.n_FaileTotal));
+        ui->le_TestNumber->setText(QString::number(TotalData.n_TestNumber));
     }
 }
 
 void MainWindow::SaveTestRecordData()
 {
-    int n_TestTotal = 0;
-    int n_RetestTotal = 0;
-    int n_PassTotal = 0;
-    int n_FaileTotal = 0;
-    int n_TestNumber = 0;
-
-    int n_AllTestTotal = 0;
-    int n_AllRetestTotal = 0;
-    int n_AllPassTotal = 0;
-    int n_AllFaileTotal = 0;
-    int n_AllTestNumber = 0;
-
-    m_pCountTestData->GetTestTotal(n_TestTotal,
-                                   n_RetestTotal,
-                                   n_PassTotal,
-                                   n_FaileTotal,
-                                   n_TestNumber);
     TestDataFile o_TestDataFile;
-    o_TestDataFile.GetTestRecordData(n_AllTestTotal,
-                                     n_AllRetestTotal,
-                                     n_AllPassTotal,
-                                     n_AllFaileTotal,
-                                     n_AllTestNumber);
-
-    n_AllTestTotal += n_TestTotal;
-    n_AllRetestTotal += n_RetestTotal;
-    n_AllPassTotal += n_PassTotal;
-    n_AllFaileTotal += n_FaileTotal;
-    n_AllTestNumber += n_TestNumber;
-
-    o_TestDataFile.SaveTestRecordData(n_AllTestTotal,
-                                      n_AllRetestTotal,
-                                      n_AllPassTotal,
-                                      n_AllFaileTotal,
-                                      n_AllTestNumber);
+    o_TestDataFile.PooledData();
 
     m_pCountTestData->ClearTestTotal();
 }
 
 void MainWindow::UpdataFWSequenceNumber()
 {
+    LogFile::Addlog("Com拔插 FW更新");
+
     for(int i = 0; i < m_listSequenceNumber.count(); i++){
         QAbstractButton *p_QQAbstractButton = m_pQButtonGroup->button(m_listSequenceNumber.at(i));
         m_pQButtonGroup->removeButton(p_QQAbstractButton);
@@ -340,6 +429,11 @@ void MainWindow::UpdataFWSequenceNumber()
     for(int i = 0; i < m_listSequenceNumber.count(); i++){
         QPushButton *p_QPushButton = new QPushButton;
         p_QPushButton->setText("夹具 - " + QString::number(m_listSequenceNumber.at(i)));
+        p_QPushButton->setStyleSheet("QPushButton{background-color:rgb(211, 215, 207); color:black; border-radius:8px; border-style:inset; min-height:40px;}");
+//        p_QPushButton->setStyleSheet("QPushButton{background-color:rgb(85, 170, 255);color: black; border-radius: 8px;  border: 2px groove gray; border-style: inset;}"
+//                                     "QPushButton:hover{background-color:white; color:rgb(42,48,43);}"
+//                                     "QPushButton:pressed{background-color:rgb(85, 170, 255); border-style: inset;}");
+
         ui->gl_Button->addWidget(p_QPushButton,0,i,1,1);
         m_pQButtonGroup->addButton(p_QPushButton, m_listSequenceNumber.at(i));
         m_pResultView->CreatResultView(m_listSequenceNumber.at(i));
@@ -347,6 +441,9 @@ void MainWindow::UpdataFWSequenceNumber()
 
     if(!m_listSequenceNumber.isEmpty()){
         m_pResultView->ShowResultView(m_listSequenceNumber.first());
+        m_SelectSequenceNumber = m_listSequenceNumber.first();
+
+        slot_ButtonClick(m_listSequenceNumber.first());
     }
 }
 
@@ -356,19 +453,43 @@ void MainWindow::UpdataBoxSequenceNumber()
     m_pMasterControl->GetAllBoxSequenceNumber(list_SequenceNumber);
 
     if(list_SequenceNumber.isEmpty()){
+        QString str_Info = "屏蔽箱-1 未连接,屏蔽箱-2 未连接";
+        LogFile::Addlog(str_Info);
+
+        ui->lb_BoxState_1->setText("屏蔽箱-1 未连接");
+        ShowConnectState(ui->lb_BoxState_1, DISCONNECTTOPC);
+
+        ui->lb_BoxState_2->setText("屏蔽箱-2 未连接");
+        ShowConnectState(ui->lb_BoxState_2, DISCONNECTTOPC);
+
         return;
     }
 
-    if(list_SequenceNumber.contains(1))
-        ui->lb_BoxState_1->setText("屏蔽箱-1 连接");
-    else
-        ui->lb_BoxState_1->setText("屏蔽箱-1 未连接");
+    if(list_SequenceNumber.contains(1)){
+        QString str_Info = "屏蔽箱-1 连接";
+        ui->lb_BoxState_1->setText(str_Info);
+        LogFile::Addlog(str_Info);
+        ShowConnectState(ui->lb_BoxState_1, CONNECTTOPC);
+    }
+    else{
+        QString str_Info = "屏蔽箱-1 未连接";
+        ui->lb_BoxState_1->setText(str_Info);
+        LogFile::Addlog(str_Info);
+        ShowConnectState(ui->lb_BoxState_1, DISCONNECTTOPC);
+    }
 
-
-    if(list_SequenceNumber.contains(2))
-        ui->lb_BoxState_2->setText("屏蔽箱-2 连接");
-    else
-        ui->lb_BoxState_2->setText("屏蔽箱-2 未连接");
+    if(list_SequenceNumber.contains(2)){
+        QString str_Info = "屏蔽箱-2 连接";
+        ui->lb_BoxState_2->setText(str_Info);
+        LogFile::Addlog(str_Info);
+        ShowConnectState(ui->lb_BoxState_2, CONNECTTOPC);
+    }
+    else{
+        QString str_Info = "屏蔽箱-2 未连接";
+        ui->lb_BoxState_2->setText(str_Info);
+        LogFile::Addlog(str_Info);
+        ShowConnectState(ui->lb_BoxState_2, DISCONNECTTOPC);
+    }
 }
 
 void MainWindow::slot_FWDiscoverd()
@@ -393,34 +514,63 @@ void MainWindow::slot_BoxRemove()
 
 void MainWindow::slot_CRobotDiscoverd()
 {
-    ui->lb_CatchRobotState->setText("抓取机器手 连接");
+    QString str_Info = "抓取机器手 连接";
+    LogFile::Addlog(str_Info);
+    ui->lb_CatchRobotState->setText(str_Info);
+    ShowConnectState(ui->lb_CatchRobotState, CONNECTTOPC);
 }
 
 void MainWindow::slot_CRobotRemove()
 {
-    ui->lb_CatchRobotState->setText("抓取机器手 未连接");
+    QString str_Info = "抓取机器手 未连接";
+    LogFile::Addlog(str_Info);
+    ui->lb_CatchRobotState->setText(str_Info);
+    ShowConnectState(ui->lb_CatchRobotState, DISCONNECTTOPC);
 }
 
 void MainWindow::slot_SRobotDiscoverd()
 {
-    ui->lb_SupplementRobotState->setText("补料机器手 连接");
+    QString str_Info = "补料机器手 连接";
+    LogFile::Addlog(str_Info);
+    ui->lb_SupplementRobotState->setText(str_Info);
+    ShowConnectState(ui->lb_SupplementRobotState, CONNECTTOPC);
 }
 
 void MainWindow::slot_SRobotRemove()
 {
-    ui->lb_SupplementRobotState->setText("补料机器手 未连接");
+    QString str_Info = "补料机器手 未连接";
+    LogFile::Addlog(str_Info);
+    ui->lb_SupplementRobotState->setText(str_Info);
+    ShowConnectState(ui->lb_SupplementRobotState, DISCONNECTTOPC);
+}
+
+void MainWindow::slot_ReadyTest(ushort us_SequenceNumber)
+{
+    m_pResultView->SetResultViewShow(us_SequenceNumber,
+                                     Ready_Test);
+    ShowTestState(Ready_Test);
+
+    qDebug()<<"slot_ReadyTest"<<us_SequenceNumber;
+
+    LogFile::Addlog("FW-" + QString::number(us_SequenceNumber) + " 准备测试");
 }
 
 void MainWindow::slot_StartTest(ushort us_SequenceNumber)
 {
     m_pResultView->SetResultViewShow(us_SequenceNumber,
                                      Run_Test);
+    ShowTestState(Run_Test);
+
+    qDebug()<<"slot_StartTest"<<us_SequenceNumber;
+
+    LogFile::Addlog("FW-" + QString::number(us_SequenceNumber) + " 通知开始测试");
 }
 
 void MainWindow::slot_CompleteTest(ushort us_SequenceNumber)
 {
     QList<bool> list_SingleResult;
     QList<QString> list_ResultString;
+    bool b_Result;
     m_pCountTestData->GetSingleResultErrorString(us_SequenceNumber,
                                                  list_SingleResult,
                                                  list_ResultString);
@@ -429,12 +579,30 @@ void MainWindow::slot_CompleteTest(ushort us_SequenceNumber)
                                     list_SingleResult,
                                     list_ResultString);
 
+
+    m_pCountTestData->GetResult(us_SequenceNumber,
+                                b_Result);
+
+    if(b_Result)
+        ShowTestState(Pass_Test);
+    else
+        ShowTestState(Faile_Test);
+
     UpdataTestRecordData(m_ShowRecordData);
+
+    LogFile::Addlog("FW-" + QString::number(us_SequenceNumber) + " 通知完成测试");
 }
 
 void MainWindow::slot_ButtonClick(int n_ID)
 {
     qDebug()<<"n_ID"<<n_ID;
+
+    QList<QAbstractButton*> list_Button = m_pQButtonGroup->buttons();
+    for(int i = 0; i < list_Button.count(); i++){
+        list_Button.at(i)->setStyleSheet("QPushButton{background-color:rgb(211, 215, 207); color:black; border-radius:8px; border-style:inset; min-height:40px;}");
+    }
+
+    m_pQButtonGroup->button(n_ID)->setStyleSheet("QPushButton{background-color:rgb(114, 159, 207); color:black; border-radius:8px; border-style:outset; min-height:40px;}");
 
     m_SelectSequenceNumber = (ushort)n_ID;
     m_pResultView->ShowResultView((ushort)n_ID);
@@ -447,8 +615,8 @@ void MainWindow::slot_SaveStatisticalTableLog()
     }
 
     for(int i = 0; i < m_listSequenceNumber.count(); i++){
-        StatisticalTable o_StatisticalTable(m_listSequenceNumber.at(0));
-        o_StatisticalTable.SetSequenceNumber(m_listSequenceNumber.at(0));
+        StatisticalTable o_StatisticalTable(m_listSequenceNumber.at(i));
+        o_StatisticalTable.SetSequenceNumber(m_listSequenceNumber.at(i));
         o_StatisticalTable.SaveTableLog();
     }
 }

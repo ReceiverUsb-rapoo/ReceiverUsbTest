@@ -15,11 +15,11 @@ enum BOX_OPERATOR{
 const QByteArray OpenCmd = "open";
 const QByteArray CloseCmd = "close";
 
-const QByteArray Open_ACK_Ok = "open/ok";
-const QByteArray Close_ACK_OK = "close/ok";
+const QByteArray Open_ACK_Ok = "OK\r\n";
+const QByteArray Close_ACK_OK = "READY\r\n";
 
-const QByteArray Open_ACK_Faile = "open/ng";
-const QByteArray Close_ACK_Faile = "close/ng";
+const QByteArray Open_ACK_Faile = "OPEN/NG\r\n";
+const QByteArray Close_ACK_Faile = "CLOSE/NG\r\n";
 
 
 #endif // BOX_DEFINE_H

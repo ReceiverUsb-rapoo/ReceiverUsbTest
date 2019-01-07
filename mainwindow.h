@@ -25,6 +25,12 @@ enum ENUM_SHOWRECORDDATA{
     TOTAL_SHOW
 };
 
+//外围设备连接状态
+enum EMUN_CONNECTSTATE{
+    CONNECTTOPC,
+    DISCONNECTTOPC
+};
+
 
 namespace Ui {
 class MainWindow;
@@ -75,6 +81,13 @@ private:
     void StartAutoTest();
     //停止测试
     void StopTest();
+    //重置测试
+    void Resetting();
+    //显示测试状态
+    void ShowTestState(const ENUM_TESTSTATE &TestState);
+    //显示连接状态 qlabel
+    void ShowConnectState(QLabel *&p_QLabel,
+                          const EMUN_CONNECTSTATE &ConnectState);
 
 private:
     //显示记录数据类型开关
@@ -109,6 +122,7 @@ public slots:
     void slot_SRobotRemove();
 
 public slots:
+    void slot_ReadyTest(ushort us_SequenceNumber);
     //开始测试通知    
     void slot_StartTest(ushort us_SequenceNumber);
     //完成测试通知
@@ -133,6 +147,11 @@ private:
     QList<ushort> m_listSequenceNumber;     //工作序号列表
     ushort m_SelectSequenceNumber;          //当前选择工作序号
     ENUM_SHOWRECORDDATA m_ShowRecordData;   //记录数据类型
+
+    QTimer *m_pQTimer;                      //定时器 用于表格log保存
+
+    bool m_bInit;
+
 };
 
 #endif // MAINWINDOW_H

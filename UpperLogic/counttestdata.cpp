@@ -38,6 +38,18 @@ void CountTestData::SetRetest(const ushort &us_SequenceNumber,
     m_mapRetest.insert(us_SequenceNumber, b_Retest);
 }
 
+void CountTestData::SetEnumSwitch(const ushort &us_SequenceNumber,
+                                  const bool &b_EnumSwitch)
+{
+    m_mapEnumSwitch.insert(us_SequenceNumber, b_EnumSwitch);
+}
+
+void CountTestData::SetPowerTestSwitch(const ushort &us_SequenceNumber,
+                                       const bool &b_PowerSwitch)
+{
+    m_mapPowerTestSwitch.insert(us_SequenceNumber, b_PowerSwitch);
+}
+
 void CountTestData::SetRFPowerDBLimit(const ushort &us_SequenceNumber,
                                       const QList<int> &list_RFPowerDBUpperLimit,
                                       const QList<int> &list_RFPowerDBLowerLimit)
@@ -61,12 +73,23 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
 {
     m_nTestTotal ++;
 
-    if(map_EnumResult.count() != OneGroupUsbNumber_CountData ||
-            map_OpenDeviceResult.count() != OneGroupUsbNumber_CountData ||
-            map_SendCmdResult.count() != OneGroupUsbNumber_CountData ||
-            list_Power_db.count() != 32){
-        return false;
+    bool b_EnumSwitch = m_mapEnumSwitch.value(us_SequenceNumber);
+    bool b_PowerTestSwitch = m_mapPowerTestSwitch.value(us_SequenceNumber);
+
+    if(b_EnumSwitch){
+        if(map_EnumResult.count()%20 != 0 ||
+                map_OpenDeviceResult.count()%20 != 0 ||
+                map_SendCmdResult.count()%20 != 0){
+            return false;
+        }
     }
+
+    if(b_PowerTestSwitch){
+        if(list_Power_db.count() != 32){
+            return false;
+        }
+    }
+
 
     if(m_mapDUTFWPosition.value(us_SequenceNumber).count() != 32 ||
             m_mapRFPowerDBLowerLimit.value(us_SequenceNumber).count() != 32 ||
@@ -86,20 +109,30 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
     bool b_Result = true;
     QList<bool> list_Result;
 
+    int n_OneSeqenceNumber = 0;
+
     for(int i = 1; i <= OneGroupUsbNumber_CountData; i++){
-        if(map_EnumResult.value(i) == false){
+        n_OneSeqenceNumber = (us_SequenceNumber - 1)*OneGroupUsbNumber_CountData + i;
+
+        if(!b_EnumSwitch){
+            list_ErrorString.append(str_ErrorString);
+            list_Result.append(b_Result);
+            continue;
+        }
+
+        if(map_EnumResult.value(n_OneSeqenceNumber) == false){
             un_EnumError ++;
             str_ErrorString += "枚举异常\n";
             b_Result = false;
         }
 
-        if(map_OpenDeviceResult.value(i) == false){
+        if(map_OpenDeviceResult.value(n_OneSeqenceNumber) == false){
             un_OpenDeviceError ++;
             str_ErrorString += "打开设备异常\n";
             b_Result = false;
         }
 
-        if(map_SendCmdResult.value(i) == false){
+        if(map_SendCmdResult.value(n_OneSeqenceNumber) == false){
             un_SendCmdError ++;
             str_ErrorString += "发送命令异常\n";
             b_Result = false;
@@ -111,14 +144,20 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
         b_Result = true;
     }
 
+    m_mapCurrentResult.insert(us_SequenceNumber, list_Result);
+
     int n_OneRang = 0;
     for(int i = 0; i < 32; i++){
+        if(!b_PowerTestSwitch){
+            continue;
+        }
+
         if(m_mapDUTFWPosition.value(us_SequenceNumber).at(i) == 0){
             continue;
         }
 
-        if(list_Power_db.at(i) <= m_mapRFPowerDBLowerLimit.value(us_SequenceNumber).at(i) ||
-                list_Power_db.at(i) >= m_mapRFPowerDBUpperLimit.value(us_SequenceNumber).at(i)){
+        if((list_Power_db.value(i) <= m_mapRFPowerDBLowerLimit.value(us_SequenceNumber).at(i) ||
+                list_Power_db.value(i) >= m_mapRFPowerDBUpperLimit.value(us_SequenceNumber).at(i))){
             un_PowerTestError ++;
             str_ErrorString = list_ErrorString.at(n_OneRang);
             str_ErrorString += "RF功率异常\n";
@@ -142,7 +181,10 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
     QMap<uint, QMap<ENUM_RESULTTYPE, uint>> map_STTypeError;
 
     if(m_mapErrorAmount.contains(us_SequenceNumber)){
-        if(m_mapErrorAmount.value(us_SequenceNumber).contains(un_SequenceTimes)){
+
+        map_STTypeError = m_mapErrorAmount.value(us_SequenceNumber);
+
+        if(map_STTypeError.contains(un_SequenceTimes)){
             QMap<ENUM_RESULTTYPE, uint> map_TypeError_1;
             map_TypeError_1 = m_mapErrorAmount.value(us_SequenceNumber).value(un_SequenceTimes);
 
@@ -164,9 +206,15 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
     m_mapResultString.insert(us_SequenceNumber, list_ErrorString);
     m_mapResult.insert(us_SequenceNumber, list_Result);
 
+
     QList<QList<bool>> list_GroupResult;
+
     if(m_mapAllResult.contains(us_SequenceNumber)){
         list_GroupResult = m_mapAllResult.value(us_SequenceNumber);
+
+        if(list_GroupResult.count() > 10){
+            list_GroupResult.takeFirst();
+        }
     }
 
     list_GroupResult.append(list_Result);
@@ -191,15 +239,25 @@ bool CountTestData::CountRetestData(const ushort &us_SequenceNumber,
     m_nTestTotal ++;
     m_nRetestTotal ++;
 
-    if(map_EnumResult.count() != OneGroupUsbNumber_CountData ||
-            map_OpenDeviceResult.count() != OneGroupUsbNumber_CountData ||
-            map_SendCmdResult.count() != OneGroupUsbNumber_CountData ||
-            map_LastEnumResult.count() != OneGroupUsbNumber_CountData ||
-            map_LastOpenDeviceResult.count() != OneGroupUsbNumber_CountData ||
-            map_LastSendCmdResult.count() != OneGroupUsbNumber_CountData||
-            list_Power_db.count() != 32 ||
-            list_LastPower_db.count() != 32){
-        return false;
+    bool b_EnumSwitch = m_mapEnumSwitch.value(us_SequenceNumber);
+    bool b_PowerTestSwitch = m_mapPowerTestSwitch.value(us_SequenceNumber);
+
+    if(b_EnumSwitch){
+        if(map_EnumResult.count()%20 != 0 ||
+                map_OpenDeviceResult.count()%20 != 0 ||
+                map_SendCmdResult.count()%20 != 0 ||
+                map_LastEnumResult.count()%20 != 0 ||
+                map_LastOpenDeviceResult.count()%20 != 0 ||
+                map_LastSendCmdResult.count()%20 != 0){
+            return false;
+        }
+    }
+
+    if(b_PowerTestSwitch){
+        if(list_Power_db.count() != 32 ||
+                list_LastPower_db.count() != 32){
+            return false;
+        }
     }
 
     if(m_mapDUTFWPosition.count() != 32 ||
@@ -219,20 +277,30 @@ bool CountTestData::CountRetestData(const ushort &us_SequenceNumber,
     bool b_Result = true;
     QList<bool> list_Result;
 
+    int n_OneSeqenceNumber = 0;
+
     for(int i = 1; i <= OneGroupUsbNumber_CountData; i++){
-        if(map_EnumResult.value(i) == false && map_EnumResult.value(i) == false){
+        n_OneSeqenceNumber = (us_SequenceNumber - 1)*OneGroupUsbNumber_CountData + i;
+
+        if(!b_EnumSwitch){
+            list_ErrorString.append(str_ErrorString);
+            list_Result.append(b_Result);
+            continue;
+        }
+
+        if(map_EnumResult.value(n_OneSeqenceNumber) == false && map_EnumResult.value(n_OneSeqenceNumber) == false){
             un_EnumError ++;
             str_ErrorString += "枚举异常\n";
             b_Result = false;
         }
 
-        if(map_OpenDeviceResult.value(i) == false && map_OpenDeviceResult.value(i) == false){
+        if(map_OpenDeviceResult.value(n_OneSeqenceNumber) == false && map_OpenDeviceResult.value(n_OneSeqenceNumber) == false){
             un_OpenDeviceError ++;
             str_ErrorString += "打开设备异常\n";
             b_Result = false;
         }
 
-        if(map_SendCmdResult.value(i) == false && map_SendCmdResult.value(i) == false){
+        if(map_SendCmdResult.value(n_OneSeqenceNumber) == false && map_SendCmdResult.value(n_OneSeqenceNumber) == false){
             un_SendCmdError ++;
             str_ErrorString += "发送命令异常\n";
             b_Result = false;
@@ -244,8 +312,14 @@ bool CountTestData::CountRetestData(const ushort &us_SequenceNumber,
         b_Result = true;
     }
 
+    m_mapCurrentResult.insert(us_SequenceNumber, list_Result);
+
     int n_OneRang = 0;
     for(int i = 0; i < 32; i++){
+        if(!b_PowerTestSwitch){
+            continue;
+        }
+
         if(m_mapDUTFWPosition.value(us_SequenceNumber).at(i) == 0){
             continue;
         }
@@ -269,7 +343,10 @@ bool CountTestData::CountRetestData(const ushort &us_SequenceNumber,
     QMap<uint, QMap<ENUM_RESULTTYPE, uint>> map_STTypeError;
 
     if(m_mapErrorAmount.contains(us_SequenceNumber)){
-        if(m_mapErrorAmount.value(us_SequenceNumber).contains(un_SequenceTimes)){
+
+        map_STTypeError = m_mapErrorAmount.value(us_SequenceNumber);
+
+        if(map_STTypeError.contains(un_SequenceTimes)){
             QMap<ENUM_RESULTTYPE, uint> map_TypeError_1;
             map_TypeError_1 = m_mapErrorAmount.value(us_SequenceNumber).value(un_SequenceTimes);
 
@@ -294,6 +371,10 @@ bool CountTestData::CountRetestData(const ushort &us_SequenceNumber,
     QList<QList<bool>> list_GroupResult;
     if(m_mapAllResult.contains(us_SequenceNumber)){
         list_GroupResult = m_mapAllResult.value(us_SequenceNumber);
+
+        if(list_GroupResult.count() > 10){
+            list_GroupResult.takeFirst();
+        }
     }
 
     list_GroupResult.append(list_Result);
@@ -390,5 +471,16 @@ bool CountTestData::GetResultData(const ushort &us_SequenceNumber,
         }
     }
 
+    return true;
+}
+
+bool CountTestData::GetCurrentUsbResult(const ushort &us_SequenceNumber,
+                                        QList<bool> &list_SingleResult)
+{
+    if(m_mapCurrentResult.isEmpty()){
+        return false;
+    }
+
+    list_SingleResult = m_mapCurrentResult.value(us_SequenceNumber);
     return true;
 }

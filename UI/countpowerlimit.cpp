@@ -1,6 +1,10 @@
 ﻿#include "countpowerlimit.h"
 #include "ui_countpowerlimit.h"
 #include <QGridLayout>
+#include <QEventLoop>
+#include <QTime>
+#include <QCoreApplication>
+#include <QThread>
 #include <QLabel>
 #include "DataFile/configfile.h"
 
@@ -16,7 +20,7 @@ CountPowerLimit::CountPowerLimit(ushort us_SequenceNumber, QWidget *parent) :
 
     InitCountPowerLimit();
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowTitle("CountPowerLimit");
+    this->setWindowTitle("CountPowerLimit-夹具-" + QString::number(m_usSequenceNumber));
 }
 
 CountPowerLimit::~CountPowerLimit()
@@ -28,6 +32,7 @@ CountPowerLimit::~CountPowerLimit()
 void CountPowerLimit::SetSequenceNumber(const ushort &us_SequenceNumber)
 {
     m_usSequenceNumber = us_SequenceNumber;
+     this->setWindowTitle("CountPowerLimit-夹具-" + QString::number(m_usSequenceNumber));
 }
 
 void CountPowerLimit::InitCountPowerLimit()
@@ -35,6 +40,7 @@ void CountPowerLimit::InitCountPowerLimit()
 
     m_pDeviceObserver = m_oDeviceObserverInstanceGetter.GetInstance();
     m_pDeviceOperator = m_oDeviceOperatorInstanceGetter.GetInstance();
+    m_pCountTestData = m_oCountTestResultInstanceGetter.GetInstance();
 
     QList<Firmware *> list_FWObjectPointer;
     m_pDeviceObserver->GetFWObjectPointer(list_FWObjectPointer);
@@ -95,6 +101,15 @@ void CountPowerLimit::InitCountPowerLimit()
                    <<ui->le_DownLimit_25<<ui->le_DownLimit_26<<ui->le_DownLimit_27
                    <<ui->le_DownLimit_28<<ui->le_DownLimit_29<<ui->le_DownLimit_30
                    <<ui->le_DownLimit_31<<ui->le_DownLimit_32;
+
+    for(int i = 0; i < m_listDowmLimit.count(); i++){
+        m_listDowmLimit.at(i)->setText("-60");
+    }
+
+    for(int i = 0; i < m_listUpperLimit.count(); i++){
+        m_listUpperLimit.at(i)->setText("60");
+    }
+
 
     /*
     QWidget *p_QWidget = new QWidget;
@@ -176,6 +191,8 @@ void CountPowerLimit::InitCountPowerLimit()
             this, &CountPowerLimit::CountAverage);
     connect(ui->pb_CollectComplete, &QPushButton::clicked,
             this, &CountPowerLimit::CollectComplete);
+
+//    m_pDeviceOperator->InitDUTTest(m_usSequenceNumber);
 }
 
 void CountPowerLimit::ExitCountPowerLimit()
@@ -189,6 +206,10 @@ void CountPowerLimit::ExitCountPowerLimit()
 
 void CountPowerLimit::StartCollect()
 {
+//    m_pDeviceOperator->InitDUTTest(m_usSequenceNumber);
+
+//    WorkSleep(500);
+
     m_pDeviceOperator->StartOneTest(m_usSequenceNumber);
 
     for(int i = 0; i < 32; i++){
@@ -212,9 +233,15 @@ void CountPowerLimit::CountAverageData()
     int n_CountVaule = 0;
     for(int i = 0; i < 32; i++){
 
+        if(m_listCollectVaule.at(i)->text().toInt() == 0){
+            continue;
+        }
+
         if(m_listAverageVaule.at(i)->text().toInt() == 0){
             m_listAverageVaule.at(i)->setText(QString::number(m_listCollectVaule.at(i)->text().toInt()));
+            continue;
         }
+
 
         n_CountVaule = (m_listAverageVaule.at(i)->text().toInt() +
                         m_listCollectVaule.at(i)->text().toInt())/2;
@@ -245,7 +272,7 @@ void CountPowerLimit::CollectCompleteData()
 
     for(int i = 0; i < 32; i++){
         n_CountVaule = m_listAverageVaule.at(i)->text().toInt() +
-                        m_listUpperLimit.at(i)->text().toInt();
+                        m_listDowmLimit.at(i)->text().toInt();
 
         list_DownLimit.append(n_CountVaule);
     }
@@ -285,6 +312,27 @@ void CountPowerLimit::CompleteTest()
 
     for(int i = 0; i < 32; i++){
         m_listCollectVaule.at(i)->setText(QString::number(list_Power_db.at(i)));
+    }
+
+    QList<bool> list_CurrentUsbResult;
+
+    m_pCountTestData->GetCurrentUsbResult(m_usSequenceNumber,
+                                          list_CurrentUsbResult);
+
+
+    for(int i = 0; i < list_CurrentUsbResult.count(); i++){
+        if(!list_CurrentUsbResult.at(i)){
+            m_listCollectVaule.at(i)->setText("0");
+        }
+    }
+}
+
+void CountPowerLimit::WorkSleep(uint un_Msec)
+{
+    QTime o_DieTime = QTime::currentTime().addMSecs(un_Msec);
+    while(QTime::currentTime() < o_DieTime ){
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        QThread::msleep(10);
     }
 }
 

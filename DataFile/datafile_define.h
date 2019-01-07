@@ -16,7 +16,8 @@ const QString LogFileName = "_Log.txt";
 const QString UsbControlFileName = "_UsbControl.xml";
 const QString EquitmentFileName = "Equitment.xml";
 const QString TableDataFileName = "_TableData.csv";
-const QString TestRecordDataFileName = "TestRecordData.xml";
+const QString TestTotalRecordDataFileName = "TestTotalRecordData.xml";
+const QString CurrentTestRecordDataFileName = "CurrentTestRecordDataFileName.xml";
 
 const int OneGroupUsbNumber_DataFile = 20;
 

@@ -54,6 +54,7 @@ private:
     uint m_unCurrentRow;    //当前行数
 
     ushort m_usSequenceNumber;  //当前工作序号
+    QStringList m_strlistVHeaderLabels;
 };
 
 #endif // STATISTICALTABLE_H

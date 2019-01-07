@@ -110,6 +110,8 @@ private:
                       QByteArray &byte_Data,
                       uint &un_DataLength);
 
+    bool TntervalTimeReceive(ENUM_FIRMWARECOMMAND FWCommad);
+
 private:
     //pc ack send to fw
     //pc-ack boot回复
@@ -293,6 +295,8 @@ private:
     QTimer *m_pShortQTimer;
 
     QThread *m_pQThread;
+
+    QMap<ENUM_FIRMWARECOMMAND, QString> m_mapFWCommand_Interval;    //接收时间 map <cmd,上次接收时间>
 
     QMap<ENUM_PCCOMMAND, QTime> m_mapPCCommand_ShortTimeOut;    //短超时cmd map <cmd,时间>
     QMap<ENUM_PCCOMMAND, QTime> m_mapPCCommand_LongTimeOut;     //长超时cmd map <cmd,时间>

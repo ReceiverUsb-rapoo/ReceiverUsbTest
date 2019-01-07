@@ -17,7 +17,10 @@ TcpSocket::TcpSocket(qintptr p_SocketDescriptor, QObject *parent) :
 
     m_Dis = connect(this,&TcpSocket::disconnected,
                   [&](){
-        qDebug() << "disconnect" ;       
+        qDebug() << "disconnect"
+                 <<m_SocketID
+                 <<this->peerAddress().toString()
+                 <<this->peerPort();
         //发送断开连接的用户信息
         emit sig_SockDisConnect(m_SocketID,
                                 this->peerAddress().toString(),
@@ -31,7 +34,7 @@ TcpSocket::TcpSocket(qintptr p_SocketDescriptor, QObject *parent) :
     connect(&m_FutureWatcher,&QFutureWatcher<QByteArray>::canceled,
             this,&TcpSocket::slot_StartNext);
 
-    qDebug() << "new connect"<<(this->peerAddress().toString());
+//    qDebug() << "new connect"<<(this->peerAddress().toString());
 }
 
 TcpSocket::~TcpSocket()

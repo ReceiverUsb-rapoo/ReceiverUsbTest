@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QStringList>
 #include <QtDebug>
+#include <QtAlgorithms>
 
 bool ConfigFile::SavePCTestConfig(const ushort &us_SequenceNumber,
                                   STRUCT_PCTESTCONFIG &struct_PCTestConfig)
@@ -262,7 +263,7 @@ bool ConfigFile::SaveUsbControlConfig(const ushort &us_SequenceNumber,
                        struct_UsbControlConfig.map_StationPort,
                        str_StationPort);
 
-    o_QXmlStreamWriter.writeTextElement("str_StationPort",str_StationPort);
+    o_QXmlStreamWriter.writeTextElement("str_StationPort", str_StationPort);
 
     o_QXmlStreamWriter.writeEndElement();
     o_QXmlStreamWriter.writeEndDocument();
@@ -569,8 +570,11 @@ bool ConfigFile::TransformToQString(const QMap<int, int> &map_SequenceData,
                                     QString &str_Data)
 {
     QStringList strlist_Data;
-    for(int i = 1; i <= map_SequenceData.count(); i++){
-        strlist_Data.append(QString::number(map_SequenceData.value(i)));
+    QList<int> list_Key = map_SequenceData.keys();
+    qSort(list_Key.begin(), list_Key.end());
+
+    for(int i = 0; i < list_Key.count(); i++){
+        strlist_Data.append(QString::number(map_SequenceData.value(list_Key.at(i))));
     }
 
     str_Data = strlist_Data.join(',');
@@ -593,8 +597,8 @@ bool ConfigFile::TransformToQString(const ushort &us_SequenceNumber,
         return false;
     }
 
-    for(int i = 1; i <= n_Number; i++){
-        n_OneData = map_SequenceData.value(i + n_UpperSequence);
+    for(int i = 0; i < n_Number; i++){
+        n_OneData = map_SequenceData.value(i + n_UpperSequence + 1);
         strlist_Data.append(QString::number(n_OneData));
 
         /*
@@ -625,9 +629,9 @@ bool ConfigFile::TransformToMap(const ushort &us_SequenceNumber,
         return false;
     }
 
-    for(int i = 1; i <= strlist_Data.count(); i++){
-        str_OneData = strlist_Data.at(i + n_UpperSequence - 1);
-        map_SequenceData.insert(i, str_OneData.toInt());
+    for(int i = 0; i < strlist_Data.count(); i++){
+        str_OneData = strlist_Data.at(i);
+        map_SequenceData.insert(i + n_UpperSequence + 1, str_OneData.toInt());
     }
 
     return true;

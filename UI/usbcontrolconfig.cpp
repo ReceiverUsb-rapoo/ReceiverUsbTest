@@ -12,7 +12,7 @@ UsbControlConfig::UsbControlConfig(ushort us_SequenceNumber, QWidget *parent) :
     m_usSequenceNumber = us_SequenceNumber;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowTitle("UsbControlConfig");
+    this->setWindowTitle("UsbControlConfig-夹具-" + QString::number(m_usSequenceNumber));
 
     InitUsbControlConfig();
 }
@@ -29,6 +29,7 @@ UsbControlConfig::~UsbControlConfig()
 void UsbControlConfig::SetSequenceNumber(const ushort &us_SequenceNumber)
 {
     m_usSequenceNumber = us_SequenceNumber;
+    this->setWindowTitle("UsbControlConfig-夹具-" + QString::number(m_usSequenceNumber));
 }
 
 void UsbControlConfig::SaveCofig()
@@ -95,7 +96,8 @@ void UsbControlConfig::SaveData()
     o_ConfigFile.TransformToQString(list_EnumPositionPort,
                                     str_EnumPositionPort);
 
-    o_ConfigFile.TransformToMap(str_EnumPositionPort,
+    o_ConfigFile.TransformToMap(m_usSequenceNumber,
+                                str_EnumPositionPort,
                                 struct_UsbControlConfig.map_StationPort);
 
     struct_UsbControlConfig.un_Pid = ui->le_PID->text().toUInt(NULL,16);

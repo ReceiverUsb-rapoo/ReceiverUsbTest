@@ -29,6 +29,13 @@ public:
     //设置重测开关
     void SetRetest(const ushort &us_SequenceNumber,
                    const bool &b_Retest);
+    //设置枚举测试开关
+    void SetEnumSwitch(const ushort &us_SequenceNumber,
+                       const bool &b_EnumSwitch);
+    //设置功率测试开关
+    void SetPowerTestSwitch(const ushort &us_SequenceNumber,
+                            const bool &b_PowerSwitch);
+
     //设置RF功率 db上下限
     void SetRFPowerDBLimit(const ushort &us_SequenceNumber,
                            const QList<int> &list_RFPowerDBUpperLimit,
@@ -70,6 +77,10 @@ public:
     //获取结果 特指分料数据 
     bool GetResultData(const ushort &us_SequenceNumber,
                        QString &str_Result);
+    //获取当前测试usb结果
+    bool GetCurrentUsbResult(const ushort &us_SequenceNumber,
+                             QList<bool> &list_SingleResult);
+
 signals:
     //测试结果更新
     void sig_ResultUpdata();
@@ -86,6 +97,10 @@ private:
     QMap<ushort,QList<QList<bool>>> m_mapAllResult; //测试所有结果 <工作序号，list<list<测试结果>>>  list按顺序排列
 
     QMap<ushort,bool> m_mapRetest;  //重测开关 <工作序号，重测开关>
+    QMap<ushort,bool> m_mapEnumSwitch;
+    QMap<ushort,bool> m_mapPowerTestSwitch;
+
+    QMap<ushort,QList<bool>> m_mapCurrentResult;
 
     int m_nTestTotal;   //测试总次
     int m_nRetestTotal; //重测次数

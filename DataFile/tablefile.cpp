@@ -78,9 +78,11 @@ bool TableFile::SaveTableData(const ushort &us_SequenceNumber,
                               QTableWidget *p_QTableWidget)
 {
     QFile o_QFile(str_FilePath);
-    if(!o_QFile.open(QIODevice::WriteOnly)){
+    if(!o_QFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)){
         return false;
     }
+
+    o_QFile.write(QString().toUtf8());
 
     QDateTime o_QDateTime = QDateTime::currentDateTime();
     QString str_TimeInfo = "时间," + QString("%1:%2:%3\r\n").

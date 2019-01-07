@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-//    qRegisterMetaType<STRUCT_PCCOMMANDDATA>("STRUCT_PCCOMMANDDATA");
+    qRegisterMetaType<STRUCT_TCPDATA>("STRUCT_TCPDATA");
 //    qRegisterMetaType<STRUCT_COMINFO>("STRUCT_COMINFO");
 //    qRegisterMetaType<STRUCT_FWINFO>("STRUCT_FWINFO");
 //    qRegisterMetaType<STRUCT_HANDBAG>("STRUCT_HANDBAG");

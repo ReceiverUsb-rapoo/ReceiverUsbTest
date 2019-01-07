@@ -12,7 +12,7 @@ FirewareDebug::FirewareDebug(ushort us_SequenceNumber, QWidget *parent) :
     m_bAllDeviceEnum = false;
 
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setWindowTitle("FirewareDebug");
+    this->setWindowTitle("FirewareDebug-夹具-" + QString::number(m_usSequenceNumber));
 
     InitFirewareDebug();
 }
@@ -26,6 +26,7 @@ FirewareDebug::~FirewareDebug()
 void FirewareDebug::SetSequenceNumber(ushort us_SequenceNumber)
 {
     m_usSequenceNumber = us_SequenceNumber;
+    this->setWindowTitle("FirewareDebug-夹具-" + QString::number(m_usSequenceNumber));
 }
 
 void FirewareDebug::InitFirewareDebug()
@@ -168,10 +169,10 @@ void FirewareDebug::ShowInfo(QString str_Info)
 {
     QDateTime o_QDateTime = QDateTime::currentDateTime();
     QString str_InfoAddTime = QString("%1:%2:%3 %4\n").
-            arg(o_QDateTime.time().hour()).
-            arg(o_QDateTime.time().minute()).
-            arg(o_QDateTime.time().second()).
-            arg(str_Info);
+                              arg(o_QDateTime.time().hour()).
+                              arg(o_QDateTime.time().minute()).
+                              arg(o_QDateTime.time().second()).
+                              arg(str_Info);
 
     ui->tb_InfoShow->append(str_InfoAddTime);
 }
@@ -216,6 +217,7 @@ bool FirewareDebug::StartUsbSendTest(const QMap<int, int> &map_StationPort)
 
 bool FirewareDebug::ExitUsbEnumAndSendTest()
 {
+    qDebug()<<"ExitUsbEnumAndSendTest";
     bool b_Ret1 = m_pDeviceObserver->RemoveUsbControlObjectPoint();
     bool b_Ret2 = m_pDeviceOperator->ExitUsbTest();
     bool b_Ret3 = m_pDeviceOperator->DeleteUsbControlObject();
@@ -268,11 +270,12 @@ bool FirewareDebug::GetOneGroupStationPort(const ENUM_POWERONGROUP &GroupStation
 {
     int n_Total = 0;
     if(GroupStation == FIRSTGROUP){
-        n_Total = 0;
+        n_Total = 0 + (m_usSequenceNumber-1)*20;
     }
     else{
-        n_Total = 10;
+        n_Total = 10 + (m_usSequenceNumber-1)*20;
     }
+
 
     for(int i = 1 + n_Total; i <= 10 + n_Total; i++){
         if(m_structUsbControlConfig.map_StationPort.contains(i)){
@@ -355,7 +358,7 @@ void FirewareDebug::TestEnum_1()
     m_pDeviceObserver->ClearEnumResult();
     m_pDeviceOperator->TestEnum(m_usSequenceNumber,
                                 FIRSTGROUP,
-                                m_structUsbControlConfig.n_Time);
+                                m_structUsbControlConfig.n_Time + 2000);
     m_bAllDeviceEnum = true;
     QMap<int,int> map_StationPort;
     GetOneGroupStationPort(FIRSTGROUP, map_StationPort);
@@ -367,6 +370,10 @@ void FirewareDebug::TestEnum_1()
                      10,
                      m_structUsbControlConfig.n_Time,
                      map_StationPort);
+
+    ui->pb_TestEnum_1->setEnabled(false);
+    ui->pb_TestEnum_2->setEnabled(false);
+    ui->pb_TestWholeDUT->setEnabled(false);
 }
 
 void FirewareDebug::TestEnum_2()
@@ -374,7 +381,7 @@ void FirewareDebug::TestEnum_2()
     m_pDeviceObserver->ClearEnumResult();
     m_pDeviceOperator->TestEnum(m_usSequenceNumber,
                                 SECONDGROUP,
-                                m_structUsbControlConfig.n_Time);
+                                m_structUsbControlConfig.n_Time + 2000);
     m_bAllDeviceEnum = true;
 
     QMap<int,int> map_StationPort;
@@ -387,6 +394,10 @@ void FirewareDebug::TestEnum_2()
                      10,
                      m_structUsbControlConfig.n_Time,
                      map_StationPort);
+
+    ui->pb_TestEnum_1->setEnabled(false);
+    ui->pb_TestEnum_2->setEnabled(false);
+    ui->pb_TestWholeDUT->setEnabled(false);
 }
 
 void FirewareDebug::TestSendPower()
@@ -402,11 +413,12 @@ void FirewareDebug::TestSendPower()
 void FirewareDebug::TestWholeDUT()
 {
     InitUsbEnumAndSendTest();
-//    m_pDeviceOperator->InitDUTTest(m_usSequenceNumber);
-//    WorkSleep(500);
-//    m_pDeviceOperator->StartOneTest(m_usSequenceNumber);
     m_pDeviceOperator->StartWholeDUTTest(m_usSequenceNumber);
     m_bAllDeviceEnum = false;
+
+    ui->pb_TestEnum_1->setEnabled(false);
+    ui->pb_TestEnum_2->setEnabled(false);
+    ui->pb_TestWholeDUT->setEnabled(false);
 }
 
 void FirewareDebug::ClearInfoShow()
@@ -554,7 +566,7 @@ void FirewareDebug::GetStartTestNoticeData()
     str_Info += "每组数量 " + QString::number((uchar)c_AmoutOfAGroup) + "\n";
 
     for(int i = 0; i < list_UsefulDUT.count(); i++){
-        str_Info += "有效DUT" + AutoCoverDouble(i) + "  " +
+        str_Info += "有效DUT" + AutoCoverDouble(i+1) + "  " +
                 QString::number((uchar)list_UsefulDUT.at(i)) + "\n";
     }
 
@@ -637,9 +649,25 @@ void FirewareDebug::GetUploadRFPowerResultData()
                                                   m_usSequenceNumber,
                                                   list_Power_db);
 
+    QString str_Power_db = "";
     for(int i = 0; i < list_Power_db.count(); i++){
-        str_Info += "已校准检测功率db" + AutoCoverDouble(i) + "  " +
-                QString::number(list_Power_db.at(i)) + " db\n";
+        str_Power_db = QString::number(list_Power_db.at(i));
+
+        if(str_Power_db.length() > 1){
+            str_Power_db = str_Power_db.insert(str_Power_db.length() - 1, QString("."));
+        }
+        else if(str_Power_db.length() == 1){
+            str_Power_db += ".0";
+        }
+        else{
+            str_Power_db = "0.0";
+        }
+
+        str_Info += "已校准检测功率db" +
+                    AutoCoverDouble(i+1) +
+                    "  " +
+                    str_Power_db +
+                    " db\n";
     }
 
     ShowInfo(str_Info);
@@ -655,7 +683,7 @@ void FirewareDebug::GetCompleteTestData()
                                            list_UsefulResult);
 
     for(int i = 0; i < list_UsefulResult.count(); i++){
-        str_Info += "有效结果DUT" + AutoCoverDouble(i) + "  " +
+        str_Info += "有效结果DUT" + AutoCoverDouble(i + 1) + "  " +
                 QString::number((uchar)list_UsefulResult.at(i)) + "\n";
     }
 
@@ -670,6 +698,10 @@ void FirewareDebug::slot_EnumUsbComplete()
     }
     else{
         m_pDeviceOperator->CompleteEnumTest(m_usSequenceNumber);
+
+//        ui->pb_TestEnum_1->setEnabled(true);
+//        ui->pb_TestEnum_2->setEnabled(true);
+//        ui->pb_TestWholeDUT->setEnabled(true);
     }
 }
 
@@ -679,6 +711,10 @@ void FirewareDebug::slot_SendPowerTestComplete()
         ExitUsbEnumAndSendTest();
         GetSendPowerTestCompleteData();
         m_bAllDeviceEnum = false;
+
+        ui->pb_TestEnum_1->setEnabled(true);
+        ui->pb_TestEnum_2->setEnabled(true);
+        ui->pb_TestWholeDUT->setEnabled(true);
     }
     else{
         m_pDeviceOperator->ExitSendPowerTest();
@@ -775,4 +811,8 @@ void FirewareDebug::slot_CompleteTest(ushort us_SequenceNumber)
 
 //    WorkSleep(50);
     ExitUsbEnumAndSendTest();
+
+    ui->pb_TestEnum_1->setEnabled(true);
+    ui->pb_TestEnum_2->setEnabled(true);
+    ui->pb_TestWholeDUT->setEnabled(true);
 }

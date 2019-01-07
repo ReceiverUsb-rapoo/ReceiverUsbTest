@@ -12,6 +12,8 @@ DeviceOperator::DeviceOperator(QObject *parent)
 
 DeviceOperator::~DeviceOperator()
 {
+    qDebug()<<"~DeviceOperator";
+
     if(m_pUsbControl != NULL){
         delete m_pUsbControl;
         m_pUsbControl = NULL;
@@ -101,6 +103,10 @@ bool DeviceOperator::SetEnumTestUsbConfig(const uint &un_Pid,
                                           const int &n_Time,
                                           const QMap<int, int> &map_StationPort)
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->SetEnumTestUsbConfig(un_Pid,
                                                un_Vid,
                                                n_DeviceNumber,
@@ -110,31 +116,55 @@ bool DeviceOperator::SetEnumTestUsbConfig(const uint &un_Pid,
 
 bool DeviceOperator::SetPowerTestConfig(const QMap<int, int> &map_StationPort)
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->SetPowerTestConfig(map_StationPort);
 }
 
 bool DeviceOperator::StartUsbEnumTest()
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->StartUsbEnumTest();
 }
 
 bool DeviceOperator::StartSendPowerTest()
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->StartPowerTest();
 }
 
 bool DeviceOperator::ExitUsbEnumTest()
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->ExitEnumUsbTest();
 }
 
 bool DeviceOperator::ExitSendPowerTest()
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->ExitPowerTest();
 }
 
 bool DeviceOperator::ExitUsbTest()
 {
+    if(m_pUsbControl == NULL){
+        return false;
+    }
+
     return m_pUsbControl->ExitUsbControl();
 }
 
@@ -163,7 +193,7 @@ bool DeviceOperator::CloseBox(const ushort &us_SequenceNumber)
 bool DeviceOperator::SendCatchRobotAction(const ushort &us_FWStation,
                                           const QString &str_RobotAction)
 {
-    if(m_pUsbControl == NULL){
+    if(m_pCatchRobot == NULL){
         return false;
     }
 

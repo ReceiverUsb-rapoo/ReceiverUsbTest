@@ -43,6 +43,10 @@ bool TcpServer::StartListen(quint16 us_Port, const QString &str_HostIP)
         return listen(QHostAddress::AnyIPv4, us_Port);
     }
 
+    qDebug()<<"StartListen str_HostIP"<<str_HostIP;
+    qDebug()<<"StartListen us_Port"<<us_Port;
+
+
     return listen(QHostAddress(str_HostIP), us_Port);
 }
 
