@@ -1,6 +1,6 @@
 #ifndef BOX_DEFINE_H
 #define BOX_DEFINE_H
-#include  <QString>
+#include <QObject>
 
 //箱子动作集和
 enum BOX_OPERATOR{

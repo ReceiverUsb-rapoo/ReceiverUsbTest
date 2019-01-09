@@ -1,8 +1,8 @@
 #ifndef RESULTLABEL_H
 #define RESULTLABEL_H
 
-#include "QLabel"
-#include "QObject"
+#include <QLabel>
+#include <QObject>
 #include "ui_define.h"
 
 /*

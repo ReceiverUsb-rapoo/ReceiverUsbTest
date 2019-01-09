@@ -55,6 +55,8 @@ private:
     void ConnectClick();
 
 private:
+
+    void ExitProgram();
     //usb配置
     void USBConfig();
     //固件配置 UI
@@ -88,6 +90,7 @@ private:
     //显示连接状态 qlabel
     void ShowConnectState(QLabel *&p_QLabel,
                           const EMUN_CONNECTSTATE &ConnectState);
+    void ShowImportantMenu(const bool &b_Show);
 
 private:
     //显示记录数据类型开关
@@ -142,6 +145,8 @@ private:
     ResultView *m_pResultView;
     CountTestData *m_pCountTestData;
 
+    QThread *m_pQThread;
+
     QButtonGroup *m_pQButtonGroup;
 
     QList<ushort> m_listSequenceNumber;     //工作序号列表
@@ -151,7 +156,6 @@ private:
     QTimer *m_pQTimer;                      //定时器 用于表格log保存
 
     bool m_bInit;
-
 };
 
 #endif // MAINWINDOW_H

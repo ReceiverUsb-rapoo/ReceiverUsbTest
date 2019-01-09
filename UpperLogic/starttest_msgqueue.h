@@ -16,6 +16,8 @@ public:
     explicit StartTest_MsgQueue(QObject *parent = 0);
     ~StartTest_MsgQueue();
 
+//    bool SetFunPoint(const bool &(*p_Fun)());
+
     //工作序号-DUT测试，推入列表后端
     void PushBack(const ushort &us_SequenceNumber);
     //工作序号-DUT测试，推入列表前端
@@ -45,7 +47,9 @@ private:
     QTimer *m_pQTimer;
 
     QQueue<ushort> m_Queue;     //消息队列
-    bool m_bTesting;            //测试任务状态z
+    bool m_bTesting;            //测试任务状态
+
+//    bool (*m_pFun)();
 };
 
 #endif // STARTTEST_MSGQUEUE_H

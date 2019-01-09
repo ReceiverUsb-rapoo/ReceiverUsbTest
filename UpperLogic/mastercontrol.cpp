@@ -529,6 +529,9 @@ bool MasterControl::OpenBox(const ushort &us_SequenceNumber)
     if(m_bBoxSwitchClose)
         return false;
 
+    //
+    WaitCatchRobotLeave();
+
     LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 打开箱子"));
 
     return m_pDeviceOperator->OpenBox(us_SequenceNumber);
@@ -538,6 +541,9 @@ bool MasterControl::CloseBox(const ushort &us_SequenceNumber)
 {
     if(m_bBoxSwitchClose)
         return false;
+
+    //
+    WaitCatchRobotLeave();
 
     LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 关闭箱子"));
 
@@ -568,7 +574,7 @@ bool MasterControl::SendSupplementRobotData(const ushort &us_FWStation,
 
 void MasterControl::WaitUsbEnumTestFinish()
 {
-    QTime o_DieTime = QTime::currentTime().addMSecs(7000);
+    QTime o_DieTime = QTime::currentTime().addMSecs(10000);
     while(QTime::currentTime() < o_DieTime){
         if(m_bEnumTestNoWorkState)
             break;
@@ -582,7 +588,7 @@ void MasterControl::WaitUsbEnumTestFinish()
 
 void MasterControl::WaitUsbPowerTestFinish()
 {
-    QTime o_DieTime = QTime::currentTime().addMSecs(2000);
+    QTime o_DieTime = QTime::currentTime().addMSecs(3000);
     while(QTime::currentTime() < o_DieTime){
         if(m_bPowerTestNoWorkState)
             break;
@@ -592,6 +598,20 @@ void MasterControl::WaitUsbPowerTestFinish()
     }
 
     m_bEnumTestNoWorkState = true;
+}
+
+void MasterControl::WaitCatchRobotLeave()
+{
+    QTime o_DieTime = QTime::currentTime().addMSecs(10000);
+    while(QTime::currentTime() < o_DieTime){
+        if(!m_bCatchWorking)
+            break;
+
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        QThread::msleep(10);
+    }
+
+    m_bCatchWorking = false;
 }
 
 void MasterControl::WorkSleep(uint un_Msec)
@@ -702,6 +722,12 @@ void MasterControl::slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber)
     else if(str_Action == CatchRobot_Get_OK){
         SendCatchRobotAction(us_SequenceNumber, CatchRobot_Put);
     }
+    else if(str_Action == CatchRobot_Working){
+        m_bCatchWorking = true;
+    }
+    else if(str_Action == CatchRobot_Leaving){
+        m_bCatchWorking = false;
+    }
 }
 
 void MasterControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumber)
@@ -793,7 +819,6 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     QList<short> list_Power_db;
     bool b_Result;
     bool b_RetestSwitch = m_mapRetestSwitch.value(us_SequenceNumber);
-    m_oStartTest_MsgQueue.CompleteOneTest();
 
     qDebug()<<"slot_CompleteTest\n\n\n\n\n";
 
@@ -838,7 +863,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
             else{
                 if(m_bBoxSwitchClose){
                     if(m_bAutoTest){
-                        WorkSleep(5000);
+                        WorkSleep(AutoTime_NoEquitment);
 
                         if(m_bTest){
                             emit sig_ReadyTest(us_SequenceNumber);
@@ -846,7 +871,6 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
 
     //                        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
                         }
-
                     }
                 }
                 else{
@@ -884,7 +908,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
 
             if(m_bBoxSwitchClose){
                 if(m_bAutoTest){
-                    WorkSleep(5000);
+                    WorkSleep(AutoTime_NoEquitment);
 
                     if(m_bTest){
                         emit sig_ReadyTest(us_SequenceNumber);
@@ -912,7 +936,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
 
         if(m_bBoxSwitchClose){
             if(m_bAutoTest){
-                WorkSleep(5000);
+                WorkSleep(AutoTime_NoEquitment);
 
                 if(m_bTest){
                     emit sig_ReadyTest(us_SequenceNumber);
@@ -926,5 +950,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
             OpenBox(us_SequenceNumber);
         }
     }
+
+    m_oStartTest_MsgQueue.CompleteOneTest();
 }
 

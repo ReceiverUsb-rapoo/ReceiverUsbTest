@@ -26,13 +26,17 @@ public:
 
 public:
     //转换数据类型 QString to QList<int>
-    bool TransformToList(const QString &str_Data, QList<int> &list_Data);
+    bool TransformToList(const QString &str_Data,
+                         QList<int> &list_Data);
     //转换数据类型 QList<int> to QString
-    bool TransformToQString(const QList<int> &list_Data, QString &str_Data);
+    bool TransformToQString(const QList<int> &list_Data,
+                            QString &str_Data);
     //转换数据类型 QString to QList<QString>
-    void TransformToList(const QString &str_Data, QList<QString> &list_Data);
+    void TransformToList(const QString &str_Data,
+                         QList<QString> &list_Data);
     //转换数据类型 QList<QString> to QString
-    bool TransformToQString(const QList<QString> &list_Data, QString &str_Data);
+    bool TransformToQString(const QList<QString> &list_Data,
+                            QString &str_Data);
     //转换数据类型 QString to Qmap<int,int>
     bool TransformToMap(const QString &str_Data,
                         QMap<int,int> &map_SequenceData);

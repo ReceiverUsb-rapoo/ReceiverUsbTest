@@ -1,8 +1,10 @@
-#ifndef POWERTESTINSTANCEGETTER_H
+ #ifndef POWERTESTINSTANCEGETTER_H
 #define POWERTESTINSTANCEGETTER_H
 #include "powertest.h"
-
+#include <QMutex>
 //功率测试类管理类，主要用于并发 单例类处理 
+
+static QMutex m_oQMutex;
 
 class PowerTestInstanceGetter
 {

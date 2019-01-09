@@ -9,6 +9,8 @@ const QString CatchRobot_Put = "A";         //control   放
 const QString CatchRobot_Put_Ok = "B";      //robot     放OK
 const QString CatchRobot_Get = "C";         //control   取
 const QString CatchRobot_Get_OK = "D";      //robot     取ok
+const QString CatchRobot_Working = "W";
+const QString CatchRobot_Leaving = "L";
 
 const QString SupplementRobot_Request = "R";    //请求 结果
 

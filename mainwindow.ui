@@ -479,27 +479,27 @@
     <property name="title">
      <string>文件 </string>
     </property>
-    <addaction name="action"/>
+    <addaction name="a_OpenFile"/>
     <addaction name="separator"/>
-    <addaction name="action_5"/>
+    <addaction name="a_SaveFile"/>
     <addaction name="separator"/>
-    <addaction name="action_6"/>
+    <addaction name="a_Exit"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_5">
     <property name="title">
      <string>帮助</string>
     </property>
-    <addaction name="action_3"/>
+    <addaction name="a_UserFile"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menu_6">
     <property name="title">
      <string>用户</string>
     </property>
-    <addaction name="action_2"/>
+    <addaction name="a_AddUser"/>
     <addaction name="separator"/>
-    <addaction name="action_12"/>
+    <addaction name="a_DeleteUser"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menu_4"/>
@@ -600,7 +600,7 @@
     </font>
    </property>
   </action>
-  <action name="action">
+  <action name="a_OpenFile">
    <property name="text">
     <string>打开文件</string>
    </property>
@@ -610,7 +610,7 @@
     </font>
    </property>
   </action>
-  <action name="action_2">
+  <action name="a_AddUser">
    <property name="text">
     <string>添加用户</string>
    </property>
@@ -620,7 +620,7 @@
     </font>
    </property>
   </action>
-  <action name="action_3">
+  <action name="a_UserFile">
    <property name="text">
     <string>用户手册</string>
    </property>
@@ -630,7 +630,7 @@
     </font>
    </property>
   </action>
-  <action name="action_5">
+  <action name="a_SaveFile">
    <property name="text">
     <string>保存文件</string>
    </property>
@@ -640,7 +640,7 @@
     </font>
    </property>
   </action>
-  <action name="action_6">
+  <action name="a_Exit">
    <property name="text">
     <string>退出</string>
    </property>
@@ -650,12 +650,12 @@
     </font>
    </property>
   </action>
-  <action name="action_7">
+  <action name="a_Nothing">
    <property name="text">
     <string>无</string>
    </property>
   </action>
-  <action name="action_12">
+  <action name="a_DeleteUser">
    <property name="text">
     <string>删除用户</string>
    </property>

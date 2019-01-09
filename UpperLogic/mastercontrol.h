@@ -7,6 +7,8 @@
 #include "DataFile/configfile.h"
 #include "starttest_msgqueue.h"
 
+const uint AutoTime_NoEquitment = 2000;
+
 class MasterControl : public QObject
 {
     Q_OBJECT
@@ -87,6 +89,8 @@ private:
     void WaitUsbEnumTestFinish();
     //等待功率测试完成
     void WaitUsbPowerTestFinish();
+    //等待
+    void WaitCatchRobotLeave();
     //延时时间
     void WorkSleep(uint un_Msec);
 
@@ -185,6 +189,8 @@ private:
     uint m_unStartTimes;    //测试序号 （第一次，第二次......）
 
     bool m_bTest;       //测试状态
+
+    bool m_bCatchWorking;
 
 //    bool m_bInitUsbTest;
 };

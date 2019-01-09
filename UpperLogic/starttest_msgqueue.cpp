@@ -18,6 +18,11 @@ StartTest_MsgQueue::~StartTest_MsgQueue()
 
 }
 
+//bool StartTest_MsgQueue::SetFunPoint(const bool &(*p_Fun)())
+//{
+//    m_pFun = p_Fun;
+//}
+
 void StartTest_MsgQueue::PushBack(const ushort &us_SequenceNumber)
 {
     m_Queue.push_back(us_SequenceNumber);

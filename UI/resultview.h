@@ -2,7 +2,7 @@
 #define RESULTVIEW_H
 
 #include <QWidget>
-#include<QMap>
+#include <QMap>
 #include <QGridLayout>
 #include <QStackedWidget>
 #include "resultlabel.h"

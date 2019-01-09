@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QApplication>
 
 #include "DataFile/testdatafile.h"
 #include "DataFile/logfile.h"
@@ -19,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pResultView = NULL;
     m_pQButtonGroup = NULL;
     m_pQTimer= NULL;
+    m_pQThread = NULL;
 
     m_bInit = false;
 
@@ -121,6 +123,10 @@ void MainWindow::InitMasterControl()
 {
     m_pMasterControl = new MasterControl;
 
+    m_pQThread = new QThread(this);
+    m_pMasterControl->moveToThread(m_pQThread);
+    m_pQThread->start();
+
     connect(m_pMasterControl, SIGNAL(sig_FWDiscoverd()),
             this, SLOT(slot_FWDiscoverd()));
     connect(m_pMasterControl, SIGNAL(sig_FWRemove()),
@@ -147,6 +153,8 @@ void MainWindow::InitMasterControl()
 
 void MainWindow::ConnectClick()
 {
+    connect(ui->a_Exit, &QAction::triggered,
+            this, &MainWindow::ExitProgram);
     connect(ui->a_USBConfig, &QAction::triggered,
             this, &MainWindow::USBConfig);
     connect(ui->a_FWConfig, &QAction::triggered,
@@ -177,6 +185,12 @@ void MainWindow::ConnectClick()
 
     connect(ui->pb_ShowSwitch, &QPushButton::clicked,
             this, &MainWindow::ShowRecordDataSwitch);
+}
+
+void MainWindow::ExitProgram()
+{
+    QApplication *p_QApplication;
+    p_QApplication->quit();
 }
 
 void MainWindow::USBConfig()
@@ -211,7 +225,6 @@ void MainWindow::CPLimitUI()
         p_CountPowerLimit->SetSequenceNumber(m_SelectSequenceNumber);
         p_CountPowerLimit->show();
     }
-
 }
 
 void MainWindow::FWDebugUI()
@@ -250,6 +263,8 @@ void MainWindow::InitTest()
     ui->pb_StartOneTest->setEnabled(true);
     ui->pb_StopTest->setEnabled(true);
     ui->pb_ResettingTest->setEnabled(false);
+
+    ShowImportantMenu(false);
 
     m_bInit = true;
     LogFile::Addlog("初始化测试");
@@ -306,6 +321,7 @@ void MainWindow::Resetting()
     ui->pb_StopTest->setEnabled(false);
     ui->pb_ResettingTest->setEnabled(true);
 
+    ShowImportantMenu(true);
     LogFile::Addlog("重置测试");
 }
 
@@ -349,6 +365,16 @@ void MainWindow::ShowConnectState(QLabel *&p_QLabel,
         o_QFont.setPointSize(9);
         p_QLabel->setFont(o_QFont);
     }
+}
+
+void MainWindow::ShowImportantMenu(const bool &b_Show)
+{
+    ui->a_EMConfig->setEnabled(b_Show);
+    ui->a_EMDebug->setEnabled(b_Show);
+    ui->a_FWConfig->setEnabled(b_Show);
+    ui->a_FWDebug->setEnabled(b_Show);
+    ui->a_PowerDebug->setEnabled(b_Show);
+    ui->a_USBConfig->setEnabled(b_Show);
 }
 
 void MainWindow::ShowRecordDataSwitch()
