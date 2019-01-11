@@ -1,4 +1,4 @@
-#include "mastercontrol.h"
+﻿#include "mastercontrol.h"
 #include <QCoreApplication>
 #include <QEventLoop>
 #include <QDebug>
@@ -14,6 +14,9 @@ MasterControl::MasterControl(QObject *parent)
     m_bPowerTestNoWorkState = true;
     m_bTest = false;
     m_unStartTimes = 0;
+    m_bCatchWorking = false;
+    m_bRequestRobotCmd = true;
+    m_bRetested = false;
 
     InitMasterControl();
 }
@@ -65,7 +68,9 @@ bool MasterControl::StartOneTest()
             CloseBox(list_SequenceNumber.at(i));
         }
         else{
-            SendCatchRobotAction(list_SequenceNumber.at(i), CatchRobot_Put);
+            AppendCRobotCmd(1, CatchRobot_Start);
+            AppendCRobotCmd(list_SequenceNumber.at(i), CatchRobot_Put);
+//            SendCatchRobotAction(list_SequenceNumber.at(i), CatchRobot_Put);
         }
     }
 
@@ -98,7 +103,9 @@ bool MasterControl::StartAutoTest()
             CloseBox(list_SequenceNumber.at(i));
         }
         else{
-            SendCatchRobotAction(list_SequenceNumber.at(i), CatchRobot_Put);
+            AppendCRobotCmd(1, CatchRobot_Start);
+            AppendCRobotCmd(list_SequenceNumber.at(i), CatchRobot_Put);
+//            SendCatchRobotAction(list_SequenceNumber.at(i), CatchRobot_Put);
         }
     }
 
@@ -149,9 +156,16 @@ bool MasterControl::Resetting()
         m_pDeviceOperator->RestartFW(list_SequenceNumber.at(i));
     }
 
+    m_pCountTestData->ClearRobotResultData();
+
     SetEquitmentConfig();
 
     UpdataFWDevice();
+
+    m_listCRobotCmd.clear();
+
+    m_bCatchWorking = false;
+
 
     return m_oStartTest_MsgQueue.ClearAndResetting();
 }
@@ -183,6 +197,11 @@ bool MasterControl::InitMasterControl()
     UpdataCatchRobot();
 
     UpdataSupplementRobot();
+
+    m_pQTimer = new QTimer(this);
+    connect(m_pQTimer, SIGNAL(timeout()),
+            this, SLOT(slot_TimeOut_SendCRobotCmd()));
+    m_pQTimer->start(500);
 
     return true;
 }
@@ -295,10 +314,6 @@ bool MasterControl::SetAllFWPCConfig()
         o_ConfigFile.GetPCTestConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
         m_pDeviceOperator->SetFWPCConfig(list_SequenceNumber.at(i), struct_PCTestConfig);
         m_mapRetestSwitch.insert(list_SequenceNumber.at(i), (bool)struct_PCTestConfig.uc_RetestTimes);
-
-//        list_RFPowerDBUpperLimit.clear();
-//        list_RFPowerDBLowerLimit.clear();
-//        list_DUTFWPosition.clear();
 
         o_ConfigFile.TransformToList(struct_PCTestConfig.str_RFPowerDBUponLimit, list_RFPowerDBUpperLimit);
         o_ConfigFile.TransformToList(struct_PCTestConfig.str_RFPowerDBLowerLimit, list_RFPowerDBLowerLimit);
@@ -413,37 +428,6 @@ void MasterControl::DisconnctFuntion()
 
 bool MasterControl::DisConnectAllPath()
 {  
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_FirmwareDiscoverd()),
-//               this, SLOT(slot_FirmwareDiscoverd()));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_FirmwareRemove()),
-//               this, SLOT(slot_FirmwareRemove()));
-
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_BoxDiscoverd()),
-//               this, SLOT(slot_BoxDiscoverd()));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_BoxRemove()),
-//               this, SLOT(slot_BoxRemove()));
-
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_CatchRobotDiscoverd()),
-//               this, SLOT(slot_CatchRobotDiscoverd()));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_CatchRobotRemove()),
-//               this, SLOT(slot_CatchRobotRemove()));
-
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_BoxOperatorUpdata(ushort)),
-//               this, SLOT(slot_BoxOperatorUpdata(ushort)));
-
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_EnumUsbComplete()),
-//               this, SLOT(slot_EnumUsbComplete()));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_SendPowerTestComplete()),
-//               this, SLOT(slot_SendPowerTestComplete()));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_StartTestNotice(ushort)),
-//               this, SLOT(slot_StartTestNotice(ushort)));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_StartOneGroupEnumTest(ushort)),
-//               this, SLOT(slot_StartOneGroupEnumTest(ushort)));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_StartOneGroupPowerTest(ushort)),
-//               this, SLOT(slot_StartOneGroupPowerTest(ushort)));
-//    disconnect(m_pDeviceObserver, SIGNAL(sig_CompleteTest(ushort)),
-//               this, SLOT(slot_CompleteTest(ushort)));
-
     return true;
 }
 
@@ -602,13 +586,13 @@ void MasterControl::WaitUsbPowerTestFinish()
 
 void MasterControl::WaitCatchRobotLeave()
 {
-    QTime o_DieTime = QTime::currentTime().addMSecs(10000);
-    while(QTime::currentTime() < o_DieTime){
-        if(!m_bCatchWorking)
-            break;
-
+//    QTime o_DieTime = QTime::currentTime().addMSecs(10000);
+//    while(QTime::currentTime() < o_DieTime){
+//        if(!m_bCatchWorking)
+//            break;
+    while(m_bCatchWorking){
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
-        QThread::msleep(10);
+        QThread::msleep(15);
     }
 
     m_bCatchWorking = false;
@@ -621,6 +605,18 @@ void MasterControl::WorkSleep(uint un_Msec)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
         QThread::msleep(10);
     }
+}
+
+void MasterControl::AppendCRobotCmd(const ushort &us_FWStation,
+                                    const QString &str_RobotAction)
+{
+    QMutexLocker o_Locker(&m_oQMutexM);
+
+    STRUCT_ROBOTCATCHCMD struct_RobotCatchCmd;
+    struct_RobotCatchCmd.us_SequenceNumber = us_FWStation;
+    struct_RobotCatchCmd.str_Cmd = str_RobotAction;
+
+    m_listCRobotCmd.append(struct_RobotCatchCmd);
 }
 
 void MasterControl::slot_FirmwareDiscoverd()
@@ -692,9 +688,10 @@ void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
     LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 收到箱子命令 ") + QString::number(box_Operator));
 
     if(box_Operator == OPENBOX_OK){
-        if(m_bAutoTest){
+        if(!m_bRobotSwitchClose){
             if(!m_bFirstTest){
-                SendCatchRobotAction(us_SequenceNumber, CatchRobot_Get);
+                AppendCRobotCmd(us_SequenceNumber, CatchRobot_Get);
+//                SendCatchRobotAction(us_SequenceNumber, CatchRobot_Get);
             }
         }
     }
@@ -707,6 +704,8 @@ void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
 
 void MasterControl::slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber)
 {
+//    qDebug()<<"slot_CatchRobotGetActionUpdata";
+
     if(m_bRobotSwitchClose && !m_bTest){
         return;
     }
@@ -720,13 +719,17 @@ void MasterControl::slot_CatchRobotGetActionUpdata(ushort us_SequenceNumber)
         CloseBox(us_SequenceNumber);
     }
     else if(str_Action == CatchRobot_Get_OK){
-        SendCatchRobotAction(us_SequenceNumber, CatchRobot_Put);
+        AppendCRobotCmd(us_SequenceNumber, CatchRobot_Put);
+//        SendCatchRobotAction(us_SequenceNumber, CatchRobot_Put);
     }
     else if(str_Action == CatchRobot_Working){
         m_bCatchWorking = true;
     }
     else if(str_Action == CatchRobot_Leaving){
         m_bCatchWorking = false;
+    }
+    else if(str_Action == CatchRobot_Request){
+        m_bRequestRobotCmd = true;
     }
 }
 
@@ -821,6 +824,8 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     bool b_RetestSwitch = m_mapRetestSwitch.value(us_SequenceNumber);
 
     qDebug()<<"slot_CompleteTest\n\n\n\n\n";
+
+    m_bFirstTest = false;
 
     m_pDeviceObserver->GetSendPowerTestCompleteData(CURRENT,
                                                     map_EnumResult,
@@ -952,5 +957,30 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     }
 
     m_oStartTest_MsgQueue.CompleteOneTest();
+}
+
+void MasterControl::slot_TimeOut_SendCRobotCmd()
+{
+    if(m_bBoxSwitchClose && m_bRobotSwitchClose){
+        return;
+    }
+
+    if(!m_bRequestRobotCmd){
+        return;
+    }
+
+    if(m_listCRobotCmd.isEmpty()){
+        return;
+    }
+
+    QMutexLocker o_Locker(&m_oQMutexM);
+
+    STRUCT_ROBOTCATCHCMD struct_RobotCatchCmd = m_listCRobotCmd.first();
+
+    if(SendCatchRobotAction(struct_RobotCatchCmd.us_SequenceNumber,
+                            struct_RobotCatchCmd.str_Cmd)){
+        m_listCRobotCmd.takeFirst();
+        m_bRequestRobotCmd = false;
+    }
 }
 

@@ -73,10 +73,11 @@ public:
     //获取结果 ok/ng
     bool GetResult(const ushort &us_SequenceNumber,
                    bool &b_Result);
-
     //获取结果 特指分料数据 
     bool GetResultData(const ushort &us_SequenceNumber,
                        QString &str_Result);
+    //清除测试结果（发送给补料机器人）
+    bool ClearRobotResultData();
     //获取当前测试usb结果
     bool GetCurrentUsbResult(const ushort &us_SequenceNumber,
                              QList<bool> &list_SingleResult);

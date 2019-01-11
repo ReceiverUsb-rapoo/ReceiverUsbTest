@@ -11,6 +11,8 @@ const QString CatchRobot_Get = "C";         //control   取
 const QString CatchRobot_Get_OK = "D";      //robot     取ok
 const QString CatchRobot_Working = "W";
 const QString CatchRobot_Leaving = "L";
+const QString CatchRobot_Request = "Q";
+const QString CatchRobot_Start = "S";
 
 const QString SupplementRobot_Request = "R";    //请求 结果
 

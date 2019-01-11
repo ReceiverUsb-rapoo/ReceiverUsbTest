@@ -94,6 +94,9 @@ private:
     //延时时间
     void WorkSleep(uint un_Msec);
 
+    void AppendCRobotCmd(const ushort &us_FWStation,
+                         const QString &str_RobotAction);
+
 signals:
     //发送 添加匹配新固件
     void sig_FWDiscoverd();
@@ -160,7 +163,8 @@ public slots:
     void slot_CompleteTest(ushort us_SequenceNumber);
 
 private slots:
-
+    //轮询 检测机器人cmd发送队列
+    void slot_TimeOut_SendCRobotCmd();
 
 private:
     DeviceObserverInstanceGetter m_oDeviceObserverInstanceGetter;   //观察者类管理类对象
@@ -171,6 +175,9 @@ private:
     DeviceObserver *m_pDeviceObserver;
     DeviceOperator *m_pDeviceOperator;
     CountTestData *m_pCountTestData;
+
+    QTimer *m_pQTimer;      //定时器用于轮询机器人发送cmd
+    QMutex m_oQMutexM;      //用于锁住机器人cmd队列
 
     QMap<ushort, STRUCT_USBCONTROLCONFIG> m_mapUsbControlConfig;    //UsbControl参数 包括点位Port ID <工作序号,配置参数>
 
@@ -190,8 +197,10 @@ private:
 
     bool m_bTest;       //测试状态
 
-    bool m_bCatchWorking;
+    bool m_bCatchWorking;   //机器人工作状态
 
+    QList<STRUCT_ROBOTCATCHCMD> m_listCRobotCmd;    //机器人cmd队列
+    bool m_bRequestRobotCmd;    //机器人请求动作 状态
 //    bool m_bInitUsbTest;
 };
 

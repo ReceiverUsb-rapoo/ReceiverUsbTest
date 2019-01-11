@@ -445,7 +445,7 @@ bool CountTestData::GetResult(const ushort &us_SequenceNumber,
 bool CountTestData::GetResultData(const ushort &us_SequenceNumber,
                                  QString &str_Result)
 {
-    if(m_mapAllResult.contains(us_SequenceNumber)){
+    if(!m_mapAllResult.contains(us_SequenceNumber)){
         return false;
     }
 
@@ -471,6 +471,12 @@ bool CountTestData::GetResultData(const ushort &us_SequenceNumber,
         }
     }
 
+    return true;
+}
+
+bool CountTestData::ClearRobotResultData()
+{
+    m_mapAllResult.clear();
     return true;
 }
 

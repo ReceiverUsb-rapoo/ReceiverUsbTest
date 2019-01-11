@@ -13,8 +13,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     this->setFixedSize(this->size());
     this->setWindowTitle("Receiver-Test");
+    this->setFixedSize(this->size());
 
     m_pMasterControl = NULL;
     m_pResultView = NULL;
@@ -123,9 +125,9 @@ void MainWindow::InitMasterControl()
 {
     m_pMasterControl = new MasterControl;
 
-    m_pQThread = new QThread(this);
-    m_pMasterControl->moveToThread(m_pQThread);
-    m_pQThread->start();
+//    m_pQThread = new QThread(this);
+//    m_pMasterControl->moveToThread(m_pQThread);
+//    m_pQThread->start();
 
     connect(m_pMasterControl, SIGNAL(sig_FWDiscoverd()),
             this, SLOT(slot_FWDiscoverd()));

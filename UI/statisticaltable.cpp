@@ -17,6 +17,7 @@ StatisticalTable::StatisticalTable(ushort us_SequenceNumber, QWidget *parent) :
 
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setWindowTitle("StatisticalTable-夹具-" + QString::number(m_usSequenceNumber));
+    this->setFixedSize(this->size());
 
     QFont o_QFont;
     o_QFont.setPointSize(9);

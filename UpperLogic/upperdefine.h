@@ -56,5 +56,15 @@ struct STRUCT_RESULTCROUT{
     }
 };
 
+struct STRUCT_ROBOTCATCHCMD
+{
+    ushort us_SequenceNumber;
+    QString str_Cmd;
+
+    STRUCT_ROBOTCATCHCMD(){
+        us_SequenceNumber = 0;
+        str_Cmd = "";
+    }
+};
 
 #endif // UPPERDEFINE_H

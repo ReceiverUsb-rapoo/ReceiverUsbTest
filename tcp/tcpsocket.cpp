@@ -46,11 +46,9 @@ void TcpSocket::slot_SentData(const QByteArray byte_Data,
                               const QString str_Ip)
 {
     if(peerAddress().toString() == str_Ip){
-        qDebug()<<"slot sent data to write"<<byte_Data;
+        qDebug()<<"sent data"<<str_Ip<<byte_Data;
         write(byte_Data);
     }
-
-    qDebug()<<"slotSentData"<<str_Ip<<peerAddress().toString();
 }
 
 void TcpSocket::slot_DisConTcp(int n_ID)
@@ -79,7 +77,7 @@ void TcpSocket::slot_ReadData()
     struct_TcpData.byte_Data = byte_BagData;
     struct_TcpData.str_IP = peerAddress().toString();
     struct_TcpData.us_Port = peerPort();
-    qDebug()<<"slot Read DATA"<<struct_TcpData.str_IP<<struct_TcpData.byte_Data;
+    qDebug()<<"Read DATA"<<struct_TcpData.str_IP<<struct_TcpData.byte_Data<<struct_TcpData.us_Port;
 
     emit sig_ReadData(struct_TcpData);
 }

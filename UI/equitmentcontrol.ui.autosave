@@ -171,7 +171,7 @@
     <item row="1" column="0">
      <widget class="QPushButton" name="pb_SendSupplement_1">
       <property name="text">
-       <string>Send-1</string>
+       <string>Send</string>
       </property>
      </widget>
     </item>
@@ -226,13 +226,6 @@
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pb_SendSupplement_2">
-      <property name="text">
-       <string>Send-2</string>
       </property>
      </widget>
     </item>

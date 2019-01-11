@@ -1,9 +1,10 @@
 #include "box.h"
+#include <QDebug>
 
 Box::Box(QObject *parent)
     :QObject(parent)
 {
-    m_strIP = "192.1.1.1";
+    m_strIP = "";
     m_nCountResendOpen = 0;
     m_nCountResendClose = 0;
     m_usSequenceNumber = 0;
@@ -42,12 +43,20 @@ bool Box::GetSequenceNumber(ushort &us_SequenceNumber)
 
 void Box::OpenBox()
 {
+    if(m_strIP == ""){
+        return;
+    }
+
     emit sig_SendData(OpenCmd,
                       m_strIP);
 }
 
 void Box::CloseBox()
 {
+    if(m_strIP == ""){
+        return;
+    }
+
     emit sig_SendData(CloseCmd,
                       m_strIP);
 }
@@ -62,11 +71,40 @@ void Box::InitBox()
             this, SLOT(slot_BoxReceiveData(STRUCT_TCPDATA)));
 }
 
+bool Box::TntervalTimeReceive(const QByteArray &byte_Data)
+{
+    if(m_mapCmd_Interval.contains(byte_Data)){
+        QDateTime o_QDateTime = QDateTime::fromString(m_mapCmd_Interval.value(byte_Data),
+                                                      "yyyy.MM.dd hh.mm.ss.zzz");
+        if(o_QDateTime.msecsTo(QDateTime::currentDateTime()) > 500){
+            QString str_Time;
+            str_Time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh.mm.ss.zzz");
+            m_mapCmd_Interval.insert(byte_Data, str_Time);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        QString str_Time;
+        str_Time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh.mm.ss.zzz");
+        m_mapCmd_Interval.insert(byte_Data, str_Time);
+    }
+
+    return true;
+}
+
 void Box::slot_BoxReceiveData(STRUCT_TCPDATA struct_TcpData)
 {
     if(struct_TcpData.str_IP != m_strIP){
         return;
     }
+
+    if(!TntervalTimeReceive(struct_TcpData.byte_Data))
+        return;
+
+    qDebug()<<"BoxReceiveData"<<struct_TcpData.str_IP<<struct_TcpData.byte_Data;
 
     if(struct_TcpData.byte_Data == Open_ACK_Ok){
         m_nCountResendOpen = 0;

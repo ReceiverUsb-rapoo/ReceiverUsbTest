@@ -12,6 +12,7 @@ DeviceObserver::DeviceObserver(QObject *parent)
     m_pComDiscoverd = NULL;
     m_pQThread = NULL;
     m_pTcpServer = NULL;
+    m_pCatchRobot = NULL;
     m_pSupplementRoobot = NULL;
 
     m_bManuallyCreatUsbControl = false;
@@ -1067,6 +1068,10 @@ bool DeviceObserver::RemoveBox(const QString &str_IP)
 
 bool DeviceObserver::AddCatchRobot(const QString &str_IP)
 {
+    if(m_pCatchRobot != NULL){
+        return false;
+    }
+
     m_pCatchRobot = new CatchRobot;
     m_pCatchRobot->SetIP(str_IP);
     m_bCatchRobotConnect = true;
@@ -1097,6 +1102,10 @@ bool DeviceObserver::RemoveCatchRobot(const QString &str_IP)
 
 bool DeviceObserver::AddSupplementRobot(const QString &str_IP)
 {
+    if(m_pSupplementRoobot != NULL){
+        return false;
+    }
+
     m_pSupplementRoobot = new SupplementRoobot;
     m_pSupplementRoobot->SetIP(str_IP);
     m_bSupplementRobotConnect = true;
@@ -1227,6 +1236,7 @@ void DeviceObserver::slot_BoxOperator(ushort us_FWStation,
 void DeviceObserver::slot_CatchRobotGetAction(ushort us_FWStation,
                                               QString str_Action)
 {
+//    qDebug()<<"slot_CatchRobotGetAction";
     m_mapCatchRobotAction.insert(us_FWStation, str_Action);
 
     emit sig_CatchRobotGetActionUpdata(us_FWStation);

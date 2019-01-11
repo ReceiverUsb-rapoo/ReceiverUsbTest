@@ -335,7 +335,6 @@ public slots:
     //收到 分料机器人请求信号
     void slot_SupplementRobotGetRequest(ushort us_FWStation,
                                         QString str_Request);
-
 public slots:
     //收到 枚举usb完成
     void slot_EnumUsbComplete();

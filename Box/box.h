@@ -27,6 +27,9 @@ public:
 private:
     //启动本类，初始化箱子
     void InitBox();
+    //接收Cmd间隔时间
+    bool TntervalTimeReceive(const QByteArray &byte_Data);
+
 
 signals:
     //发送数据
@@ -50,6 +53,9 @@ private:
     ushort m_usSequenceNumber;  //箱子动作序号
     int m_nCountResendOpen;     //箱子打开次数
     int m_nCountResendClose;    //箱子关闭次数
+
+    QMap<QByteArray, QString> m_mapCmd_Interval;    //接收时间 map <cmd,上次接收时间>
+
 };
 
 #endif // BOX_H

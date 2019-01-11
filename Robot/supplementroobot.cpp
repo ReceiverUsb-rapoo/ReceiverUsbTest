@@ -3,6 +3,7 @@
 SupplementRoobot::SupplementRoobot(QObject *parent)
     :QObject(parent)
 {
+    m_strIP = "";
     InitSupplementRobot();
 }
 
@@ -26,6 +27,10 @@ bool SupplementRoobot::GetIP(QString &str_IP)
 void SupplementRoobot::SendSupplementData(ushort us_FWStation,
                                           const QString &str_Data)
 {
+    if(m_strIP == ""){
+        return;
+    }
+
     Q_UNUSED(us_FWStation);
     QString str_Action = /*SupplementRobot_Request +
                          QString::number(us_FWStation) +
@@ -53,11 +58,11 @@ void SupplementRoobot::slot_SupplementReceiveData(STRUCT_TCPDATA struct_TcpData)
         return;
     }
 
-    if(struct_TcpData.byte_Data.count() != 6){
+    if(struct_TcpData.byte_Data.count() != 4){
         return;
     }
 
-    ushort us_FWStation = (ushort)struct_TcpData.byte_Data.at(1);
+    ushort us_FWStation = (ushort)struct_TcpData.byte_Data.at(1) - 48;
     QString str_RobotAction = (QString)struct_TcpData.byte_Data.at(0);
 
     emit sig_GetRequest(us_FWStation, str_RobotAction);
