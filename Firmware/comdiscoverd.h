@@ -38,7 +38,6 @@ signals:
 
 public slots:
 
-
 private slots:
     //定时器  用于定时枚举com设备
     void slot_TimerOut();

@@ -9,6 +9,7 @@ EquitmentConnectConfig::EquitmentConnectConfig(QWidget *parent) :
     ui->setupUi(this);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setWindowTitle("EquitmentConnectConfig");
+    this->setFixedSize(this->size());
 
     InitEquitmentConfig();
     ShowConfig();

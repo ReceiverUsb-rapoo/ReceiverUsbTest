@@ -21,6 +21,7 @@ CountPowerLimit::CountPowerLimit(ushort us_SequenceNumber, QWidget *parent) :
     InitCountPowerLimit();
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setWindowTitle("CountPowerLimit-夹具-" + QString::number(m_usSequenceNumber));
+    this->setFixedSize(this->size());
 }
 
 CountPowerLimit::~CountPowerLimit()
@@ -103,11 +104,11 @@ void CountPowerLimit::InitCountPowerLimit()
                    <<ui->le_DownLimit_31<<ui->le_DownLimit_32;
 
     for(int i = 0; i < m_listDowmLimit.count(); i++){
-        m_listDowmLimit.at(i)->setText("-60");
+        m_listDowmLimit.at(i)->setText("-120");
     }
 
     for(int i = 0; i < m_listUpperLimit.count(); i++){
-        m_listUpperLimit.at(i)->setText("60");
+        m_listUpperLimit.at(i)->setText("120");
     }
 
 

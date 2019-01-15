@@ -1,5 +1,4 @@
 #include "resultview.h"
-#include "ui_resultview.h"
 #include <QDebug>
 
 ResultView::ResultView(QWidget *parent) :

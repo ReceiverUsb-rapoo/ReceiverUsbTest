@@ -55,6 +55,7 @@ bool MasterControl::StartOneTest()
     if(list_SequenceNumber.isEmpty()){
         return false;
     }
+    AppendCRobotCmd(1, CatchRobot_Start);
 
     for(int i = 0; i < list_SequenceNumber.count(); i++){
         if(m_bBoxSwitchClose){
@@ -68,8 +69,7 @@ bool MasterControl::StartOneTest()
             CloseBox(list_SequenceNumber.at(i));
         }
         else{
-            AppendCRobotCmd(1, CatchRobot_Start);
-            AppendCRobotCmd(list_SequenceNumber.at(i), CatchRobot_Put);
+            AppendCRobotCmd(1, CatchRobot_Put);
 //            SendCatchRobotAction(list_SequenceNumber.at(i), CatchRobot_Put);
         }
     }
@@ -91,6 +91,7 @@ bool MasterControl::StartAutoTest()
         return false;
     }
 
+    AppendCRobotCmd(1, CatchRobot_Start);
     for(int i = 0; i < list_SequenceNumber.count(); i++){
         if(m_bBoxSwitchClose){
             emit sig_ReadyTest(list_SequenceNumber.at(i));
@@ -103,7 +104,6 @@ bool MasterControl::StartAutoTest()
             CloseBox(list_SequenceNumber.at(i));
         }
         else{
-            AppendCRobotCmd(1, CatchRobot_Start);
             AppendCRobotCmd(list_SequenceNumber.at(i), CatchRobot_Put);
 //            SendCatchRobotAction(list_SequenceNumber.at(i), CatchRobot_Put);
         }
@@ -166,6 +166,9 @@ bool MasterControl::Resetting()
 
     m_bCatchWorking = false;
 
+    m_bRequestRobotCmd = true;
+
+    m_mapBoxState.clear();
 
     return m_oStartTest_MsgQueue.ClearAndResetting();
 }
@@ -518,6 +521,8 @@ bool MasterControl::OpenBox(const ushort &us_SequenceNumber)
 
     LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 打开箱子"));
 
+    m_mapBoxState.insert(us_SequenceNumber, OPENBOX);
+
     return m_pDeviceOperator->OpenBox(us_SequenceNumber);
 }
 
@@ -530,6 +535,8 @@ bool MasterControl::CloseBox(const ushort &us_SequenceNumber)
     WaitCatchRobotLeave();
 
     LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 关闭箱子"));
+
+    m_mapBoxState.insert(us_SequenceNumber, CLOSEBOX);
 
     return m_pDeviceOperator->CloseBox(us_SequenceNumber);
 }
@@ -595,7 +602,7 @@ void MasterControl::WaitCatchRobotLeave()
         QThread::msleep(15);
     }
 
-    m_bCatchWorking = false;
+//    m_bCatchWorking = false;
 }
 
 void MasterControl::WorkSleep(uint un_Msec)
@@ -688,6 +695,8 @@ void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
     LogFile::Addlog("Box-" + QString::number(us_SequenceNumber) + (" 收到箱子命令 ") + QString::number(box_Operator));
 
     if(box_Operator == OPENBOX_OK){
+        m_mapBoxState.insert(us_SequenceNumber, OPENBOX_OK);
+
         if(!m_bRobotSwitchClose){
             if(!m_bFirstTest){
                 AppendCRobotCmd(us_SequenceNumber, CatchRobot_Get);
@@ -696,6 +705,8 @@ void MasterControl::slot_BoxOperatorUpdata(ushort us_SequenceNumber)
         }
     }
     else if(box_Operator == CLOSEBOX_OK){
+        m_mapBoxState.insert(us_SequenceNumber, CLOSEBOX_OK);
+
         emit sig_ReadyTest(us_SequenceNumber);
         m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
 //        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
@@ -744,12 +755,17 @@ void MasterControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumbe
 
     bool b_Ret1 = m_pDeviceObserver->GetSupplementRobotGetRequest(us_SequenceNumber, str_RequestCmd);
 
-    LogFile::Addlog("SupplementRobot-" + QString::number(us_SequenceNumber) + (" 收到分料机器人命令 ") + str_RequestCmd);
+    LogFile::Addlog("SupplementRobot-" + QString::number(us_SequenceNumber) + (" 收到补料机器人命令 ") + str_RequestCmd);
 
     bool b_Ret2 = m_pCountTestData->GetResultData(us_SequenceNumber, str_RequestData);
 
-    if(b_Ret1 && b_Ret2)
+    if(b_Ret1 && b_Ret2){
         SendSupplementRobotData(us_SequenceNumber, str_RequestData);
+        LogFile::Addlog("SupplementRobot-" + QString::number(us_SequenceNumber) + (" 读取补料数据错误 ") + str_RequestCmd);
+    }
+//    else
+//        //
+//        SendSupplementRobotData(us_SequenceNumber, "00000000000000000000");
 
     //result
 }
@@ -974,6 +990,15 @@ void MasterControl::slot_TimeOut_SendCRobotCmd()
     }
 
     QMutexLocker o_Locker(&m_oQMutexM);
+
+    QMapIterator<ushort, BOX_OPERATOR> map_IterationBoxState(m_mapBoxState);
+    while(map_IterationBoxState.hasNext()){
+        map_IterationBoxState.next();
+        if(map_IterationBoxState.value() == OPENBOX ||
+                map_IterationBoxState.value() == CLOSEBOX){
+            return;
+        }
+    }
 
     STRUCT_ROBOTCATCHCMD struct_RobotCatchCmd = m_listCRobotCmd.first();
 

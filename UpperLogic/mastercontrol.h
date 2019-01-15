@@ -202,6 +202,7 @@ private:
     QList<STRUCT_ROBOTCATCHCMD> m_listCRobotCmd;    //机器人cmd队列
     bool m_bRequestRobotCmd;    //机器人请求动作 状态
 //    bool m_bInitUsbTest;
+    QMap<ushort, BOX_OPERATOR> m_mapBoxState;
 };
 
 #endif // MASTERCONTROL_H
