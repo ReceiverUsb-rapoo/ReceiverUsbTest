@@ -185,7 +185,7 @@ void UsbOperator::run()
         if(FindUsbDevicePort(m_unPid, m_unVid, m_mapLDevice, m_listDevicePort)){
             //nothing to do
         }
-        //检测到10个以上，即未查找完成
+        //检测到10个以上，即查找完成
         if(m_listDevicePort.count() >= m_nDeviceNumber){
             break;
         }

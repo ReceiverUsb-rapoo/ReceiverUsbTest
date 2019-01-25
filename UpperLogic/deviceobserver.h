@@ -7,7 +7,7 @@
 #include "upperdefine.h"
 #include "Box/box.h"
 #include "Robot/catchrobot.h"
-#include"Robot/supplementroobot.h"
+#include "Robot/supplementroobot.h"
 #include "tcp/tcpserverinstancegetter.h"
 
 class DeviceObserver : public QObject
@@ -51,6 +51,8 @@ public:
     bool GetCatchRobotObjectPoint(CatchRobot * &p_CatchRobot);
     //获取分料机器人对象指针
     bool GetSupplementRobotObjectPoint(SupplementRoobot * &p_SupplementRoobot);
+
+    bool UpdateFW_OpenByCom();
 
 public:
     //清除枚举结果
@@ -309,7 +311,6 @@ public slots:
     void slot_FirmwareRemove(QString str_Port,
                              uint un_Pid,
                              uint un_Vid);
-
 public slots:
     //新用户连接信息
     void slot_ConnectClient(int n_ID,

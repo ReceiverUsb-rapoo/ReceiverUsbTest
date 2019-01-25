@@ -203,6 +203,8 @@ private:
     bool m_bRequestRobotCmd;    //机器人请求动作 状态
 //    bool m_bInitUsbTest;
     QMap<ushort, BOX_OPERATOR> m_mapBoxState;
+
+    ENUM_OPENMODEL m_OpenFWModel;           //固件com打开方式
 };
 
 #endif // MASTERCONTROL_H

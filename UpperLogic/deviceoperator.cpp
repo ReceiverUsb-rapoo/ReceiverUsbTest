@@ -87,7 +87,7 @@ bool DeviceOperator::CreatUsbControlObject()
 bool DeviceOperator::DeleteUsbControlObject()
 {
     if(m_pUsbControl != NULL){
-        m_pUsbControl->deleteLater();
+        delete m_pUsbControl;
         m_pUsbControl = NULL;
     }
     else{

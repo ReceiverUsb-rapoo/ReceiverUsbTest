@@ -160,6 +160,38 @@ bool DeviceObserver::GetSupplementRobotObjectPoint(SupplementRoobot *&p_Suppleme
     return true;
 }
 
+bool DeviceObserver::UpdateFW_OpenByCom()
+{
+    if(m_listNeedFW.isEmpty()){
+        return false;
+    }
+
+    if(m_OpenFWModel != BYCOM){
+        return false;
+    }
+
+    foreach(STRUCT_COMINFO struct_NeedFW, m_listNeedFW){
+        RemoveFW(struct_NeedFW.str_PortName,
+                 struct_NeedFW.un_Pid,
+                 struct_NeedFW.un_Vid);
+    }
+
+    WorkSleep(20);
+
+    foreach(STRUCT_COMINFO struct_NeedFW, m_listNeedFW){
+        AddFW(struct_NeedFW.str_PortName,
+              struct_NeedFW.un_Pid,
+              struct_NeedFW.un_Vid);
+    }
+
+//    if(m_listFWSequenceNumber.isEmpty()){
+//        return false;
+//    }
+
+    emit sig_FirmwareDiscoverd();  //or sig_FirmwareRemove
+    return true;
+}
+
 bool DeviceObserver::ClearEnumResult()
 {
     m_mapEnumResult.clear();
@@ -1147,9 +1179,11 @@ void DeviceObserver::slot_FirmwareDiscoverd(QString str_Port,
     qDebug()<<"discoverd pid"<<un_Pid;
     qDebug()<<"discoverd vid"<<un_Vid;
 
-    if(FWConfirm(struct_ComInfo)){
-        if(!AddFW(str_Port, un_Pid, un_Vid)){
-            return;
+    if(m_OpenFWModel == BYPIDVID){
+        if(FWConfirm(struct_ComInfo)){
+            if(!AddFW(str_Port, un_Pid, un_Vid)){
+                return;
+            }
         }
     }
 
@@ -1169,8 +1203,10 @@ void DeviceObserver::slot_FirmwareRemove(QString str_Port,
     qDebug()<<"remove pid"<<un_Pid;
     qDebug()<<"remove vid"<<un_Vid;
 
-    if(FWConfirm(struct_ComInfo)){
-        RemoveFW(str_Port, un_Pid, un_Vid);
+    if(m_OpenFWModel == BYPIDVID){
+        if(FWConfirm(struct_ComInfo)){
+            RemoveFW(str_Port, un_Pid, un_Vid);
+        }
     }
 
     emit sig_FirmwareRemove();

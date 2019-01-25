@@ -68,7 +68,6 @@ bool PowerTest::SetPowerTestConfig(const QMap<int, int> &map_StationPort)
 * 
 */
 
-
 bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
 {
     if(map_LDevice.isEmpty() || m_mapStationPort.isEmpty()){
@@ -93,15 +92,16 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
                 int n_Ret = libusb_open(map_IterationLDevice.value(), &p_LDHandle);
 //                qDebug()<<"n_Ret"<<n_Ret;
 //                qDebug()<<"p_LDHandle"<<p_LDHandle;
+
                 if(n_Ret == 0){
-                    if(libusb_kernel_driver_active(p_LDHandle, 1) != 0){
+                    if(libusb_kernel_driver_active(p_LDHandle, 1) == 1){
                         if(libusb_detach_kernel_driver(p_LDHandle, 1) != 0){
                             libusb_close(p_LDHandle);
                             continue;
                         }
                     }
 
-                    if(libusb_claim_interface(p_LDHandle, 1) != 0){
+                    if(libusb_claim_interface(p_LDHandle, 1) < 0){
                         libusb_close(p_LDHandle);
                         continue;
                     }

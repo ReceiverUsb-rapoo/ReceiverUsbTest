@@ -259,7 +259,6 @@ void MainWindow::DataTableUI()
 void MainWindow::InitTest()
 {
     qDebug()<<"InitTest";
-    m_pMasterControl->InitTest();
     ui->pb_InitTest->setEnabled(false);
     ui->pb_StartAutoTest->setEnabled(true);
     ui->pb_StartOneTest->setEnabled(true);
@@ -268,18 +267,21 @@ void MainWindow::InitTest()
 
     ShowImportantMenu(false);
 
+    m_pMasterControl->InitTest();
+
     m_bInit = true;
     LogFile::Addlog("初始化测试");
 }
 
 void MainWindow::StartOneTest()
 {
-    m_pMasterControl->StartOneTest();
     ui->pb_InitTest->setEnabled(false);
     ui->pb_StartAutoTest->setEnabled(false);
     ui->pb_StartOneTest->setEnabled(true);
     ui->pb_StopTest->setEnabled(true);
     ui->pb_ResettingTest->setEnabled(false);
+
+    m_pMasterControl->StartOneTest();
     SaveTestRecordData();
     UpdataTestRecordData(m_ShowRecordData);
     LogFile::Addlog("开始一次测试");
@@ -287,25 +289,26 @@ void MainWindow::StartOneTest()
 
 void MainWindow::StartAutoTest()
 {
-    m_pMasterControl->StartAutoTest();
     ui->pb_InitTest->setEnabled(false);
     ui->pb_StartAutoTest->setEnabled(false);
     ui->pb_StartOneTest->setEnabled(false);
     ui->pb_StopTest->setEnabled(true);
     ui->pb_ResettingTest->setEnabled(false);
 
+    m_pMasterControl->StartAutoTest();
     LogFile::Addlog("开始自动测试");
 }
 
 void MainWindow::StopTest()
 {
     qDebug()<<"StopTest";
-    m_pMasterControl->StopTest();
     ui->pb_InitTest->setEnabled(false);
     ui->pb_StartAutoTest->setEnabled(false);
     ui->pb_StartOneTest->setEnabled(false);
     ui->pb_StopTest->setEnabled(true);
     ui->pb_ResettingTest->setEnabled(true);
+
+    m_pMasterControl->StopTest();
     SaveTestRecordData();
     UpdataTestRecordData(m_ShowRecordData);
 
@@ -316,7 +319,6 @@ void MainWindow::StopTest()
 
 void MainWindow::Resetting()
 {
-    m_pMasterControl->Resetting();
     ui->pb_InitTest->setEnabled(true);
     ui->pb_StartAutoTest->setEnabled(false);
     ui->pb_StartOneTest->setEnabled(false);
@@ -324,6 +326,8 @@ void MainWindow::Resetting()
     ui->pb_ResettingTest->setEnabled(true);
 
     ShowImportantMenu(true);
+
+    m_pMasterControl->Resetting();
     LogFile::Addlog("重置测试");
 }
 
@@ -441,7 +445,7 @@ void MainWindow::SaveTestRecordData()
 
 void MainWindow::UpdataFWSequenceNumber()
 {
-    LogFile::Addlog("Com拔插 FW更新");
+    LogFile::Addlog("Com FW更新");
 
     for(int i = 0; i < m_listSequenceNumber.count(); i++){
         QAbstractButton *p_QQAbstractButton = m_pQButtonGroup->button(m_listSequenceNumber.at(i));

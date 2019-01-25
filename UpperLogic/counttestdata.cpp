@@ -90,13 +90,11 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
         }
     }
 
-
     if(m_mapDUTFWPosition.value(us_SequenceNumber).count() != 32 ||
             m_mapRFPowerDBLowerLimit.value(us_SequenceNumber).count() != 32 ||
             m_mapRFPowerDBUpperLimit.value(us_SequenceNumber).count() != 32){
         return false;
     }
-
 
     uint un_EnumError = 0;
     uint un_OpenDeviceError = 0;
@@ -205,7 +203,6 @@ bool CountTestData::CountOneTestData(const ushort &us_SequenceNumber,
     m_mapErrorAmount.insert(us_SequenceNumber, map_STTypeError);
     m_mapResultString.insert(us_SequenceNumber, list_ErrorString);
     m_mapResult.insert(us_SequenceNumber, list_Result);
-
 
     QList<QList<bool>> list_GroupResult;
 

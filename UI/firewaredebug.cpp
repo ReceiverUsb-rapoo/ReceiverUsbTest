@@ -413,7 +413,6 @@ void FirewareDebug::TestSendPower()
 
 void FirewareDebug::TestWholeDUT()
 {
-    InitUsbEnumAndSendTest();
     m_pDeviceOperator->StartWholeDUTTest(m_usSequenceNumber);
     m_bAllDeviceEnum = false;
 
@@ -762,6 +761,7 @@ void FirewareDebug::slot_StartTestNotice(ushort us_SequenceNumber)
     if(us_SequenceNumber != m_usSequenceNumber)
         return;
 
+    InitUsbEnumAndSendTest();
     GetStartTestNoticeData();
 }
 

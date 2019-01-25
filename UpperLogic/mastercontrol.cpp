@@ -18,6 +18,8 @@ MasterControl::MasterControl(QObject *parent)
     m_bRequestRobotCmd = true;
     m_bRetested = false;
 
+    m_OpenFWModel = BYCOM;
+
     InitMasterControl();
 }
 
@@ -43,7 +45,7 @@ bool MasterControl::InitTest()
         OpenBox(list_SequenceNumber.at(i));
     }
 
-    InitUsbEnumAndSendTest();
+//    InitUsbEnumAndSendTest();
     return true;
 }
 
@@ -145,6 +147,10 @@ bool MasterControl::StopTest()
 
 bool MasterControl::Resetting()
 {
+    if(m_OpenFWModel == BYCOM){
+        m_pDeviceObserver->UpdateFW_OpenByCom();
+    }
+
     QList<ushort> list_SequenceNumber;
     GetAllFWSequenceNumber(list_SequenceNumber);
 
@@ -228,12 +234,15 @@ bool MasterControl::SetEquitmentConfig()
 
     if(struct_EquitmentConfig.n_OpemWithComName == 1){
         m_pDeviceObserver->SetOpenFWModelByCom();
+        m_OpenFWModel = BYCOM;
     }
     else if(struct_EquitmentConfig.n_OpemWithPidVid == 1){
         m_pDeviceObserver->SetOpenFWModelByPidVid();
+        m_OpenFWModel = BYPIDVID;
     }
     else{
         m_pDeviceObserver->SetOpenFWModelByCom();
+        m_OpenFWModel = BYCOM;
     }
 
     m_pDeviceObserver->SetNeedFWConfig(list_FWComInfo);
@@ -304,7 +313,6 @@ bool MasterControl::SetAllFWPCConfig()
     QList<int> list_RFPowerDBUpperLimit;
     QList<int> list_RFPowerDBLowerLimit;
     QList<int> list_DUTFWPosition;
-
 
     QList<ushort> list_SequenceNumber;
     GetAllFWSequenceNumber(list_SequenceNumber);
@@ -764,7 +772,6 @@ void MasterControl::slot_SupplementRobotGetRequestUpdata(ushort us_SequenceNumbe
         LogFile::Addlog("SupplementRobot-" + QString::number(us_SequenceNumber) + (" 读取补料数据错误 ") + str_RequestCmd);
     }
 //    else
-//        //
 //        SendSupplementRobotData(us_SequenceNumber, "00000000000000000000");
 
     //result
@@ -792,6 +799,8 @@ void MasterControl::slot_StartTestNotice(ushort us_SequenceNumber)
     m_bEnumTestNoWorkState = false;
     m_bPowerTestNoWorkState = false;
     m_usWorkingSequenceNumber = us_SequenceNumber;
+
+    InitUsbEnumAndSendTest();
 
     emit sig_StartTest(us_SequenceNumber);
 }
@@ -840,6 +849,8 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
     bool b_RetestSwitch = m_mapRetestSwitch.value(us_SequenceNumber);
 
     qDebug()<<"slot_CompleteTest\n\n\n\n\n";
+
+    ExitUsbEnumAndSendTest();
 
     m_bFirstTest = false;
 
