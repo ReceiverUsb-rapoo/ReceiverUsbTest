@@ -1,4 +1,5 @@
 #include "supplementroobot.h"
+#include <QDebug>
 
 SupplementRoobot::SupplementRoobot(QObject *parent)
     :QObject(parent)
@@ -38,6 +39,8 @@ void SupplementRoobot::SendSupplementData(ushort us_FWStation,
                          str_Data +
                          "\r\n";
 
+    qDebug()<<"SendSupplementData  "<<str_Data;
+
     emit sig_SendData(str_Action.toLatin1(),
                        m_strIP);
 }
@@ -64,6 +67,8 @@ void SupplementRoobot::slot_SupplementReceiveData(STRUCT_TCPDATA struct_TcpData)
 
     ushort us_FWStation = (ushort)struct_TcpData.byte_Data.at(1) - 48;
     QString str_RobotAction = (QString)struct_TcpData.byte_Data.at(0);
+
+    qDebug()<<"SupplementReceiveData "<<str_RobotAction;
 
     emit sig_GetRequest(us_FWStation, str_RobotAction);
 }

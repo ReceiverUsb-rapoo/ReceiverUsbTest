@@ -109,7 +109,8 @@ private:
     bool FWCMDControl(uchar &uc_Command,
                       QByteArray &byte_Data,
                       uint &un_DataLength);
-    bool TntervalTimeReceive(ENUM_FIRMWARECOMMAND FWCommad);
+    bool TntervalTimeReceive(ENUM_FIRMWARECOMMAND FWCommad,
+                             const uint &un_TntervalTime);
 
 private:
     //pc ack send to fw

@@ -2,6 +2,7 @@
 #include <QTime>
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QMutexLocker>
 #include "writecmdthread.h"
 #include "usboperator.h"
 #include <QDebug>
@@ -14,6 +15,7 @@ PowerTest::PowerTest(QObject *parent)
 
     m_pQTimer->setSingleShot(true);
     m_oQThreadPool.setMaxThreadCount(20);
+    m_oQThreadPool.setExpiryTimeout(600);
     connect(m_pQTimer, SIGNAL(timeout()), this, SLOT(slot_TimeOut()));
 }
 
@@ -77,6 +79,9 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
     qDebug()<<"map_LDevice"<<map_LDevice;
     qDebug()<<"m_mapStationPort"<<m_mapStationPort;
 
+    libusb_device_handle *p_LDHandle = NULL;
+    libusb_device *p_LDevice = NULL;
+
     QMapIterator<int,int> map_IteratorStationPort(m_mapStationPort);
     while(map_IteratorStationPort.hasNext()){
         map_IteratorStationPort.next();
@@ -88,12 +93,12 @@ bool PowerTest::OpenUsbDevice(const QMap<int, libusb_device *> &map_LDevice)
             map_IterationLDevice.next();
 
             if(map_IterationLDevice.key() == map_IteratorStationPort.value()){
-                libusb_device_handle *p_LDHandle = NULL;
-                int n_Ret = libusb_open(map_IterationLDevice.value(), &p_LDHandle);
+                p_LDevice = map_IterationLDevice.value();
+                int n_Ret = libusb_open(p_LDevice, &p_LDHandle);
 //                qDebug()<<"n_Ret"<<n_Ret;
 //                qDebug()<<"p_LDHandle"<<p_LDHandle;
 
-                if(n_Ret == 0){
+                if(n_Ret == LIBUSB_SUCCESS){
                     if(libusb_kernel_driver_active(p_LDHandle, 1) == 1){
                         if(libusb_detach_kernel_driver(p_LDHandle, 1) != 0){
                             libusb_close(p_LDHandle);
@@ -212,12 +217,12 @@ bool PowerTest::GetPowerTestResult(QMap<int, bool> &map_OpenDeviceResult,
 bool PowerTest::WriteSendCmdResult(int n_Station,
                                    bool b_Result)
 {
-    m_oQMutex.lock();
+    QMutexLocker o_Locker(&m_oQMutex);
 
     m_mapSendCmdResult.insert(n_Station, b_Result);
 
     //此处调用，cmd发送次数等于打开设备数量，send complete,容易导致崩溃.
-    //线程池并未关闭，局部线程没关闭
+    //线程池并未关闭，局部线程未关闭
 
 //    if(m_mapSendCmdResult.count() == m_mapLDHandle.count()){
 //        if(!m_bSendComplete){
@@ -226,7 +231,6 @@ bool PowerTest::WriteSendCmdResult(int n_Station,
 //    }
     qDebug()<<"m_mapSendCmdResult"<<m_mapSendCmdResult;
 
-    m_oQMutex.unlock();
     return true;
 }
 
@@ -258,7 +262,7 @@ bool PowerTest::WriteCmdInDongle(libusb_device_handle *p_LDHandle,
                                         1,      /* interface id */
                                         uc_Data,
                                         us_Length,
-                                        80);
+                                        50);
 
 //    qDebug()<<"WriteCmdInDongle"<<n_Ret;
 
@@ -279,7 +283,7 @@ bool PowerTest::ReadDetailsFromDongle(libusb_device_handle *p_LDHandle,
                                         1,      /* interface id */
                                         uc_Data,
                                         us_Length,
-                                        80);
+                                        50);
 
     if(n_Ret == 0)
         return true;

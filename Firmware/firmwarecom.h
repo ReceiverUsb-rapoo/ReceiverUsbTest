@@ -46,6 +46,10 @@ private:
     bool CheckSum_CRC(char *p_cData,
                       uint16_t &n_DataLenght,
                       uint16_t &us_CRC);
+    //CRC校验
+    bool CheckSum_CRC(char **p_cData,
+                      uint16_t &n_DataLenght,
+                      uint16_t &us_CRC);
     //处理整包数据 
     bool HandleBagData(QByteArray &byte_BagData);
     //处理缓存数据

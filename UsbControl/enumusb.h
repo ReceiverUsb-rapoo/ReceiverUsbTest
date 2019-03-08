@@ -31,6 +31,8 @@ private:
     //枚举完成
     bool EnumComplete();
 
+    void WaitForUsbOperatorFinish();
+
 signals:
     //发送 枚举完成
     void sig_EnumComplete();
@@ -44,6 +46,7 @@ private slots:
 private:
     UsbOperator *m_pUsbOperator;
     QMap<int,int> m_mapStationPort;     //<位置,com端口ID>，枚举结果判定依据
+
 };
 
 #endif // ENUMUSB_H

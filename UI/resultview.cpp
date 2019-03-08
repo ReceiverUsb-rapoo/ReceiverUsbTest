@@ -109,6 +109,9 @@ void ResultView::InitResultView()
     p_QGridLayout->addWidget(m_pQStackedWidget);
 
     for(int i = 0; i < m_pQStackedWidget->count(); i++){
-        m_pQStackedWidget->removeWidget(m_pQStackedWidget->widget(i));
+        QWidget *p_QWidget = m_pQStackedWidget->widget(i);
+        m_pQStackedWidget->removeWidget(p_QWidget);
+
+        delete p_QWidget;
     }
 }

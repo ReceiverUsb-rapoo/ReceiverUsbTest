@@ -10,6 +10,8 @@
 Firmware::Firmware(QObject *parent)
     : QObject(parent)
 {
+    m_usSequenceNumber = 0;
+
     m_pFirmwareCom = NULL;
     m_pLongQTimer = NULL;
     m_pShortQTimer = NULL;
@@ -136,9 +138,9 @@ bool Firmware::OpenFirmware()
 
     bool b_Ret1 = PC_GetFWInfo();
 
-    bool b_Ret2 = PC_RestartFW();
+//    bool b_Ret2 = PC_RestartFW();
 
-    return b_Ret1&&b_Ret2;
+    return b_Ret1/*&&b_Ret2*/;
 }
 
 bool Firmware::CloseFirmware()
@@ -474,25 +476,41 @@ bool Firmware::FWCMDControl(uchar &uc_Command,
         break;
     }
     case FW_STARTTEST:{
-        TntervalTimeReceive(FW_STARTTEST);
-        FW_StartTest(byte_Data.data(), un_DataLength);
+        if(TntervalTimeReceive(FW_STARTTEST, 5000))
+            FW_StartTest(byte_Data.data(), un_DataLength);
+        else
+            PCACK_StartTest();
         break;
     }
     case FW_COMPLETETEST:{
-        TntervalTimeReceive(FW_COMPLETETEST);
-        FW_CompleteTest(byte_Data.data(), un_DataLength);
+        if(TntervalTimeReceive(FW_COMPLETETEST, 5000))
+            FW_CompleteTest(byte_Data.data(), un_DataLength);
+        else
+            PCACK_CompleteTest();
         break;
     }
     case FW_STARTONEGROUPPOWTEST:{
         FW_StartOneGroupPowerTest(byte_Data.data(), un_DataLength);
+
+//        if(TntervalTimeReceive(FW_STARTONEGROUPPOWTEST, 500))
+//            FW_StartOneGroupPowerTest(byte_Data.data(), un_DataLength);
+//        else
+//            PCACK_StartOneGroupPowerTest();
+
         break;
     }
     case FW_STARTONEGROUPENUMTEST:{
-        FW_StartOneGroupEnumTesT(byte_Data.data(), un_DataLength);
+        if(TntervalTimeReceive(FW_STARTONEGROUPENUMTEST, 3000))
+            FW_StartOneGroupEnumTesT(byte_Data.data(), un_DataLength);
+        else
+            PCACK_StartOneGroupEnumTesT();
         break;
     }
     case FW_UPLOADRFPOWERRESYLT:{
-        FW_UploadRFPowerResult(byte_Data.data(), un_DataLength);
+        if(TntervalTimeReceive(FW_UPLOADRFPOWERRESYLT, 3000))
+            FW_UploadRFPowerResult(byte_Data.data(), un_DataLength);
+        else
+            PCACK_UploadRFPowerResult();
         break;
     }
     case FWACK_GETFWINFO:{
@@ -571,12 +589,13 @@ bool Firmware::FWCMDControl(uchar &uc_Command,
 * 短时间内二次以上上传cmd，造成测试流程错乱
 */
 
-bool Firmware::TntervalTimeReceive(ENUM_FIRMWARECOMMAND FWCommad)
+bool Firmware::TntervalTimeReceive(ENUM_FIRMWARECOMMAND FWCommad,
+                                   const uint &un_TntervalTime)
 {
     if(m_mapFWCommand_Interval.contains(FWCommad)){
         QDateTime o_QDateTime = QDateTime::fromString(m_mapFWCommand_Interval.value(FWCommad),
                                                       "yyyy.MM.dd hh.mm.ss.zzz");
-        if(o_QDateTime.msecsTo(QDateTime::currentDateTime()) > 1000){
+        if(o_QDateTime.msecsTo(QDateTime::currentDateTime()) > un_TntervalTime){
             QString str_Time;
             str_Time = QDateTime::currentDateTime().toString("yyyy.MM.dd hh.mm.ss.zzz");
             m_mapFWCommand_Interval.insert(FWCommad, str_Time);

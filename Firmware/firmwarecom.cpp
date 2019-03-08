@@ -185,8 +185,31 @@ bool FirmwareCom::CheckSum_CRC(char *p_cData,
                                uint16_t &us_CRC)
 {
     us_CRC = 0;
+//    uint16_t un16_Data = 0x00;
+    uint8_t un8_Data = 0x00;
+
     for(int i = 0; i < n_DataLenght; i++){
-        us_CRC += (uint8_t)p_cData[i];
+        memset(&un8_Data, 0x00, sizeof(uint8_t));
+        memcpy(&un8_Data, p_cData + i, sizeof(uint8_t));
+        us_CRC += static_cast<uint16_t>(un8_Data);
+//        us_CRC += (uint16_t)p_cData[i];
+    }
+    return true;
+}
+
+bool FirmwareCom::CheckSum_CRC(char **p_cData,
+                               uint16_t &n_DataLenght,
+                               uint16_t &us_CRC)
+{
+    us_CRC = 0;
+//    uint16_t un16_Data = 0x00;
+    uint8_t un8_Data = 0x00;
+
+    for(int i = 0; i < n_DataLenght; i++){
+        memset(&un8_Data, 0x00, sizeof(uint8_t));
+        memcpy(&un8_Data, *p_cData + i, sizeof(uint8_t));
+        us_CRC += static_cast<uint16_t>(un8_Data);
+//        us_CRC += (uint16_t)p_cData[i];
     }
     return true;
 }
@@ -219,6 +242,16 @@ bool FirmwareCom::HandleBagData(QByteArray &byte_BagData)
     if(byte_BagData.at(UP_HEADER_LENGHT + FRAME_LENGHT + us_FrameLenght) != FRAMETAIL[0] ||
             byte_BagData.at(UP_HEADER_LENGHT + FRAME_LENGHT + us_FrameLenght + 1) != FRAMETAIL[1]){
         byte_BagData.remove(0, n_BagDataLength);
+
+        qDebug()<<"check frame tail faile";
+        QString str_Info2 = "Receive Error Date ";
+        for(int i = 0; i < byte_BagData.length(); i++){
+            str_Info2 += " " + QString::number((unsigned char)byte_BagData.at(i), 16);
+        }
+
+        qDebug()<<str_Info2;
+        qDebug()<<"";
+
         return false;
     }
 
@@ -228,8 +261,10 @@ bool FirmwareCom::HandleBagData(QByteArray &byte_BagData)
     ByteArrayTrasfer(byte_BagData.mid(UP_HEADER_LENGHT + FRAME_LENGHT, us_FrameLenght), DATABAG);
     CheckSum_CRC(DATABAG, us_FrameLenght, us_CRC1);
 #else
-    char *p_DataBag = byte_BagData.mid(UP_HEADER_LENGHT, us_FrameLenght).data();
-    CheckSum_CRC(p_DataBag, us_FrameLenght, us_CRC1);
+    QByteArray byte_TempData = byte_BagData.mid(UP_HEADER_LENGHT, us_FrameLenght);
+    char *p_DataBag = byte_TempData.data();
+
+    CheckSum_CRC(&p_DataBag, us_FrameLenght, us_CRC1);
 #endif
 
     char CRC1[CHECKSUM_LENGHT] = {};
@@ -241,6 +276,7 @@ bool FirmwareCom::HandleBagData(QByteArray &byte_BagData)
     //check CRC
     if(CRC1[0] != CRC2[0] && CRC1[1] != CRC2[1]){
         byte_BagData.remove(0, n_BagDataLength);
+        qDebug()<<"check CRC faile";
         return false;
     }
 
@@ -273,6 +309,10 @@ bool FirmwareCom::HandleBagData(QByteArray &byte_BagData)
 #endif
 
     byte_BagData.remove(0, n_BagDataLength);
+
+    if(byte_BagData.indexOf(UP_HEADER) != -1 && byte_BagData.size() > BAGDATA_SHORTEST){
+        HandleCacheData(byte_BagData);
+    }
 
     return true;
 }
@@ -311,7 +351,16 @@ bool FirmwareCom::HandleCacheData(QByteArray &byte_Cache)
     if(byte_Cache.at(UP_HEADER_LENGHT + FRAME_LENGHT + us_FrameLenght) != FRAMETAIL[0] ||
             byte_Cache.at(UP_HEADER_LENGHT + FRAME_LENGHT + us_FrameLenght + 1) != FRAMETAIL[1]){
         byte_Cache.remove(0, n_BagDataLength);
+
         qDebug()<<"check frame tail faile";
+        QString str_Info2 = "Receive Error Date ";
+        for(int i = 0; i < byte_Cache.length(); i++){
+            str_Info2 += " " + QString::number((unsigned char)byte_Cache.at(i), 16);
+        }
+
+        qDebug()<<str_Info2;
+        qDebug()<<"";
+
         return false;
     }
 
@@ -321,8 +370,9 @@ bool FirmwareCom::HandleCacheData(QByteArray &byte_Cache)
     ByteArrayTrasfer(byte_Cache.mid(UP_HEADER_LENGHT + FRAME_LENGHT, us_FrameLenght), DATABAG);
     CheckSum_CRC(DATABAG, us_FrameLenght, us_CRC1);
 #else
-    char *p_DataBag = byte_Cache.mid(UP_HEADER_LENGHT, us_FrameLenght).data();
-    CheckSum_CRC(p_DataBag, us_FrameLenght, us_CRC1);
+    QByteArray byte_TempData = byte_Cache.mid(UP_HEADER_LENGHT, us_FrameLenght);
+    char *p_DataBag = byte_TempData.data();
+    CheckSum_CRC(&p_DataBag, us_FrameLenght, us_CRC1);
 #endif
 
     char CRC1[CHECKSUM_LENGHT] = {};
@@ -333,10 +383,10 @@ bool FirmwareCom::HandleCacheData(QByteArray &byte_Cache)
 
     //check CRC
     if(CRC1[0] != CRC2[0] || CRC1[1] != CRC2[1]){
-        qDebug()<<QString::number((uchar)CRC1[0], 16);
-        qDebug()<<QString::number((uchar)CRC1[1], 16);
-        qDebug()<<QString::number((uchar)CRC2[0], 16);
-        qDebug()<<QString::number((uchar)CRC2[1], 16);
+//        qDebug()<<QString::number((uchar)CRC1[0], 16);
+//        qDebug()<<QString::number((uchar)CRC1[1], 16);
+//        qDebug()<<QString::number((uchar)CRC2[0], 16);
+//        qDebug()<<QString::number((uchar)CRC2[1], 16);
 
         byte_Cache.remove(0, n_BagDataLength);
         qDebug()<<"check CRC faile";
@@ -373,6 +423,11 @@ bool FirmwareCom::HandleCacheData(QByteArray &byte_Cache)
 #endif
 
     byte_Cache.remove(0, n_BagDataLength);
+
+    if(byte_Cache.indexOf(UP_HEADER) != -1 && byte_Cache.size() > BAGDATA_SHORTEST){
+        HandleCacheData(byte_Cache);
+    }
+
     return true;
 }
 
@@ -381,10 +436,6 @@ bool FirmwareCom::SendCommand(char c_Command,
                               uint &un_DataLength)
 {
 //    delet[] p_cData;
-
-//    if(c_Command == 0x15){
-//        qDebug()<<c_Command;
-//    }
 
     QByteArray byte_Data = QByteArray(p_cData, un_DataLength);
     emit sig_ReceiveCommand(c_Command, byte_Data, un_DataLength);
@@ -406,13 +457,6 @@ void FirmwareCom::slot_ReadData()
             m_pQSerialPort->bytesAvailable() != -1){
         QByteArray byte_ReadData = m_pQSerialPort->readAll();
 //        m_pQSerialPort->clear();
-
-//        QString str_Info = "Read ";
-//        for(int i = 0; i < byte_ReadData.length(); i++){
-//            str_Info += " " + QString::number((unsigned char)byte_ReadData.at(i), 16);
-//        }
-//        qDebug()<<str_Info;
-//        qDebug()<<"";
 
         int n_DataLength = byte_ReadData.length();
         if(n_DataLength > MAX_LENGHT){
@@ -436,12 +480,5 @@ void FirmwareCom::slot_ReadData()
                 HandleCacheData(m_byteCache);
             }
         }
-
-//        QString str_Info1 = "Cache ";
-//        for(int i = 0; i < m_byteCache.length(); i++){
-//            str_Info1 += " " + QString::number((unsigned char)m_byteCache.at(i), 16);
-//        }
-//        qDebug()<<str_Info1;
-//        qDebug()<<"";
     }
 }

@@ -35,7 +35,7 @@ QString LogFile::Addlog(const QString &str_Info)
         str_InfoAddTime += " ";
     }
 
-    str_InfoAddTime += str_Info + "\r\n";
+    str_InfoAddTime += str_Info + "\r";
 
     o_QFile.write(str_InfoAddTime.toStdString().c_str());
 

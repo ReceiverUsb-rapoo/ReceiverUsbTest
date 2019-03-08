@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UsbControl_2>
+    <un_Pid>6163</un_Pid>
+    <un_Vid>9390</un_Vid>
+    <n_Time>7000</n_Time>
+    <str_StationPort>424,324,224,124,44,14,134,234,434,334,424,324,224,124,44,14,134,234,434,334</str_StationPort>
+</UsbControl_2>

@@ -776,15 +776,34 @@ bool DeviceObserver::AddFW(const QString &str_PortName,
 
 //    qDebug()<<"OpenFirmware ok";
 
-
+//    WorkSleep(800);
     //wait fot that get bootInfo(SequenceNumber) from fw
-    WorkSleep(800);
 
     ushort us_SequenceNumber = 0;
-    if(!p_Firmware->GetSequenceNumber(us_SequenceNumber)){
-        delete p_Firmware;
-        p_Firmware = NULL;
-        return false;
+    for(int i = 0; i<3; i++){
+        WorkSleep(500);
+
+        if(p_Firmware->GetSequenceNumber(us_SequenceNumber)){
+            break;
+        }
+
+        if(i == 2){
+            delete p_Firmware;
+            p_Firmware = NULL;
+            return false;
+        }
+    }
+
+//    if(!p_Firmware->GetSequenceNumber(us_SequenceNumber)){
+//        delete p_Firmware;
+//        p_Firmware = NULL;
+//        return false;
+//    }
+
+    qDebug()<<"us_SequenceNumber "<<us_SequenceNumber;
+
+    if(m_OpenFWModel == BYPIDVID){
+        p_Firmware->PC_RestartFW();
     }
 
     if(!AddFWUploadDataObject(us_SequenceNumber, str_PortName)){
@@ -973,8 +992,8 @@ bool DeviceObserver::RemoveAllFWAndFWData()
 
 bool DeviceObserver::UpdataLastFWTestData(const ushort &us_SequenceNumber)
 {
-    FWUploadData *p_FWCurrentData;
-    FWUploadData *p_FWLastData;
+    FWUploadData *p_FWCurrentData = NULL;
+    FWUploadData *p_FWLastData = NULL;
 
     foreach(FWUploadData *p_FWData, m_listLastFWUploadData){
         if(p_FWData->us_SequenceNumber == us_SequenceNumber){
@@ -988,8 +1007,8 @@ bool DeviceObserver::UpdataLastFWTestData(const ushort &us_SequenceNumber)
         }
     }
 
+    p_FWLastData->ClearFWData();
     p_FWLastData == p_FWCurrentData;
-
 
     ReplaceUsbControlResult(us_SequenceNumber,
                             m_mapOpenDeviceResult,

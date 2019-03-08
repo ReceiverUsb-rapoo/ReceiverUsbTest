@@ -134,6 +134,8 @@ void TcpServer::slot_Clear()
 
 void TcpServer::slot_ReadData(STRUCT_TCPDATA struct_TcpData)
 {
+//    qDebug()<<"ReadData  "<<struct_TcpData.str_IP<<"  "<<QString(struct_TcpData.byte_Data);
+
     emit sig_DataRecieved(struct_TcpData);
 }
 

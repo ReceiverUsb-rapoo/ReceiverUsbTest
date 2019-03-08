@@ -109,28 +109,29 @@ bool UsbOperator::FindUsbDevicePort(const uint &un_Pid,
 {
    libusb_device **ld_Device = NULL;
    ssize_t ss_Cnt = 0;
+
+   if(m_pLibusbContext == NULL){
+       return false;
+   }
+
    ss_Cnt = libusb_get_device_list(m_pLibusbContext, &ld_Device);
    if(ss_Cnt < 0){
        return false;
-   }
+   }  
 
    int n_Device = 0;
    libusb_device *ld_pDevice;
 
 //   qDebug()<<"enter";
+   struct libusb_device_descriptor ldd_Descriptor;
 
    while(ld_Device[n_Device] != NULL){
-
-       struct libusb_device_descriptor ldd_Descriptor;
        ld_pDevice = ld_Device[n_Device];
 
        n_Device++;
 
        int n_Ret = 0;
        n_Ret = libusb_get_device_descriptor(ld_pDevice, &ldd_Descriptor);
-
-//       qDebug()<<"libusb_get_device_descriptor";
-
        if(n_Ret < 0){
            libusb_free_device_list(ld_Device, 1);
            return false;
@@ -174,9 +175,9 @@ void UsbOperator::RunComplete()
 
 void UsbOperator::run()
 {
-    QTime _DieTime = QTime::currentTime().addMSecs(m_nRunTime);
+    QTime o_DieTime = QTime::currentTime().addMSecs(m_nRunTime);
 //    qDebug()<<"_DieTime"<<_DieTime;
-    while(QTime::currentTime() < _DieTime) {
+    while(QTime::currentTime() < o_DieTime) {
 //        qDebug()<<"currentTime"<<QTime::currentTime();
 //        if(!m_mapLDevice.isEmpty() || !m_listDevicePort.isEmpty()){
 //            break;

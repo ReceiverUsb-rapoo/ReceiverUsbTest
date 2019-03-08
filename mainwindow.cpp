@@ -602,7 +602,7 @@ void MainWindow::slot_CompleteTest(ushort us_SequenceNumber)
 {
     QList<bool> list_SingleResult;
     QList<QString> list_ResultString;
-    bool b_Result;
+    bool b_Result = false;
     m_pCountTestData->GetSingleResultErrorString(us_SequenceNumber,
                                                  list_SingleResult,
                                                  list_ResultString);
@@ -622,7 +622,7 @@ void MainWindow::slot_CompleteTest(ushort us_SequenceNumber)
 
     UpdataTestRecordData(m_ShowRecordData);
 
-    LogFile::Addlog("FW-" + QString::number(us_SequenceNumber) + " 通知完成测试");
+    LogFile::Addlog("FW-" + QString::number(us_SequenceNumber) + " 通知完成测试\n");
 }
 
 void MainWindow::slot_ButtonClick(int n_ID)

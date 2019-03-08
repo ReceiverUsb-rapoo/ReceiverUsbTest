@@ -11,7 +11,7 @@ ComDiscoverd::ComDiscoverd(QObject *parent)
     m_pQTimer = new QTimer;
     connect(m_pQTimer,SIGNAL(timeout()),
             this, SLOT(slot_TimerOut()));
-    m_pQTimer->start(2000);
+    m_pQTimer->start(1000);
 }
 
 ComDiscoverd::~ComDiscoverd()
@@ -37,12 +37,12 @@ void ComDiscoverd::slot_TimerOut()
     QList<QSerialPortInfo> list_PortInfo = QSerialPortInfo::availablePorts();
 
     for(int i = 0; i < list_PortInfo.count(); i++){
+        b_DiscoverdEqual = false;
         if(m_listPortInfo.count() == 0){
             m_listPortInfo.append(list_PortInfo.at(i));
             emit sig_ComDiscoverd(list_PortInfo.at(i).portName(),
                                   (uint)list_PortInfo.at(i).productIdentifier(),
                                   (uint)list_PortInfo.at(i).vendorIdentifier());
-            b_DiscoverdEqual = false;
             continue;
         }
 
@@ -60,19 +60,18 @@ void ComDiscoverd::slot_TimerOut()
             emit sig_ComDiscoverd(list_PortInfo.at(i).portName(),
                                   (uint)list_PortInfo.at(i).productIdentifier(),
                                   (uint)list_PortInfo.at(i).vendorIdentifier());
-            b_DiscoverdEqual = false;
         }
     }
 
     bool b_RemoveEqual = false;
     for(int i = 0; i < m_listPortInfo.count(); i++){
+        b_RemoveEqual = false;
         if(list_PortInfo.count() == 0){
             emit sig_ComRemove(m_listPortInfo.at(i).portName(),
                                (uint)m_listPortInfo.at(i).productIdentifier(),
                                (uint)m_listPortInfo.at(i).vendorIdentifier());
 
             m_listPortInfo.removeAt(i);
-            b_RemoveEqual = false;
             continue;
         }
 
@@ -90,7 +89,6 @@ void ComDiscoverd::slot_TimerOut()
                                (uint)m_listPortInfo.at(i).vendorIdentifier());
 
             m_listPortInfo.removeAt(i);
-            b_RemoveEqual = false;
         }
     }
 

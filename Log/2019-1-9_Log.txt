@@ -1,0 +1,99 @@
+16:46:45  抓取机器手 连接
+16:46:45  抓取机器手 连接
+16:47:23  屏蔽箱-1 未连接
+16:47:23  屏蔽箱-2 连接
+16:47:27  屏蔽箱-1 连接
+16:47:27  屏蔽箱-2 连接
+16:47:28  抓取机器手 未连接
+16:47:28  抓取机器手 未连接
+16:48:11  Send Box-1
+close
+16:48:16  Send Box-2
+close
+16:48:19  抓取机器手 连接
+16:48:19  抓取机器手 连接
+16:48:21  抓取机器手 未连接
+16:48:22  抓取机器手 未连接
+16:48:23  Receiver Box-2
+CLOSEBOX_OK
+16:48:23  Receiver Box-1
+CLOSEBOX_OK
+16:48:33  抓取机器手 连接
+16:48:33  抓取机器手 连接
+16:48:37  抓取机器手 未连接
+16:48:37  抓取机器手 未连接
+16:48:42  抓取机器手 连接
+16:48:42  抓取机器手 连接
+16:48:43  抓取机器手 未连接
+16:48:43  抓取机器手 未连接
+16:51:14  抓取机器手 连接
+16:51:14  抓取机器手 连接
+16:51:54  抓取机器手 未连接
+16:51:54  抓取机器手 未连接
+16:59:18  补料机器手 连接
+17:35:5   Com拔插 FW更新
+17:35:6   Com拔插 FW更新
+17:35:19  Send Box-1
+open
+17:35:25  Send Box-2
+open
+17:35:29  Send Box-2
+close
+17:35:53  Com拔插 FW更新
+17:35:54  Com拔插 FW更新
+17:40:4   屏蔽箱-1 未连接
+17:40:4   屏蔽箱-2 连接
+17:40:5   屏蔽箱-1 连接
+17:40:5   屏蔽箱-2 连接
+17:40:6   Com拔插 FW更新
+17:40:7   Com拔插 FW更新
+17:40:34  Send Box-1
+open
+17:40:37  Receiver Box-1
+OPENBOX_OK
+17:40:38  Send Box-1
+close
+17:40:43  Receiver Box-1
+CLOSEBOX_OK
+17:40:44  Send Box-2
+open
+17:40:45  Receiver Box-2
+OPENBOX_OK
+17:40:46  Send Box-2
+close
+17:41:1   Receiver Box-2
+CLOSEBOX_OK
+17:41:10  Send Box-2
+open
+17:41:11  Send Box-1
+open
+17:41:14  Receiver Box-2
+OPENBOX_OK
+17:41:15  Receiver Box-1
+OPENBOX_OK
+17:41:16  Send Box-2
+close
+17:41:18  Send Box-1
+close
+17:41:24  Receiver Box-1
+CLOSEBOX_OK
+17:41:24  Receiver Box-2
+CLOSEBOX_OK
+17:41:37  Send Box-1
+open
+17:41:38  Send Box-2
+open
+17:41:41  Receiver Box-1
+OPENBOX_OK
+17:41:42  Receiver Box-2
+OPENBOX_OK
+17:41:45  Send Box-1
+close
+17:41:46  Send Box-2
+close
+17:41:50  Receiver Box-1
+CLOSEBOX_OK
+17:41:53  Receiver Box-2
+CLOSEBOX_OK
+17:42:11  Com拔插 FW更新
+17:42:13  Com拔插 FW更新

@@ -147,6 +147,8 @@ bool MasterControl::StopTest()
 
 bool MasterControl::Resetting()
 {
+    SetEquitmentConfig();
+
     if(m_OpenFWModel == BYCOM){
         m_pDeviceObserver->UpdateFW_OpenByCom();
     }
@@ -163,8 +165,6 @@ bool MasterControl::Resetting()
     }
 
     m_pCountTestData->ClearRobotResultData();
-
-    SetEquitmentConfig();
 
     UpdataFWDevice();
 
@@ -901,7 +901,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
                             emit sig_ReadyTest(us_SequenceNumber);
                             m_oStartTest_MsgQueue.PushFront(us_SequenceNumber);
 
-    //                        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+//                            m_pDeviceOperator->StartOneTest(us_SequenceNumber);
                         }
                     }
                 }
@@ -946,7 +946,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
                         emit sig_ReadyTest(us_SequenceNumber);
                         m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
 
-    //                    m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+//                        m_pDeviceOperator->StartOneTest(us_SequenceNumber);
                     }
                 }
             }
@@ -974,7 +974,7 @@ void MasterControl::slot_CompleteTest(ushort us_SequenceNumber)
                     emit sig_ReadyTest(us_SequenceNumber);
                     m_oStartTest_MsgQueue.PushBack(us_SequenceNumber);
 
-    //                m_pDeviceOperator->StartOneTest(us_SequenceNumber);
+//                    m_pDeviceOperator->StartOneTest(us_SequenceNumber);
                 }
             }
         }

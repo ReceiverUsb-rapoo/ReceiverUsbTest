@@ -16,9 +16,11 @@ EnumUsb::EnumUsb(QObject *parent)
 
 EnumUsb::~EnumUsb()
 {
-    CloseEmumUsb();
+    qDebug()<<"~EnumUsb()";
 
     if(m_pUsbOperator != NULL){
+        m_pUsbOperator->exit();
+        WaitForUsbOperatorFinish();
         delete m_pUsbOperator;
         m_pUsbOperator = NULL;
     }
@@ -58,6 +60,7 @@ bool EnumUsb::SetEnumUsbConfig(const uint &un_Pid,
 
 bool EnumUsb::StartNewEnumUsb()
 {
+    qDebug()<<"StartNewEnumUsb";
     m_pUsbOperator->StartNewOperator();
     m_pUsbOperator->start();
     return true;
@@ -105,8 +108,22 @@ void EnumUsb::WorkSleep(ushort un_Msec)
 bool EnumUsb::EnumComplete()
 {
     //no more thing to do
+    qDebug()<<"EnumComplete";
+    m_pUsbOperator->exit();
     emit sig_EnumComplete();
     return true;
+}
+
+void EnumUsb::WaitForUsbOperatorFinish()
+{
+    if(m_pUsbOperator == NULL){
+        return;
+    }
+
+    while(!m_pUsbOperator->isFinished()){
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+        QThread::msleep(10);
+    }
 }
 
 void EnumUsb::slot_EnumComplete()

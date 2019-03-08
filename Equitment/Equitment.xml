@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Equitment>
+    <Com>ttyS7,ttyS8</Com>
+    <un_ComPid>8963</un_ComPid>
+    <un_ComVid>1659</un_ComVid>
+    <str_ComputerIP>192.168.0.38</str_ComputerIP>
+    <us_ComputerPort>8080</us_ComputerPort>
+    <n_OpemWithComName>0</n_OpemWithComName>
+    <n_OpemWithPidVid>1</n_OpemWithPidVid>
+    <n_BoxUnuse>0</n_BoxUnuse>
+    <n_RobotUnuse>0</n_RobotUnuse>
+    <BoxIP>192.168.0.5,192.168.0.6</BoxIP>
+    <RobotIP>192.168.0.1,192.168.0.2</RobotIP>
+</Equitment>

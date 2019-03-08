@@ -1,0 +1,2027 @@
+9:15:57   屏蔽箱-1 未连接
+9:15:57   屏蔽箱-2 连接
+9:15:57   屏蔽箱-1 连接
+9:15:57   屏蔽箱-2 连接
+9:16:13   Com拔插 FW更新
+9:16:33   Com拔插 FW更新
+9:16:53   Com拔插 FW更新
+9:17:4    屏蔽箱-1 未连接
+9:17:4    屏蔽箱-2 连接
+9:17:4    屏蔽箱-1 连接
+9:17:4    屏蔽箱-2 连接
+9:17:43   Com拔插 FW更新
+9:17:45   Com拔插 FW更新
+9:18:41   屏蔽箱-1 未连接
+9:18:41   屏蔽箱-2 连接
+9:18:42   屏蔽箱-1 连接
+9:18:42   屏蔽箱-2 连接
+9:24:46   屏蔽箱-1 连接
+9:24:46   屏蔽箱-2 连接
+9:24:46   屏蔽箱-1 连接
+9:24:46   屏蔽箱-2 连接
+9:25:7    Com拔插 FW更新
+9:25:9    Com拔插 FW更新
+9:25:23   Com拔插 FW更新
+9:25:37   Com拔插 FW更新
+9:25:47   Com拔插 FW更新
+9:25:51   Com拔插 FW更新
+9:26:33   Com拔插 FW更新
+9:26:44   屏蔽箱-1 连接
+9:26:44   屏蔽箱-2 未连接
+9:26:46   屏蔽箱-1 连接
+9:26:46   屏蔽箱-2 连接
+9:27:16   Com拔插 FW更新
+9:27:53   Com拔插 FW更新
+9:31:7    屏蔽箱-1 连接
+9:31:7    屏蔽箱-2 未连接
+9:31:7    屏蔽箱-1 连接
+9:31:7    屏蔽箱-2 连接
+9:33:5    屏蔽箱-1 连接
+9:33:5    屏蔽箱-2 未连接
+9:33:7    屏蔽箱-1 连接
+9:33:7    屏蔽箱-2 连接
+9:33:23   Com拔插 FW更新
+9:34:17   Com拔插 FW更新
+9:35:3    Com拔插 FW更新
+9:35:36   初始化测试
+9:35:39   停止测试
+9:35:40   重置测试
+9:37:38   屏蔽箱-1 未连接
+9:37:38   屏蔽箱-2 连接
+9:37:40   屏蔽箱-1 连接
+9:37:40   屏蔽箱-2 连接
+9:38:3    屏蔽箱-1 未连接
+9:38:3    屏蔽箱-2 连接
+9:38:3    屏蔽箱-1 连接
+9:38:3    屏蔽箱-2 连接
+9:38:10   Com拔插 FW更新
+9:40:5    屏蔽箱-1 连接
+9:40:5    屏蔽箱-2 未连接
+9:40:5    屏蔽箱-1 连接
+9:40:5    屏蔽箱-2 连接
+9:43:3    屏蔽箱-1 连接
+9:43:3    屏蔽箱-2 未连接
+9:43:4    屏蔽箱-1 连接
+9:43:4    屏蔽箱-2 连接
+9:43:6    Com拔插 FW更新
+9:43:17   屏蔽箱-1 连接
+9:43:17   屏蔽箱-2 未连接
+9:43:19   屏蔽箱-1 连接
+9:43:19   屏蔽箱-2 连接
+9:43:19   Com拔插 FW更新
+9:43:27   Box-1 打开箱子
+9:43:27   初始化测试
+9:43:31   Box-1 收到箱子命令 1
+9:43:37   开始自动测试
+9:43:37   CatchRobot-1 发送抓取机器人动作 A
+9:43:38   CatchRobot-1 发送抓取机器人动作 A
+9:43:38   CatchRobot-1 发送抓取机器人动作 A
+9:43:39   CatchRobot-1 发送抓取机器人动作 A
+9:43:39   CatchRobot-1 发送抓取机器人动作 A
+9:43:40   CatchRobot-1 发送抓取机器人动作 A
+9:43:40   CatchRobot-1 发送抓取机器人动作 A
+9:43:41   CatchRobot-1 发送抓取机器人动作 A
+9:43:41   CatchRobot-1 发送抓取机器人动作 A
+9:43:42   CatchRobot-1 发送抓取机器人动作 A
+9:43:42   CatchRobot-1 发送抓取机器人动作 A
+9:43:43   CatchRobot-1 发送抓取机器人动作 A
+9:43:43   CatchRobot-1 发送抓取机器人动作 A
+9:43:44   CatchRobot-1 发送抓取机器人动作 A
+9:43:44   CatchRobot-1 发送抓取机器人动作 A
+9:43:45   CatchRobot-1 发送抓取机器人动作 A
+9:43:45   CatchRobot-1 发送抓取机器人动作 A
+9:43:46   CatchRobot-1 发送抓取机器人动作 A
+9:43:46   CatchRobot-1 发送抓取机器人动作 A
+9:43:47   CatchRobot-1 发送抓取机器人动作 A
+9:43:47   CatchRobot-1 发送抓取机器人动作 A
+9:43:48   CatchRobot-1 发送抓取机器人动作 A
+9:43:48   CatchRobot-1 发送抓取机器人动作 A
+9:43:49   CatchRobot-1 发送抓取机器人动作 A
+9:43:49   CatchRobot-1 发送抓取机器人动作 A
+9:43:50   CatchRobot-1 发送抓取机器人动作 A
+9:43:50   CatchRobot-1 发送抓取机器人动作 A
+9:43:51   CatchRobot-1 发送抓取机器人动作 A
+9:43:51   CatchRobot-1 发送抓取机器人动作 A
+9:43:52   CatchRobot-1 发送抓取机器人动作 A
+9:43:52   CatchRobot-1 发送抓取机器人动作 A
+9:43:53   CatchRobot-1 发送抓取机器人动作 A
+9:43:53   CatchRobot-1 发送抓取机器人动作 A
+9:43:54   CatchRobot-1 发送抓取机器人动作 A
+9:43:54   CatchRobot-1 发送抓取机器人动作 A
+9:43:55   CatchRobot-1 发送抓取机器人动作 A
+9:43:55   CatchRobot-1 发送抓取机器人动作 A
+9:43:56   CatchRobot-1 发送抓取机器人动作 A
+9:43:56   CatchRobot-1 发送抓取机器人动作 A
+9:43:57   CatchRobot-1 发送抓取机器人动作 A
+9:43:57   CatchRobot-1 发送抓取机器人动作 A
+9:43:58   CatchRobot-1 发送抓取机器人动作 A
+9:43:58   CatchRobot-1 发送抓取机器人动作 A
+9:43:59   CatchRobot-1 发送抓取机器人动作 A
+9:43:59   CatchRobot-1 发送抓取机器人动作 A
+9:44:0    CatchRobot-1 发送抓取机器人动作 A
+9:44:0    CatchRobot-1 发送抓取机器人动作 A
+9:44:1    CatchRobot-1 发送抓取机器人动作 A
+9:44:1    CatchRobot-1 发送抓取机器人动作 A
+9:44:2    CatchRobot-1 发送抓取机器人动作 A
+9:44:19   CatchRobot-1 发送抓取机器人动作 A
+9:44:19   CatchRobot-1 发送抓取机器人动作 A
+9:44:20   CatchRobot-1 发送抓取机器人动作 A
+9:44:20   CatchRobot-1 发送抓取机器人动作 A
+9:44:21   CatchRobot-1 发送抓取机器人动作 A
+9:44:21   CatchRobot-1 发送抓取机器人动作 A
+9:44:22   CatchRobot-1 发送抓取机器人动作 A
+9:44:22   CatchRobot-1 发送抓取机器人动作 A
+9:44:23   CatchRobot-1 发送抓取机器人动作 A
+9:44:23   CatchRobot-1 发送抓取机器人动作 A
+9:44:24   CatchRobot-1 发送抓取机器人动作 A
+9:44:24   CatchRobot-1 发送抓取机器人动作 A
+9:44:25   CatchRobot-1 发送抓取机器人动作 A
+9:44:25   CatchRobot-1 发送抓取机器人动作 A
+9:44:26   CatchRobot-1 发送抓取机器人动作 A
+9:44:26   CatchRobot-1 发送抓取机器人动作 A
+9:44:27   CatchRobot-1 发送抓取机器人动作 A
+9:44:27   CatchRobot-1 发送抓取机器人动作 A
+9:44:28   CatchRobot-1 发送抓取机器人动作 A
+9:44:28   CatchRobot-1 发送抓取机器人动作 A
+9:44:29   CatchRobot-1 发送抓取机器人动作 A
+9:44:29   CatchRobot-1 发送抓取机器人动作 A
+9:44:30   CatchRobot-1 发送抓取机器人动作 A
+9:44:30   CatchRobot-1 发送抓取机器人动作 A
+9:44:31   CatchRobot-1 发送抓取机器人动作 A
+9:44:31   CatchRobot-1 发送抓取机器人动作 A
+9:44:32   CatchRobot-1 发送抓取机器人动作 A
+9:44:32   CatchRobot-1 发送抓取机器人动作 A
+9:44:33   CatchRobot-1 发送抓取机器人动作 A
+9:44:33   CatchRobot-1 发送抓取机器人动作 A
+9:44:34   CatchRobot-1 发送抓取机器人动作 A
+9:44:34   CatchRobot-1 发送抓取机器人动作 A
+9:44:35   CatchRobot-1 发送抓取机器人动作 A
+9:44:35   CatchRobot-1 发送抓取机器人动作 A
+9:44:36   CatchRobot-1 发送抓取机器人动作 A
+9:44:36   CatchRobot-1 发送抓取机器人动作 A
+9:44:37   CatchRobot-1 发送抓取机器人动作 A
+9:44:37   CatchRobot-1 发送抓取机器人动作 A
+9:44:38   CatchRobot-1 发送抓取机器人动作 A
+9:44:38   CatchRobot-1 发送抓取机器人动作 A
+9:44:39   CatchRobot-1 发送抓取机器人动作 A
+9:44:39   CatchRobot-1 发送抓取机器人动作 A
+9:44:40   CatchRobot-1 发送抓取机器人动作 A
+9:44:40   CatchRobot-1 发送抓取机器人动作 A
+9:44:41   CatchRobot-1 发送抓取机器人动作 A
+9:44:41   CatchRobot-1 发送抓取机器人动作 A
+9:44:42   CatchRobot-1 发送抓取机器人动作 A
+9:44:42   CatchRobot-1 发送抓取机器人动作 A
+9:44:43   CatchRobot-1 发送抓取机器人动作 A
+9:44:43   CatchRobot-1 发送抓取机器人动作 A
+9:44:44   CatchRobot-1 发送抓取机器人动作 A
+9:44:44   CatchRobot-1 发送抓取机器人动作 A
+9:44:45   CatchRobot-1 发送抓取机器人动作 A
+9:44:45   CatchRobot-1 发送抓取机器人动作 A
+9:44:46   CatchRobot-1 发送抓取机器人动作 A
+9:44:46   CatchRobot-1 发送抓取机器人动作 A
+9:44:47   CatchRobot-1 发送抓取机器人动作 A
+9:44:47   CatchRobot-1 发送抓取机器人动作 A
+9:44:48   CatchRobot-1 发送抓取机器人动作 A
+9:44:48   CatchRobot-1 发送抓取机器人动作 A
+9:44:49   CatchRobot-1 发送抓取机器人动作 A
+9:44:49   CatchRobot-1 发送抓取机器人动作 A
+9:44:50   CatchRobot-1 发送抓取机器人动作 A
+9:44:50   CatchRobot-1 发送抓取机器人动作 A
+9:44:51   CatchRobot-1 发送抓取机器人动作 A
+9:44:51   CatchRobot-1 发送抓取机器人动作 A
+9:44:52   CatchRobot-1 发送抓取机器人动作 A
+9:44:52   CatchRobot-1 发送抓取机器人动作 A
+9:44:53   CatchRobot-1 发送抓取机器人动作 A
+9:44:53   CatchRobot-1 发送抓取机器人动作 A
+9:44:54   CatchRobot-1 发送抓取机器人动作 A
+9:44:54   CatchRobot-1 发送抓取机器人动作 A
+9:44:55   CatchRobot-1 发送抓取机器人动作 A
+9:44:55   CatchRobot-1 发送抓取机器人动作 A
+9:44:56   CatchRobot-1 发送抓取机器人动作 A
+9:44:56   CatchRobot-1 发送抓取机器人动作 A
+9:44:57   CatchRobot-1 发送抓取机器人动作 A
+9:44:57   CatchRobot-1 发送抓取机器人动作 A
+9:44:58   CatchRobot-1 发送抓取机器人动作 A
+9:44:58   CatchRobot-1 发送抓取机器人动作 A
+9:44:59   CatchRobot-1 发送抓取机器人动作 A
+9:44:59   CatchRobot-1 发送抓取机器人动作 A
+9:45:0    CatchRobot-1 发送抓取机器人动作 A
+9:45:0    CatchRobot-1 发送抓取机器人动作 A
+9:45:1    CatchRobot-1 发送抓取机器人动作 A
+9:45:1    CatchRobot-1 发送抓取机器人动作 A
+9:45:2    CatchRobot-1 发送抓取机器人动作 A
+9:45:2    CatchRobot-1 发送抓取机器人动作 A
+9:45:3    CatchRobot-1 发送抓取机器人动作 A
+9:45:3    CatchRobot-1 发送抓取机器人动作 A
+9:45:4    CatchRobot-1 发送抓取机器人动作 A
+9:45:4    CatchRobot-1 发送抓取机器人动作 A
+9:45:5    CatchRobot-1 发送抓取机器人动作 A
+9:45:5    CatchRobot-1 发送抓取机器人动作 A
+9:45:6    CatchRobot-1 发送抓取机器人动作 A
+9:45:6    CatchRobot-1 发送抓取机器人动作 A
+9:45:7    CatchRobot-1 发送抓取机器人动作 A
+9:45:7    CatchRobot-1 发送抓取机器人动作 A
+9:45:8    CatchRobot-1 发送抓取机器人动作 A
+9:45:8    CatchRobot-1 发送抓取机器人动作 A
+9:45:9    CatchRobot-1 发送抓取机器人动作 A
+9:45:9    CatchRobot-1 发送抓取机器人动作 A
+9:45:10   CatchRobot-1 发送抓取机器人动作 A
+9:45:10   CatchRobot-1 发送抓取机器人动作 A
+9:45:11   CatchRobot-1 发送抓取机器人动作 A
+9:45:11   CatchRobot-1 发送抓取机器人动作 A
+9:45:12   CatchRobot-1 发送抓取机器人动作 A
+9:45:12   CatchRobot-1 发送抓取机器人动作 A
+9:45:13   CatchRobot-1 发送抓取机器人动作 A
+9:45:13   CatchRobot-1 发送抓取机器人动作 A
+9:45:14   CatchRobot-1 发送抓取机器人动作 A
+9:45:14   CatchRobot-1 发送抓取机器人动作 A
+9:45:15   CatchRobot-1 发送抓取机器人动作 A
+9:45:15   CatchRobot-1 发送抓取机器人动作 A
+9:45:16   CatchRobot-1 发送抓取机器人动作 A
+9:45:16   CatchRobot-1 发送抓取机器人动作 A
+9:45:17   CatchRobot-1 发送抓取机器人动作 A
+9:45:17   CatchRobot-1 发送抓取机器人动作 A
+9:45:18   CatchRobot-1 发送抓取机器人动作 A
+9:45:18   CatchRobot-1 发送抓取机器人动作 A
+9:45:19   CatchRobot-1 发送抓取机器人动作 A
+9:45:19   CatchRobot-1 发送抓取机器人动作 A
+9:45:20   CatchRobot-1 发送抓取机器人动作 A
+9:45:20   CatchRobot-1 发送抓取机器人动作 A
+9:45:21   CatchRobot-1 发送抓取机器人动作 A
+9:45:21   CatchRobot-1 发送抓取机器人动作 A
+9:45:22   CatchRobot-1 发送抓取机器人动作 A
+9:45:22   CatchRobot-1 发送抓取机器人动作 A
+9:45:23   CatchRobot-1 发送抓取机器人动作 A
+9:45:23   CatchRobot-1 发送抓取机器人动作 A
+9:45:24   CatchRobot-1 发送抓取机器人动作 A
+9:45:24   CatchRobot-1 发送抓取机器人动作 A
+9:45:25   CatchRobot-1 发送抓取机器人动作 A
+9:45:25   CatchRobot-1 发送抓取机器人动作 A
+9:45:31   屏蔽箱-1 连接
+9:45:31   屏蔽箱-2 未连接
+9:45:31   屏蔽箱-1 连接
+9:45:31   屏蔽箱-2 连接
+9:45:33   Com拔插 FW更新
+9:45:38   Box-1 打开箱子
+9:45:38   初始化测试
+9:45:40   Box-1 收到箱子命令 1
+9:45:46   开始自动测试
+9:45:48   抓取机器手 连接
+9:46:2    CatchRobot-1 收到抓取机器人命令 Q
+9:46:2    CatchRobot-1 收到抓取机器人命令 L
+9:46:2    CatchRobot-1 发送抓取机器人动作 A
+9:46:3    CatchRobot-1 收到抓取机器人命令 W
+9:46:33   抓取机器手 未连接
+9:47:47   停止测试
+9:47:49   重置测试
+9:47:53   重置测试
+9:48:8    屏蔽箱-1 连接
+9:48:8    屏蔽箱-2 连接
+9:48:8    屏蔽箱-1 连接
+9:48:8    屏蔽箱-2 连接
+9:48:11   Com拔插 FW更新
+9:49:11   屏蔽箱-1 未连接
+9:49:11   屏蔽箱-2 连接
+9:49:11   屏蔽箱-1 连接
+9:49:11   屏蔽箱-2 连接
+9:49:13   Com拔插 FW更新
+9:49:26   Box-1 打开箱子
+9:49:26   初始化测试
+9:49:28   Box-1 收到箱子命令 1
+9:49:28   开始自动测试
+9:49:39   抓取机器手 连接
+9:50:0    CatchRobot-1 收到抓取机器人命令 Q
+9:50:0    CatchRobot-1 收到抓取机器人命令 L
+9:50:0    CatchRobot-1 发送抓取机器人动作 A
+9:50:0    CatchRobot-1 收到抓取机器人命令 W
+9:50:23   CatchRobot-1 收到抓取机器人命令 L
+9:50:23   CatchRobot-1 收到抓取机器人命令 B
+9:50:23   Box-1 关闭箱子
+9:50:23   CatchRobot-1 收到抓取机器人命令 Q
+9:50:23   CatchRobot-1 收到抓取机器人命令 L
+9:50:28   Box-1 收到箱子命令 3
+9:50:28   FW-1 准备测试
+9:50:28   FW-1 通知开始测试
+9:50:54   Box-1 打开箱子
+9:50:54   FW-1 通知完成测试
+9:50:57   Box-1 收到箱子命令 1
+9:50:57   CatchRobot-1 发送抓取机器人动作 C
+9:50:59   Box-1 打开箱子
+9:50:59   FW-1 通知完成测试
+9:50:59   Box-1 打开箱子
+9:50:59   FW-1 通知完成测试
+9:51:1    Box-1 收到箱子命令 1
+9:51:2    Box-1 收到箱子命令 1
+9:51:43   抓取机器手 未连接
+9:56:58   屏蔽箱-1 未连接
+9:56:58   屏蔽箱-2 连接
+9:56:59   屏蔽箱-1 连接
+9:56:59   屏蔽箱-2 连接
+9:57:0    Com拔插 FW更新
+9:57:2    Box-1 打开箱子
+9:57:3    初始化测试
+9:57:4    开始自动测试
+9:57:4    Box-1 收到箱子命令 1
+10:8:58   屏蔽箱-1 连接
+10:8:58   屏蔽箱-2 未连接
+10:8:58   屏蔽箱-1 连接
+10:8:58   屏蔽箱-2 连接
+10:30:52  抓取机器手 连接
+10:30:54  抓取机器手 未连接
+10:35:34  屏蔽箱-1 连接
+10:35:34  屏蔽箱-2 未连接
+10:35:35  屏蔽箱-1 连接
+10:35:35  屏蔽箱-2 连接
+10:35:37  Com拔插 FW更新
+10:35:40  Box-1 打开箱子
+10:35:40  初始化测试
+10:35:41  Box-1 收到箱子命令 1
+10:35:44  抓取机器手 连接
+10:35:48  开始自动测试
+10:35:48  CatchRobot-1 发送抓取机器人动作 S
+10:36:14  CatchRobot-1 收到抓取机器人命令 Q
+10:36:14  CatchRobot-1 收到抓取机器人命令 L
+10:36:14  CatchRobot-1 发送抓取机器人动作 A
+10:36:15  CatchRobot-1 收到抓取机器人命令 W
+10:36:37  CatchRobot-1 收到抓取机器人命令 L
+10:36:37  CatchRobot-1 收到抓取机器人命令 B
+10:36:37  Box-1 关闭箱子
+10:36:37  CatchRobot-1 收到抓取机器人命令 Q
+10:36:37  CatchRobot-1 收到抓取机器人命令 L
+10:36:42  Box-1 收到箱子命令 3
+10:36:42  FW-1 准备测试
+10:36:42  FW-1 通知开始测试
+10:36:59  FW-1 通知完成测试
+10:36:59  Box-1 打开箱子
+10:37:2   Box-1 收到箱子命令 1
+10:37:2   CatchRobot-1 发送抓取机器人动作 C
+10:37:2   CatchRobot-1 收到抓取机器人命令 W
+10:37:18  CatchRobot-1 收到抓取机器人命令 L
+10:37:18  CatchRobot-1 收到抓取机器人命令 B
+10:37:18  Box-1 关闭箱子
+10:37:23  Box-1 收到箱子命令 3
+10:37:23  FW-1 准备测试
+10:37:23  FW-1 通知开始测试
+10:37:39  FW-1 通知完成测试
+10:37:39  Box-1 打开箱子
+10:37:43  Box-1 收到箱子命令 1
+10:38:44  补料机器手 连接
+10:39:10  SupplementRobot-49 收到分料机器人命令 
+10:39:27  CatchRobot-1 收到抓取机器人命令 Q
+10:39:27  CatchRobot-1 收到抓取机器人命令 L
+10:39:27  CatchRobot-1 发送抓取机器人动作 C
+10:40:33  抓取机器手 未连接
+10:51:33  补料机器手 未连接
+10:51:34  补料机器手 连接
+10:52:6   补料机器手 连接
+10:52:6   SupplementRobot-49 收到分料机器人命令 
+10:52:35  屏蔽箱-1 未连接
+10:52:35  屏蔽箱-2 连接
+10:52:37  Com拔插 FW更新
+10:52:37  屏蔽箱-1 连接
+10:52:37  屏蔽箱-2 连接
+10:53:22  Box-1 打开箱子
+10:53:22  初始化测试
+10:53:24  Box-1 收到箱子命令 1
+10:54:12  抓取机器手 连接
+10:54:33  抓取机器手 未连接
+10:54:45  抓取机器手 连接
+10:54:47  开始自动测试
+10:54:47  CatchRobot-1 发送抓取机器人动作 S
+10:55:13  CatchRobot-1 收到抓取机器人命令 Q
+10:55:13  CatchRobot-1 收到抓取机器人命令 L
+10:55:13  CatchRobot-1 发送抓取机器人动作 A
+10:55:14  CatchRobot-1 收到抓取机器人命令 W
+10:55:36  CatchRobot-1 收到抓取机器人命令 L
+10:55:36  CatchRobot-1 收到抓取机器人命令 B
+10:55:36  Box-1 关闭箱子
+10:55:36  CatchRobot-1 收到抓取机器人命令 Q
+10:55:36  CatchRobot-1 收到抓取机器人命令 L
+10:55:41  Box-1 收到箱子命令 3
+10:55:41  FW-1 准备测试
+10:55:41  FW-1 通知开始测试
+10:55:58  FW-1 通知完成测试
+10:55:58  Box-1 打开箱子
+10:56:1   Box-1 收到箱子命令 1
+10:56:1   CatchRobot-1 发送抓取机器人动作 C
+10:56:1   CatchRobot-1 收到抓取机器人命令 W
+10:56:17  CatchRobot-1 收到抓取机器人命令 L
+10:56:17  CatchRobot-1 收到抓取机器人命令 D
+10:56:45  补料机器手 连接
+10:57:22  CatchRobot-1 收到抓取机器人命令 Q
+10:57:22  CatchRobot-1 收到抓取机器人命令 L
+10:57:22  CatchRobot-1 发送抓取机器人动作 A
+10:57:22  CatchRobot-1 收到抓取机器人命令 W
+10:57:45  CatchRobot-1 收到抓取机器人命令 L
+10:57:45  CatchRobot-1 收到抓取机器人命令 B
+10:57:45  Box-1 关闭箱子
+10:57:45  CatchRobot-1 收到抓取机器人命令 Q
+10:57:45  CatchRobot-1 收到抓取机器人命令 L
+10:57:50  Box-1 收到箱子命令 3
+10:57:50  FW-1 准备测试
+10:57:50  FW-1 通知开始测试
+10:58:6   FW-1 通知完成测试
+10:58:6   Box-1 打开箱子
+10:58:10  Box-1 收到箱子命令 1
+10:58:10  CatchRobot-1 发送抓取机器人动作 C
+10:58:10  CatchRobot-1 收到抓取机器人命令 W
+10:58:25  CatchRobot-1 收到抓取机器人命令 L
+10:58:25  CatchRobot-1 收到抓取机器人命令 D
+11:0:11   SupplementRobot-49 收到分料机器人命令 
+11:2:56   抓取机器手 连接
+11:2:56   屏蔽箱-1 连接
+11:2:56   屏蔽箱-2 未连接
+11:2:56   屏蔽箱-1 连接
+11:2:56   屏蔽箱-2 连接
+11:2:56   抓取机器手 未连接
+11:2:58   Com拔插 FW更新
+11:2:59   抓取机器手 连接
+11:3:2    Box-1 打开箱子
+11:3:2    初始化测试
+11:3:4    Box-1 收到箱子命令 1
+11:3:4    开始自动测试
+11:3:4    CatchRobot-1 发送抓取机器人动作 S
+11:3:11   补料机器手 连接
+11:3:30   CatchRobot-1 收到抓取机器人命令 Q
+11:3:30   CatchRobot-1 收到抓取机器人命令 L
+11:3:30   CatchRobot-1 发送抓取机器人动作 A
+11:3:30   CatchRobot-1 收到抓取机器人命令 W
+11:3:53   CatchRobot-1 收到抓取机器人命令 L
+11:3:53   CatchRobot-1 收到抓取机器人命令 B
+11:3:53   Box-1 关闭箱子
+11:3:53   CatchRobot-1 收到抓取机器人命令 Q
+11:3:53   CatchRobot-1 收到抓取机器人命令 L
+11:3:58   Box-1 收到箱子命令 3
+11:3:58   FW-1 准备测试
+11:3:58   FW-1 通知开始测试
+11:4:14   FW-1 通知完成测试
+11:4:14   Box-1 打开箱子
+11:4:18   Box-1 收到箱子命令 1
+11:4:18   CatchRobot-1 发送抓取机器人动作 C
+11:4:18   CatchRobot-1 收到抓取机器人命令 W
+11:4:33   CatchRobot-1 收到抓取机器人命令 L
+11:4:33   CatchRobot-1 收到抓取机器人命令 D
+11:5:1    SupplementRobot-1 收到分料机器人命令 
+11:6:41   抓取机器手 未连接
+11:6:50   补料机器手 连接
+11:6:50   SupplementRobot-1 收到分料机器人命令 
+11:8:4    屏蔽箱-1 未连接
+11:8:4    屏蔽箱-2 连接
+11:8:5    屏蔽箱-1 连接
+11:8:5    屏蔽箱-2 连接
+11:8:6    Com拔插 FW更新
+11:8:27   抓取机器手 连接
+11:9:1    屏蔽箱-1 连接
+11:9:1    屏蔽箱-2 未连接
+11:9:4    屏蔽箱-1 连接
+11:9:4    屏蔽箱-2 连接
+11:11:31  抓取机器手 未连接
+11:11:51  Com拔插 FW更新
+11:12:6   Com拔插 FW更新
+11:12:6   Com拔插 FW更新
+11:14:11  Com拔插 FW更新
+11:14:18  Com拔插 FW更新
+11:14:57  重置测试
+11:15:44  屏蔽箱-1 连接
+11:15:44  屏蔽箱-2 未连接
+11:15:45  屏蔽箱-1 连接
+11:15:45  屏蔽箱-2 连接
+11:15:46  Com拔插 FW更新
+11:16:5   抓取机器手 连接
+11:16:15  补料机器手 连接
+11:16:17  Box-1 打开箱子
+11:16:17  初始化测试
+11:16:18  Box-1 收到箱子命令 1
+11:16:27  开始自动测试
+11:16:27  CatchRobot-1 发送抓取机器人动作 S
+11:16:27  CatchRobot-1 收到抓取机器人命令 L
+11:16:53  CatchRobot-1 收到抓取机器人命令 Q
+11:16:53  CatchRobot-1 发送抓取机器人动作 A
+11:16:54  CatchRobot-1 收到抓取机器人命令 W
+11:17:16  CatchRobot-1 收到抓取机器人命令 L
+11:17:16  CatchRobot-1 收到抓取机器人命令 B
+11:17:16  Box-1 关闭箱子
+11:17:16  CatchRobot-1 收到抓取机器人命令 Q
+11:17:21  Box-1 收到箱子命令 3
+11:17:21  FW-1 准备测试
+11:17:21  FW-1 通知开始测试
+11:17:40  FW-1 通知完成测试
+11:17:40  Box-1 打开箱子
+11:17:43  Box-1 收到箱子命令 1
+11:17:43  CatchRobot-1 发送抓取机器人动作 C
+11:17:43  CatchRobot-1 收到抓取机器人命令 W
+11:17:59  CatchRobot-1 收到抓取机器人命令 L
+11:17:59  CatchRobot-1 收到抓取机器人命令 D
+11:18:44  CatchRobot-1 收到抓取机器人命令 Q
+11:18:44  CatchRobot-1 发送抓取机器人动作 A
+11:18:44  CatchRobot-1 收到抓取机器人命令 W
+11:19:7   CatchRobot-1 收到抓取机器人命令 L
+11:19:7   CatchRobot-1 收到抓取机器人命令 B
+11:19:7   Box-1 关闭箱子
+11:19:7   CatchRobot-1 收到抓取机器人命令 Q
+11:19:12  Box-1 收到箱子命令 3
+11:19:12  FW-1 准备测试
+11:21:33  屏蔽箱-1 未连接
+11:21:33  屏蔽箱-2 连接
+11:21:33  屏蔽箱-1 连接
+11:21:33  屏蔽箱-2 连接
+11:21:35  Com拔插 FW更新
+11:21:52  屏蔽箱-1 连接
+11:21:52  屏蔽箱-2 未连接
+11:21:52  抓取机器手 连接
+11:21:53  屏蔽箱-1 连接
+11:21:53  屏蔽箱-2 连接
+11:22:0   Com拔插 FW更新
+11:22:4   初始化测试
+11:22:20  Com拔插 FW更新
+11:22:21  停止测试
+11:22:21  重置测试
+11:22:25  Com拔插 FW更新
+11:22:28  Com拔插 FW更新
+11:22:36  Com拔插 FW更新
+11:23:4   屏蔽箱-1 未连接
+11:23:4   屏蔽箱-2 连接
+11:23:5   屏蔽箱-1 连接
+11:23:5   屏蔽箱-2 连接
+11:23:26  Com拔插 FW更新
+11:23:29  Com拔插 FW更新
+11:23:35  Box-1 打开箱子
+11:23:35  初始化测试
+11:23:38  Box-1 收到箱子命令 1
+11:23:42  补料机器手 连接
+11:23:42  SupplementRobot-1 收到分料机器人命令 
+11:23:47  补料机器手 未连接
+11:23:47  补料机器手 连接
+11:23:47  SupplementRobot-1 收到分料机器人命令 
+11:24:11  补料机器手 未连接
+11:24:11  补料机器手 连接
+11:24:11  SupplementRobot-1 收到分料机器人命令 
+11:26:9   抓取机器手 连接
+11:26:12  抓取机器手 未连接
+11:27:20  开始自动测试
+11:27:20  CatchRobot-1 发送抓取机器人动作 S
+11:27:21  CatchRobot-1 发送抓取机器人动作 S
+11:27:21  CatchRobot-1 发送抓取机器人动作 S
+11:27:22  停止测试
+11:27:22  抓取机器手 连接
+11:27:22  CatchRobot-1 发送抓取机器人动作 S
+11:27:22  重置测试
+11:27:27  Box-1 打开箱子
+11:27:27  初始化测试
+11:27:28  开始自动测试
+11:27:29  Box-1 收到箱子命令 1
+11:27:34  抓取机器手 未连接
+11:27:36  停止测试
+11:27:37  重置测试
+11:27:43  屏蔽箱-1 未连接
+11:27:43  屏蔽箱-2 连接
+11:27:43  屏蔽箱-1 连接
+11:27:43  屏蔽箱-2 连接
+11:27:45  Com拔插 FW更新
+11:27:58  补料机器手 连接
+11:28:9   抓取机器手 连接
+11:28:14  Box-1 打开箱子
+11:28:14  初始化测试
+11:28:15  开始自动测试
+11:28:15  CatchRobot-1 发送抓取机器人动作 S
+11:28:15  CatchRobot-1 收到抓取机器人命令 L
+11:28:16  Box-1 收到箱子命令 1
+11:28:31  CatchRobot-1 收到抓取机器人命令 Q
+11:28:31  CatchRobot-1 发送抓取机器人动作 A
+11:28:32  CatchRobot-1 收到抓取机器人命令 W
+11:29:22  CatchRobot-1 收到抓取机器人命令 L
+11:29:22  CatchRobot-1 收到抓取机器人命令 B
+11:29:22  Box-1 关闭箱子
+11:29:23  CatchRobot-1 收到抓取机器人命令 Q
+11:29:27  Box-1 收到箱子命令 3
+11:29:27  FW-1 准备测试
+11:29:28  FW-1 通知开始测试
+11:29:46  FW-1 通知完成测试
+11:29:46  Box-1 打开箱子
+11:29:49  Box-1 收到箱子命令 1
+11:29:49  CatchRobot-1 发送抓取机器人动作 C
+11:29:49  CatchRobot-1 收到抓取机器人命令 W
+11:30:5   CatchRobot-1 收到抓取机器人命令 L
+11:30:5   CatchRobot-1 收到抓取机器人命令 D
+11:30:32  SupplementRobot-1 收到分料机器人命令 
+11:30:32  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+11:30:50  CatchRobot-1 收到抓取机器人命令 Q
+11:30:50  CatchRobot-1 发送抓取机器人动作 A
+11:30:50  CatchRobot-1 收到抓取机器人命令 W
+11:31:13  CatchRobot-1 收到抓取机器人命令 L
+11:31:13  CatchRobot-1 收到抓取机器人命令 B
+11:31:13  Box-1 关闭箱子
+11:31:13  CatchRobot-1 收到抓取机器人命令 Q
+11:31:18  Box-1 收到箱子命令 3
+11:31:18  FW-1 准备测试
+11:31:18  FW-1 通知开始测试
+11:31:36  FW-1 通知完成测试
+11:31:36  Box-1 打开箱子
+11:31:40  Box-1 收到箱子命令 1
+11:31:40  CatchRobot-1 发送抓取机器人动作 C
+11:31:40  CatchRobot-1 收到抓取机器人命令 W
+11:31:59  CatchRobot-1 收到抓取机器人命令 L
+11:31:59  CatchRobot-1 收到抓取机器人命令 D
+11:33:3   补料机器手 未连接
+11:33:3   补料机器手 连接
+11:33:14  SupplementRobot-1 收到分料机器人命令 
+11:33:35  SupplementRobot-1 发送分料机器人数据 00000010000000000000
+11:33:50  CatchRobot-1 收到抓取机器人命令 Q
+11:33:50  CatchRobot-1 发送抓取机器人动作 A
+11:34:21  抓取机器手 未连接
+11:34:24  抓取机器手 连接
+11:34:24  抓取机器手 未连接
+11:47:1   Com拔插 FW更新
+14:11:3   屏蔽箱-1 连接
+14:11:3   屏蔽箱-2 未连接
+14:11:4   屏蔽箱-1 连接
+14:11:4   屏蔽箱-2 连接
+14:11:5   Com拔插 FW更新
+14:14:49  补料机器手 连接
+14:16:16  抓取机器手 连接
+14:16:18  Box-1 打开箱子
+14:16:18  初始化测试
+14:16:19  开始自动测试
+14:16:19  CatchRobot-1 发送抓取机器人动作 S
+14:16:28  Box-1 收到箱子命令 1
+14:16:28  CatchRobot-1 收到抓取机器人命令 L
+14:16:54  CatchRobot-1 收到抓取机器人命令 Q
+14:16:54  CatchRobot-1 发送抓取机器人动作 A
+14:16:54  CatchRobot-1 收到抓取机器人命令 W
+14:17:17  CatchRobot-1 收到抓取机器人命令 L
+14:17:17  CatchRobot-1 收到抓取机器人命令 B
+14:17:17  Box-1 关闭箱子
+14:17:17  CatchRobot-1 收到抓取机器人命令 Q
+14:17:22  Box-1 收到箱子命令 3
+14:17:22  FW-1 准备测试
+14:17:22  FW-1 通知开始测试
+14:17:40  FW-1 通知完成测试
+14:17:40  Box-1 打开箱子
+14:17:43  Box-1 收到箱子命令 1
+14:17:43  CatchRobot-1 发送抓取机器人动作 C
+14:17:43  CatchRobot-1 收到抓取机器人命令 W
+14:17:59  CatchRobot-1 收到抓取机器人命令 L
+14:17:59  CatchRobot-1 收到抓取机器人命令 D
+14:18:19  补料机器手 未连接
+14:18:19  补料机器手 连接
+14:18:39  SupplementRobot-1 收到分料机器人命令 
+14:18:39  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+14:21:9   CatchRobot-1 收到抓取机器人命令 Q
+14:21:9   CatchRobot-1 发送抓取机器人动作 A
+14:21:42  CatchRobot-1 收到抓取机器人命令 W
+14:21:45  CatchRobot-1 收到抓取机器人命令 L
+14:21:45  CatchRobot-1 收到抓取机器人命令 B
+14:21:45  Box-1 关闭箱子
+14:22:7   CatchRobot-1 收到抓取机器人命令 Q
+14:22:12  Box-1 收到箱子命令 3
+14:22:12  FW-1 准备测试
+14:22:12  FW-1 通知开始测试
+14:22:30  FW-1 通知完成测试
+14:22:30  Box-1 打开箱子
+14:22:36  FW-1 通知完成测试
+14:22:36  Box-1 打开箱子
+14:22:37  FW-1 通知完成测试
+14:22:37  Box-1 打开箱子
+14:22:39  Box-1 收到箱子命令 1
+14:22:39  CatchRobot-1 发送抓取机器人动作 C
+14:22:44  Box-1 收到箱子命令 1
+14:22:46  补料机器手 未连接
+14:22:46  补料机器手 连接
+14:22:46  SupplementRobot-1 收到分料机器人命令 
+14:22:46  SupplementRobot-1 发送分料机器人数据 00000010000000000000
+14:23:0   补料机器手 未连接
+14:23:1   补料机器手 连接
+14:23:1   SupplementRobot-1 收到分料机器人命令 
+14:23:1   SupplementRobot-1 发送分料机器人数据 00000010000000000000
+14:24:57  屏蔽箱-1 未连接
+14:24:57  屏蔽箱-2 连接
+14:24:58  屏蔽箱-1 连接
+14:24:58  屏蔽箱-2 连接
+14:24:59  Com拔插 FW更新
+14:25:42  抓取机器手 连接
+14:25:48  补料机器手 连接
+14:25:49  Box-1 打开箱子
+14:25:59  初始化测试
+14:26:1   Box-1 收到箱子命令 1
+14:26:12  停止测试
+14:26:14  重置测试
+14:26:18  Box-1 打开箱子
+14:26:18  初始化测试
+14:26:19  开始自动测试
+14:26:19  Box-1 收到箱子命令 1
+14:26:19  CatchRobot-1 发送抓取机器人动作 S
+14:26:19  CatchRobot-1 收到抓取机器人命令 L
+14:26:45  CatchRobot-1 收到抓取机器人命令 Q
+14:26:45  CatchRobot-1 发送抓取机器人动作 A
+14:26:46  CatchRobot-1 收到抓取机器人命令 W
+14:27:8   CatchRobot-1 收到抓取机器人命令 L
+14:27:8   CatchRobot-1 收到抓取机器人命令 B
+14:27:8   Box-1 关闭箱子
+14:27:8   CatchRobot-1 收到抓取机器人命令 Q
+14:27:13  Box-1 收到箱子命令 3
+14:27:13  FW-1 准备测试
+14:27:13  FW-1 通知开始测试
+14:27:32  FW-1 通知完成测试
+14:27:32  Box-1 打开箱子
+14:27:35  Box-1 收到箱子命令 1
+14:27:35  CatchRobot-1 发送抓取机器人动作 C
+14:27:35  CatchRobot-1 收到抓取机器人命令 W
+14:27:51  CatchRobot-1 收到抓取机器人命令 L
+14:27:51  CatchRobot-1 收到抓取机器人命令 D
+14:28:36  CatchRobot-1 收到抓取机器人命令 Q
+14:28:36  CatchRobot-1 发送抓取机器人动作 A
+14:28:36  CatchRobot-1 收到抓取机器人命令 W
+14:28:59  CatchRobot-1 收到抓取机器人命令 L
+14:28:59  CatchRobot-1 收到抓取机器人命令 B
+14:28:59  Box-1 关闭箱子
+14:28:59  CatchRobot-1 收到抓取机器人命令 Q
+14:29:4   Box-1 收到箱子命令 3
+14:29:4   FW-1 准备测试
+14:29:4   FW-1 通知开始测试
+14:29:22  FW-1 通知完成测试
+14:29:22  Box-1 打开箱子
+14:29:25  Box-1 收到箱子命令 1
+14:29:25  CatchRobot-1 发送抓取机器人动作 C
+14:29:25  CatchRobot-1 收到抓取机器人命令 W
+14:29:41  CatchRobot-1 收到抓取机器人命令 L
+14:29:41  CatchRobot-1 收到抓取机器人命令 D
+14:31:2   SupplementRobot-1 收到分料机器人命令 
+14:31:2   SupplementRobot-1 发送分料机器人数据 00000000010000000000
+14:31:30  CatchRobot-1 收到抓取机器人命令 Q
+14:31:30  CatchRobot-1 发送抓取机器人动作 A
+14:31:30  CatchRobot-1 收到抓取机器人命令 W
+14:31:53  CatchRobot-1 收到抓取机器人命令 L
+14:31:53  CatchRobot-1 收到抓取机器人命令 B
+14:31:53  Box-1 关闭箱子
+14:31:53  CatchRobot-1 收到抓取机器人命令 Q
+14:31:58  Box-1 收到箱子命令 3
+14:31:58  FW-1 准备测试
+14:31:58  FW-1 通知开始测试
+14:32:16  FW-1 通知完成测试
+14:32:16  Box-1 打开箱子
+14:32:19  Box-1 收到箱子命令 1
+14:32:19  CatchRobot-1 发送抓取机器人动作 C
+14:32:19  CatchRobot-1 收到抓取机器人命令 W
+14:32:35  CatchRobot-1 收到抓取机器人命令 L
+14:32:35  CatchRobot-1 收到抓取机器人命令 D
+14:34:9   SupplementRobot-1 收到分料机器人命令 
+14:34:9   SupplementRobot-1 发送分料机器人数据 00000000010000000010
+14:34:38  CatchRobot-1 收到抓取机器人命令 Q
+14:34:38  CatchRobot-1 发送抓取机器人动作 A
+14:34:38  CatchRobot-1 收到抓取机器人命令 W
+14:35:1   CatchRobot-1 收到抓取机器人命令 L
+14:35:1   CatchRobot-1 收到抓取机器人命令 B
+14:35:1   Box-1 关闭箱子
+14:35:1   CatchRobot-1 收到抓取机器人命令 Q
+14:35:6   Box-1 收到箱子命令 3
+14:35:6   FW-1 准备测试
+14:35:6   FW-1 通知开始测试
+14:35:22  FW-1 通知完成测试
+14:35:22  Box-1 打开箱子
+14:35:26  Box-1 收到箱子命令 1
+14:35:26  CatchRobot-1 发送抓取机器人动作 C
+14:35:26  CatchRobot-1 收到抓取机器人命令 W
+14:35:41  CatchRobot-1 收到抓取机器人命令 L
+14:35:41  CatchRobot-1 收到抓取机器人命令 D
+14:36:26  SupplementRobot-1 收到分料机器人命令 
+14:36:26  SupplementRobot-1 发送分料机器人数据 00000000010000000010
+14:36:54  CatchRobot-1 收到抓取机器人命令 Q
+14:36:54  CatchRobot-1 发送抓取机器人动作 A
+14:36:55  CatchRobot-1 收到抓取机器人命令 W
+14:37:17  CatchRobot-1 收到抓取机器人命令 L
+14:37:17  CatchRobot-1 收到抓取机器人命令 B
+14:37:17  Box-1 关闭箱子
+14:37:17  CatchRobot-1 收到抓取机器人命令 Q
+14:37:22  Box-1 收到箱子命令 3
+14:37:22  FW-1 准备测试
+14:37:22  FW-1 通知开始测试
+14:37:39  FW-1 通知完成测试
+14:37:39  Box-1 打开箱子
+14:37:42  Box-1 收到箱子命令 1
+14:37:42  CatchRobot-1 发送抓取机器人动作 C
+14:37:42  CatchRobot-1 收到抓取机器人命令 W
+14:37:58  CatchRobot-1 收到抓取机器人命令 L
+14:37:58  CatchRobot-1 收到抓取机器人命令 D
+14:38:33  SupplementRobot-1 收到分料机器人命令 
+14:38:33  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+14:45:40  屏蔽箱-1 连接
+14:45:40  屏蔽箱-2 未连接
+14:45:40  屏蔽箱-1 连接
+14:45:40  屏蔽箱-2 连接
+14:45:41  Com拔插 FW更新
+14:45:48  Box-1 打开箱子
+14:45:48  初始化测试
+14:45:51  Box-1 收到箱子命令 1
+14:46:26  FW-1 通知开始测试
+14:46:45  FW-1 通知完成测试
+14:46:45  Box-1 打开箱子
+14:46:46  Box-1 收到箱子命令 1
+14:46:46  CatchRobot-1 发送抓取机器人动作 C
+14:46:47  CatchRobot-1 发送抓取机器人动作 C
+14:46:47  CatchRobot-1 发送抓取机器人动作 C
+14:46:48  CatchRobot-1 发送抓取机器人动作 C
+14:46:48  CatchRobot-1 发送抓取机器人动作 C
+14:46:49  CatchRobot-1 发送抓取机器人动作 C
+14:46:49  CatchRobot-1 发送抓取机器人动作 C
+14:46:50  CatchRobot-1 发送抓取机器人动作 C
+14:46:50  CatchRobot-1 发送抓取机器人动作 C
+14:46:51  CatchRobot-1 发送抓取机器人动作 C
+14:46:51  CatchRobot-1 发送抓取机器人动作 C
+14:46:52  CatchRobot-1 发送抓取机器人动作 C
+14:46:52  CatchRobot-1 发送抓取机器人动作 C
+14:46:53  CatchRobot-1 发送抓取机器人动作 C
+14:46:53  CatchRobot-1 发送抓取机器人动作 C
+14:46:54  CatchRobot-1 发送抓取机器人动作 C
+14:46:54  CatchRobot-1 发送抓取机器人动作 C
+14:46:55  CatchRobot-1 发送抓取机器人动作 C
+14:46:55  CatchRobot-1 发送抓取机器人动作 C
+14:46:56  CatchRobot-1 发送抓取机器人动作 C
+14:46:56  CatchRobot-1 发送抓取机器人动作 C
+14:46:57  CatchRobot-1 发送抓取机器人动作 C
+14:46:57  CatchRobot-1 发送抓取机器人动作 C
+14:46:58  CatchRobot-1 发送抓取机器人动作 C
+14:46:58  CatchRobot-1 发送抓取机器人动作 C
+14:46:59  CatchRobot-1 发送抓取机器人动作 C
+14:46:59  CatchRobot-1 发送抓取机器人动作 C
+14:47:0   CatchRobot-1 发送抓取机器人动作 C
+14:47:0   CatchRobot-1 发送抓取机器人动作 C
+14:47:1   CatchRobot-1 发送抓取机器人动作 C
+14:47:1   CatchRobot-1 发送抓取机器人动作 C
+14:47:2   CatchRobot-1 发送抓取机器人动作 C
+14:47:2   CatchRobot-1 发送抓取机器人动作 C
+14:47:3   CatchRobot-1 发送抓取机器人动作 C
+14:47:3   CatchRobot-1 发送抓取机器人动作 C
+14:47:4   CatchRobot-1 发送抓取机器人动作 C
+14:47:4   CatchRobot-1 发送抓取机器人动作 C
+14:47:5   CatchRobot-1 发送抓取机器人动作 C
+14:47:5   CatchRobot-1 发送抓取机器人动作 C
+14:47:6   CatchRobot-1 发送抓取机器人动作 C
+14:47:6   CatchRobot-1 发送抓取机器人动作 C
+14:47:7   CatchRobot-1 发送抓取机器人动作 C
+14:47:7   CatchRobot-1 发送抓取机器人动作 C
+14:47:8   CatchRobot-1 发送抓取机器人动作 C
+14:47:8   CatchRobot-1 发送抓取机器人动作 C
+14:47:9   CatchRobot-1 发送抓取机器人动作 C
+14:47:9   CatchRobot-1 发送抓取机器人动作 C
+14:47:10  CatchRobot-1 发送抓取机器人动作 C
+14:47:10  CatchRobot-1 发送抓取机器人动作 C
+14:47:11  CatchRobot-1 发送抓取机器人动作 C
+14:47:11  CatchRobot-1 发送抓取机器人动作 C
+14:47:12  CatchRobot-1 发送抓取机器人动作 C
+14:47:12  CatchRobot-1 发送抓取机器人动作 C
+14:47:13  CatchRobot-1 发送抓取机器人动作 C
+14:47:13  CatchRobot-1 发送抓取机器人动作 C
+14:47:14  CatchRobot-1 发送抓取机器人动作 C
+14:47:14  CatchRobot-1 发送抓取机器人动作 C
+14:47:15  CatchRobot-1 发送抓取机器人动作 C
+14:47:15  CatchRobot-1 发送抓取机器人动作 C
+14:47:16  CatchRobot-1 发送抓取机器人动作 C
+14:47:16  CatchRobot-1 发送抓取机器人动作 C
+14:47:17  CatchRobot-1 发送抓取机器人动作 C
+14:47:17  CatchRobot-1 发送抓取机器人动作 C
+14:47:18  CatchRobot-1 发送抓取机器人动作 C
+14:47:18  CatchRobot-1 发送抓取机器人动作 C
+14:47:19  CatchRobot-1 发送抓取机器人动作 C
+14:47:19  CatchRobot-1 发送抓取机器人动作 C
+14:47:20  CatchRobot-1 发送抓取机器人动作 C
+14:47:20  CatchRobot-1 发送抓取机器人动作 C
+14:47:21  CatchRobot-1 发送抓取机器人动作 C
+14:47:21  CatchRobot-1 发送抓取机器人动作 C
+14:47:22  CatchRobot-1 发送抓取机器人动作 C
+14:47:22  CatchRobot-1 发送抓取机器人动作 C
+14:47:23  CatchRobot-1 发送抓取机器人动作 C
+14:47:23  CatchRobot-1 发送抓取机器人动作 C
+14:47:24  CatchRobot-1 发送抓取机器人动作 C
+14:47:24  CatchRobot-1 发送抓取机器人动作 C
+14:47:25  CatchRobot-1 发送抓取机器人动作 C
+14:47:25  CatchRobot-1 发送抓取机器人动作 C
+14:47:26  CatchRobot-1 发送抓取机器人动作 C
+14:47:26  CatchRobot-1 发送抓取机器人动作 C
+14:47:27  CatchRobot-1 发送抓取机器人动作 C
+14:47:27  CatchRobot-1 发送抓取机器人动作 C
+14:47:28  CatchRobot-1 发送抓取机器人动作 C
+14:47:28  CatchRobot-1 发送抓取机器人动作 C
+14:47:29  CatchRobot-1 发送抓取机器人动作 C
+14:47:29  CatchRobot-1 发送抓取机器人动作 C
+14:47:30  CatchRobot-1 发送抓取机器人动作 C
+14:47:30  CatchRobot-1 发送抓取机器人动作 C
+14:47:31  CatchRobot-1 发送抓取机器人动作 C
+14:47:31  CatchRobot-1 发送抓取机器人动作 C
+14:47:32  CatchRobot-1 发送抓取机器人动作 C
+14:47:32  CatchRobot-1 发送抓取机器人动作 C
+14:47:33  CatchRobot-1 发送抓取机器人动作 C
+14:47:33  CatchRobot-1 发送抓取机器人动作 C
+14:47:34  CatchRobot-1 发送抓取机器人动作 C
+14:47:34  CatchRobot-1 发送抓取机器人动作 C
+14:47:35  CatchRobot-1 发送抓取机器人动作 C
+14:47:35  FW-1 通知开始测试
+14:47:35  CatchRobot-1 发送抓取机器人动作 C
+14:47:36  CatchRobot-1 发送抓取机器人动作 C
+14:47:36  CatchRobot-1 发送抓取机器人动作 C
+14:47:37  CatchRobot-1 发送抓取机器人动作 C
+14:47:37  CatchRobot-1 发送抓取机器人动作 C
+14:47:38  CatchRobot-1 发送抓取机器人动作 C
+14:47:38  CatchRobot-1 发送抓取机器人动作 C
+14:47:39  CatchRobot-1 发送抓取机器人动作 C
+14:47:39  CatchRobot-1 发送抓取机器人动作 C
+14:47:40  CatchRobot-1 发送抓取机器人动作 C
+14:47:40  CatchRobot-1 发送抓取机器人动作 C
+14:47:41  CatchRobot-1 发送抓取机器人动作 C
+14:47:41  CatchRobot-1 发送抓取机器人动作 C
+14:47:42  CatchRobot-1 发送抓取机器人动作 C
+14:47:42  CatchRobot-1 发送抓取机器人动作 C
+14:47:43  CatchRobot-1 发送抓取机器人动作 C
+14:47:43  CatchRobot-1 发送抓取机器人动作 C
+14:47:44  CatchRobot-1 发送抓取机器人动作 C
+14:47:44  CatchRobot-1 发送抓取机器人动作 C
+14:47:45  CatchRobot-1 发送抓取机器人动作 C
+14:47:45  CatchRobot-1 发送抓取机器人动作 C
+14:47:46  CatchRobot-1 发送抓取机器人动作 C
+14:47:46  CatchRobot-1 发送抓取机器人动作 C
+14:47:47  CatchRobot-1 发送抓取机器人动作 C
+14:47:47  CatchRobot-1 发送抓取机器人动作 C
+14:47:48  CatchRobot-1 发送抓取机器人动作 C
+14:47:48  CatchRobot-1 发送抓取机器人动作 C
+14:47:49  CatchRobot-1 发送抓取机器人动作 C
+14:47:49  CatchRobot-1 发送抓取机器人动作 C
+14:47:50  CatchRobot-1 发送抓取机器人动作 C
+14:47:50  CatchRobot-1 发送抓取机器人动作 C
+14:47:51  CatchRobot-1 发送抓取机器人动作 C
+14:47:51  CatchRobot-1 发送抓取机器人动作 C
+14:47:52  CatchRobot-1 发送抓取机器人动作 C
+14:47:52  CatchRobot-1 发送抓取机器人动作 C
+14:47:53  CatchRobot-1 发送抓取机器人动作 C
+14:47:53  CatchRobot-1 发送抓取机器人动作 C
+14:47:54  FW-1 通知完成测试
+14:47:54  Box-1 打开箱子
+14:47:54  CatchRobot-1 发送抓取机器人动作 C
+14:47:54  CatchRobot-1 发送抓取机器人动作 C
+14:47:55  CatchRobot-1 发送抓取机器人动作 C
+14:47:55  Box-1 收到箱子命令 1
+14:47:55  CatchRobot-1 发送抓取机器人动作 C
+14:47:56  CatchRobot-1 发送抓取机器人动作 C
+14:47:56  CatchRobot-1 发送抓取机器人动作 C
+14:47:57  CatchRobot-1 发送抓取机器人动作 C
+14:47:57  CatchRobot-1 发送抓取机器人动作 C
+14:47:58  CatchRobot-1 发送抓取机器人动作 C
+14:47:58  CatchRobot-1 发送抓取机器人动作 C
+14:47:59  CatchRobot-1 发送抓取机器人动作 C
+14:47:59  CatchRobot-1 发送抓取机器人动作 C
+14:48:0   CatchRobot-1 发送抓取机器人动作 C
+14:48:0   CatchRobot-1 发送抓取机器人动作 C
+14:48:1   CatchRobot-1 发送抓取机器人动作 C
+14:48:1   CatchRobot-1 发送抓取机器人动作 C
+14:48:2   CatchRobot-1 发送抓取机器人动作 C
+14:48:2   CatchRobot-1 发送抓取机器人动作 C
+14:48:3   CatchRobot-1 发送抓取机器人动作 C
+14:48:3   CatchRobot-1 发送抓取机器人动作 C
+14:48:4   CatchRobot-1 发送抓取机器人动作 C
+14:48:4   CatchRobot-1 发送抓取机器人动作 C
+14:48:5   FW-1 通知开始测试
+14:48:5   CatchRobot-1 发送抓取机器人动作 C
+14:48:5   CatchRobot-1 发送抓取机器人动作 C
+14:48:6   CatchRobot-1 发送抓取机器人动作 C
+14:48:6   CatchRobot-1 发送抓取机器人动作 C
+14:48:7   CatchRobot-1 发送抓取机器人动作 C
+14:48:7   CatchRobot-1 发送抓取机器人动作 C
+14:48:8   CatchRobot-1 发送抓取机器人动作 C
+14:48:8   CatchRobot-1 发送抓取机器人动作 C
+14:48:9   CatchRobot-1 发送抓取机器人动作 C
+14:48:9   CatchRobot-1 发送抓取机器人动作 C
+14:48:10  CatchRobot-1 发送抓取机器人动作 C
+14:48:10  CatchRobot-1 发送抓取机器人动作 C
+14:48:11  CatchRobot-1 发送抓取机器人动作 C
+14:48:11  CatchRobot-1 发送抓取机器人动作 C
+14:48:12  CatchRobot-1 发送抓取机器人动作 C
+14:48:12  CatchRobot-1 发送抓取机器人动作 C
+14:48:13  CatchRobot-1 发送抓取机器人动作 C
+14:48:13  CatchRobot-1 发送抓取机器人动作 C
+14:48:14  CatchRobot-1 发送抓取机器人动作 C
+14:48:14  CatchRobot-1 发送抓取机器人动作 C
+14:48:15  CatchRobot-1 发送抓取机器人动作 C
+14:48:15  CatchRobot-1 发送抓取机器人动作 C
+14:48:16  CatchRobot-1 发送抓取机器人动作 C
+14:48:16  CatchRobot-1 发送抓取机器人动作 C
+14:48:17  CatchRobot-1 发送抓取机器人动作 C
+14:48:17  CatchRobot-1 发送抓取机器人动作 C
+14:48:18  CatchRobot-1 发送抓取机器人动作 C
+14:48:18  CatchRobot-1 发送抓取机器人动作 C
+14:48:19  CatchRobot-1 发送抓取机器人动作 C
+14:48:19  CatchRobot-1 发送抓取机器人动作 C
+14:48:20  CatchRobot-1 发送抓取机器人动作 C
+14:48:20  CatchRobot-1 发送抓取机器人动作 C
+14:48:21  CatchRobot-1 发送抓取机器人动作 C
+14:48:21  CatchRobot-1 发送抓取机器人动作 C
+14:48:22  CatchRobot-1 发送抓取机器人动作 C
+14:48:22  CatchRobot-1 发送抓取机器人动作 C
+14:48:23  FW-1 通知完成测试
+14:48:23  Box-1 打开箱子
+14:48:23  CatchRobot-1 发送抓取机器人动作 C
+14:48:23  CatchRobot-1 发送抓取机器人动作 C
+14:48:24  CatchRobot-1 发送抓取机器人动作 C
+14:48:24  CatchRobot-1 发送抓取机器人动作 C
+14:48:25  Box-1 收到箱子命令 1
+14:48:25  CatchRobot-1 发送抓取机器人动作 C
+14:48:25  CatchRobot-1 发送抓取机器人动作 C
+14:48:26  CatchRobot-1 发送抓取机器人动作 C
+14:48:26  CatchRobot-1 发送抓取机器人动作 C
+14:48:27  CatchRobot-1 发送抓取机器人动作 C
+14:48:27  CatchRobot-1 发送抓取机器人动作 C
+14:48:28  CatchRobot-1 发送抓取机器人动作 C
+14:48:28  CatchRobot-1 发送抓取机器人动作 C
+14:48:29  CatchRobot-1 发送抓取机器人动作 C
+14:48:29  CatchRobot-1 发送抓取机器人动作 C
+14:48:30  CatchRobot-1 发送抓取机器人动作 C
+14:48:30  CatchRobot-1 发送抓取机器人动作 C
+14:48:31  CatchRobot-1 发送抓取机器人动作 C
+14:48:31  CatchRobot-1 发送抓取机器人动作 C
+14:48:32  CatchRobot-1 发送抓取机器人动作 C
+14:48:32  CatchRobot-1 发送抓取机器人动作 C
+14:48:33  CatchRobot-1 发送抓取机器人动作 C
+14:48:33  CatchRobot-1 发送抓取机器人动作 C
+14:48:34  CatchRobot-1 发送抓取机器人动作 C
+14:48:34  CatchRobot-1 发送抓取机器人动作 C
+14:48:35  CatchRobot-1 发送抓取机器人动作 C
+14:48:35  CatchRobot-1 发送抓取机器人动作 C
+14:48:36  CatchRobot-1 发送抓取机器人动作 C
+14:48:36  CatchRobot-1 发送抓取机器人动作 C
+14:48:37  CatchRobot-1 发送抓取机器人动作 C
+14:48:37  CatchRobot-1 发送抓取机器人动作 C
+14:48:38  CatchRobot-1 发送抓取机器人动作 C
+14:48:38  CatchRobot-1 发送抓取机器人动作 C
+14:48:39  CatchRobot-1 发送抓取机器人动作 C
+14:48:39  FW-1 通知开始测试
+14:48:39  CatchRobot-1 发送抓取机器人动作 C
+14:48:40  CatchRobot-1 发送抓取机器人动作 C
+14:48:40  CatchRobot-1 发送抓取机器人动作 C
+14:48:41  CatchRobot-1 发送抓取机器人动作 C
+14:48:41  CatchRobot-1 发送抓取机器人动作 C
+14:48:42  CatchRobot-1 发送抓取机器人动作 C
+14:48:42  CatchRobot-1 发送抓取机器人动作 C
+14:48:43  CatchRobot-1 发送抓取机器人动作 C
+14:48:43  CatchRobot-1 发送抓取机器人动作 C
+14:48:44  CatchRobot-1 发送抓取机器人动作 C
+14:48:44  CatchRobot-1 发送抓取机器人动作 C
+14:48:45  CatchRobot-1 发送抓取机器人动作 C
+14:48:45  CatchRobot-1 发送抓取机器人动作 C
+14:48:46  CatchRobot-1 发送抓取机器人动作 C
+14:48:46  CatchRobot-1 发送抓取机器人动作 C
+14:48:47  CatchRobot-1 发送抓取机器人动作 C
+14:48:47  CatchRobot-1 发送抓取机器人动作 C
+14:48:48  CatchRobot-1 发送抓取机器人动作 C
+14:48:48  CatchRobot-1 发送抓取机器人动作 C
+14:48:49  CatchRobot-1 发送抓取机器人动作 C
+14:48:49  CatchRobot-1 发送抓取机器人动作 C
+14:48:50  CatchRobot-1 发送抓取机器人动作 C
+14:48:50  CatchRobot-1 发送抓取机器人动作 C
+14:48:51  CatchRobot-1 发送抓取机器人动作 C
+14:48:51  CatchRobot-1 发送抓取机器人动作 C
+14:48:52  CatchRobot-1 发送抓取机器人动作 C
+14:48:52  CatchRobot-1 发送抓取机器人动作 C
+14:48:53  CatchRobot-1 发送抓取机器人动作 C
+14:48:53  CatchRobot-1 发送抓取机器人动作 C
+14:48:54  CatchRobot-1 发送抓取机器人动作 C
+14:48:54  CatchRobot-1 发送抓取机器人动作 C
+14:48:55  CatchRobot-1 发送抓取机器人动作 C
+14:48:55  CatchRobot-1 发送抓取机器人动作 C
+14:48:56  CatchRobot-1 发送抓取机器人动作 C
+14:48:56  CatchRobot-1 发送抓取机器人动作 C
+14:48:57  CatchRobot-1 发送抓取机器人动作 C
+14:48:57  CatchRobot-1 发送抓取机器人动作 C
+14:48:58  FW-1 通知完成测试
+14:48:58  Box-1 打开箱子
+14:48:58  CatchRobot-1 发送抓取机器人动作 C
+14:48:58  CatchRobot-1 发送抓取机器人动作 C
+14:48:59  CatchRobot-1 发送抓取机器人动作 C
+14:48:59  Box-1 收到箱子命令 1
+14:48:59  CatchRobot-1 发送抓取机器人动作 C
+14:49:0   CatchRobot-1 发送抓取机器人动作 C
+14:49:0   CatchRobot-1 发送抓取机器人动作 C
+14:49:1   CatchRobot-1 发送抓取机器人动作 C
+14:49:1   CatchRobot-1 发送抓取机器人动作 C
+14:49:2   CatchRobot-1 发送抓取机器人动作 C
+14:49:2   CatchRobot-1 发送抓取机器人动作 C
+14:49:3   CatchRobot-1 发送抓取机器人动作 C
+14:49:3   CatchRobot-1 发送抓取机器人动作 C
+14:49:4   CatchRobot-1 发送抓取机器人动作 C
+14:49:4   CatchRobot-1 发送抓取机器人动作 C
+14:49:5   CatchRobot-1 发送抓取机器人动作 C
+14:49:5   CatchRobot-1 发送抓取机器人动作 C
+14:49:6   CatchRobot-1 发送抓取机器人动作 C
+14:49:6   CatchRobot-1 发送抓取机器人动作 C
+14:49:7   CatchRobot-1 发送抓取机器人动作 C
+14:49:7   CatchRobot-1 发送抓取机器人动作 C
+14:49:8   CatchRobot-1 发送抓取机器人动作 C
+14:49:8   CatchRobot-1 发送抓取机器人动作 C
+14:49:9   CatchRobot-1 发送抓取机器人动作 C
+14:49:9   CatchRobot-1 发送抓取机器人动作 C
+14:49:10  CatchRobot-1 发送抓取机器人动作 C
+14:49:10  CatchRobot-1 发送抓取机器人动作 C
+14:49:11  CatchRobot-1 发送抓取机器人动作 C
+14:49:11  CatchRobot-1 发送抓取机器人动作 C
+14:49:12  CatchRobot-1 发送抓取机器人动作 C
+14:49:12  CatchRobot-1 发送抓取机器人动作 C
+14:49:13  CatchRobot-1 发送抓取机器人动作 C
+14:49:13  CatchRobot-1 发送抓取机器人动作 C
+14:49:14  CatchRobot-1 发送抓取机器人动作 C
+14:49:14  CatchRobot-1 发送抓取机器人动作 C
+14:49:15  CatchRobot-1 发送抓取机器人动作 C
+14:49:15  CatchRobot-1 发送抓取机器人动作 C
+14:49:16  CatchRobot-1 发送抓取机器人动作 C
+14:49:16  CatchRobot-1 发送抓取机器人动作 C
+14:49:17  CatchRobot-1 发送抓取机器人动作 C
+14:49:17  CatchRobot-1 发送抓取机器人动作 C
+14:49:18  CatchRobot-1 发送抓取机器人动作 C
+14:49:18  CatchRobot-1 发送抓取机器人动作 C
+14:49:19  CatchRobot-1 发送抓取机器人动作 C
+14:49:19  CatchRobot-1 发送抓取机器人动作 C
+14:49:20  CatchRobot-1 发送抓取机器人动作 C
+14:49:20  CatchRobot-1 发送抓取机器人动作 C
+14:49:21  CatchRobot-1 发送抓取机器人动作 C
+14:49:21  CatchRobot-1 发送抓取机器人动作 C
+14:49:22  CatchRobot-1 发送抓取机器人动作 C
+14:49:22  CatchRobot-1 发送抓取机器人动作 C
+14:49:23  CatchRobot-1 发送抓取机器人动作 C
+14:49:23  CatchRobot-1 发送抓取机器人动作 C
+14:49:24  CatchRobot-1 发送抓取机器人动作 C
+14:49:24  CatchRobot-1 发送抓取机器人动作 C
+14:49:25  CatchRobot-1 发送抓取机器人动作 C
+14:49:25  CatchRobot-1 发送抓取机器人动作 C
+14:49:26  CatchRobot-1 发送抓取机器人动作 C
+14:49:26  CatchRobot-1 发送抓取机器人动作 C
+14:49:27  CatchRobot-1 发送抓取机器人动作 C
+14:49:27  CatchRobot-1 发送抓取机器人动作 C
+14:49:28  CatchRobot-1 发送抓取机器人动作 C
+14:49:28  CatchRobot-1 发送抓取机器人动作 C
+14:49:29  CatchRobot-1 发送抓取机器人动作 C
+14:49:29  CatchRobot-1 发送抓取机器人动作 C
+14:49:30  CatchRobot-1 发送抓取机器人动作 C
+14:49:30  CatchRobot-1 发送抓取机器人动作 C
+14:49:31  CatchRobot-1 发送抓取机器人动作 C
+14:49:31  CatchRobot-1 发送抓取机器人动作 C
+14:49:32  CatchRobot-1 发送抓取机器人动作 C
+14:49:32  CatchRobot-1 发送抓取机器人动作 C
+14:49:33  CatchRobot-1 发送抓取机器人动作 C
+14:49:33  CatchRobot-1 发送抓取机器人动作 C
+14:49:34  CatchRobot-1 发送抓取机器人动作 C
+14:49:34  CatchRobot-1 发送抓取机器人动作 C
+14:49:35  CatchRobot-1 发送抓取机器人动作 C
+14:49:35  CatchRobot-1 发送抓取机器人动作 C
+14:49:36  CatchRobot-1 发送抓取机器人动作 C
+14:49:36  CatchRobot-1 发送抓取机器人动作 C
+14:49:37  CatchRobot-1 发送抓取机器人动作 C
+14:49:37  CatchRobot-1 发送抓取机器人动作 C
+14:49:38  CatchRobot-1 发送抓取机器人动作 C
+14:49:38  CatchRobot-1 发送抓取机器人动作 C
+14:49:39  CatchRobot-1 发送抓取机器人动作 C
+14:49:39  CatchRobot-1 发送抓取机器人动作 C
+14:49:40  CatchRobot-1 发送抓取机器人动作 C
+14:49:40  CatchRobot-1 发送抓取机器人动作 C
+14:49:41  CatchRobot-1 发送抓取机器人动作 C
+14:49:41  FW-1 通知开始测试
+14:49:41  CatchRobot-1 发送抓取机器人动作 C
+14:49:42  CatchRobot-1 发送抓取机器人动作 C
+14:49:42  CatchRobot-1 发送抓取机器人动作 C
+14:49:43  CatchRobot-1 发送抓取机器人动作 C
+14:49:43  CatchRobot-1 发送抓取机器人动作 C
+14:49:44  CatchRobot-1 发送抓取机器人动作 C
+14:49:44  CatchRobot-1 发送抓取机器人动作 C
+14:49:45  CatchRobot-1 发送抓取机器人动作 C
+14:49:45  CatchRobot-1 发送抓取机器人动作 C
+14:49:46  CatchRobot-1 发送抓取机器人动作 C
+14:49:46  CatchRobot-1 发送抓取机器人动作 C
+14:49:47  CatchRobot-1 发送抓取机器人动作 C
+14:49:47  CatchRobot-1 发送抓取机器人动作 C
+14:49:48  CatchRobot-1 发送抓取机器人动作 C
+14:49:48  CatchRobot-1 发送抓取机器人动作 C
+14:49:49  CatchRobot-1 发送抓取机器人动作 C
+14:49:49  CatchRobot-1 发送抓取机器人动作 C
+14:49:50  CatchRobot-1 发送抓取机器人动作 C
+14:49:50  CatchRobot-1 发送抓取机器人动作 C
+14:49:51  CatchRobot-1 发送抓取机器人动作 C
+14:49:51  CatchRobot-1 发送抓取机器人动作 C
+14:49:52  CatchRobot-1 发送抓取机器人动作 C
+14:49:52  CatchRobot-1 发送抓取机器人动作 C
+14:49:53  CatchRobot-1 发送抓取机器人动作 C
+14:49:53  CatchRobot-1 发送抓取机器人动作 C
+14:49:54  CatchRobot-1 发送抓取机器人动作 C
+14:49:54  CatchRobot-1 发送抓取机器人动作 C
+14:49:55  CatchRobot-1 发送抓取机器人动作 C
+14:49:55  CatchRobot-1 发送抓取机器人动作 C
+14:49:56  CatchRobot-1 发送抓取机器人动作 C
+14:49:56  CatchRobot-1 发送抓取机器人动作 C
+14:49:57  CatchRobot-1 发送抓取机器人动作 C
+14:49:57  CatchRobot-1 发送抓取机器人动作 C
+14:49:57  FW-1 通知完成测试
+14:49:57  Box-1 打开箱子
+14:49:58  CatchRobot-1 发送抓取机器人动作 C
+14:49:58  CatchRobot-1 发送抓取机器人动作 C
+14:49:59  CatchRobot-1 发送抓取机器人动作 C
+14:49:59  Box-1 收到箱子命令 1
+14:49:59  CatchRobot-1 发送抓取机器人动作 C
+14:50:0   CatchRobot-1 发送抓取机器人动作 C
+14:50:0   CatchRobot-1 发送抓取机器人动作 C
+14:50:1   CatchRobot-1 发送抓取机器人动作 C
+14:50:1   CatchRobot-1 发送抓取机器人动作 C
+14:50:2   CatchRobot-1 发送抓取机器人动作 C
+14:50:2   CatchRobot-1 发送抓取机器人动作 C
+14:50:3   CatchRobot-1 发送抓取机器人动作 C
+14:50:3   CatchRobot-1 发送抓取机器人动作 C
+14:50:4   CatchRobot-1 发送抓取机器人动作 C
+14:50:4   CatchRobot-1 发送抓取机器人动作 C
+14:50:5   CatchRobot-1 发送抓取机器人动作 C
+14:50:5   CatchRobot-1 发送抓取机器人动作 C
+14:50:6   CatchRobot-1 发送抓取机器人动作 C
+14:50:6   CatchRobot-1 发送抓取机器人动作 C
+14:50:7   CatchRobot-1 发送抓取机器人动作 C
+14:50:7   CatchRobot-1 发送抓取机器人动作 C
+14:50:8   CatchRobot-1 发送抓取机器人动作 C
+14:50:8   CatchRobot-1 发送抓取机器人动作 C
+14:50:9   CatchRobot-1 发送抓取机器人动作 C
+14:50:9   CatchRobot-1 发送抓取机器人动作 C
+14:50:10  CatchRobot-1 发送抓取机器人动作 C
+14:50:10  CatchRobot-1 发送抓取机器人动作 C
+14:50:11  CatchRobot-1 发送抓取机器人动作 C
+14:50:11  CatchRobot-1 发送抓取机器人动作 C
+14:50:12  CatchRobot-1 发送抓取机器人动作 C
+14:50:12  CatchRobot-1 发送抓取机器人动作 C
+14:50:13  CatchRobot-1 发送抓取机器人动作 C
+14:50:13  CatchRobot-1 发送抓取机器人动作 C
+14:50:14  CatchRobot-1 发送抓取机器人动作 C
+14:50:14  CatchRobot-1 发送抓取机器人动作 C
+14:50:15  CatchRobot-1 发送抓取机器人动作 C
+14:50:15  CatchRobot-1 发送抓取机器人动作 C
+14:50:16  CatchRobot-1 发送抓取机器人动作 C
+14:50:16  CatchRobot-1 发送抓取机器人动作 C
+14:50:17  CatchRobot-1 发送抓取机器人动作 C
+14:50:17  CatchRobot-1 发送抓取机器人动作 C
+14:50:18  CatchRobot-1 发送抓取机器人动作 C
+14:50:18  CatchRobot-1 发送抓取机器人动作 C
+14:50:19  CatchRobot-1 发送抓取机器人动作 C
+14:50:19  CatchRobot-1 发送抓取机器人动作 C
+14:50:20  CatchRobot-1 发送抓取机器人动作 C
+14:50:20  CatchRobot-1 发送抓取机器人动作 C
+14:50:21  CatchRobot-1 发送抓取机器人动作 C
+14:50:21  CatchRobot-1 发送抓取机器人动作 C
+14:50:22  CatchRobot-1 发送抓取机器人动作 C
+14:50:22  CatchRobot-1 发送抓取机器人动作 C
+14:50:23  CatchRobot-1 发送抓取机器人动作 C
+14:50:23  CatchRobot-1 发送抓取机器人动作 C
+14:50:24  CatchRobot-1 发送抓取机器人动作 C
+14:50:24  CatchRobot-1 发送抓取机器人动作 C
+14:50:25  CatchRobot-1 发送抓取机器人动作 C
+14:50:25  CatchRobot-1 发送抓取机器人动作 C
+14:50:26  CatchRobot-1 发送抓取机器人动作 C
+14:50:26  CatchRobot-1 发送抓取机器人动作 C
+14:50:27  CatchRobot-1 发送抓取机器人动作 C
+14:50:27  CatchRobot-1 发送抓取机器人动作 C
+14:50:28  CatchRobot-1 发送抓取机器人动作 C
+14:50:28  CatchRobot-1 发送抓取机器人动作 C
+14:50:29  CatchRobot-1 发送抓取机器人动作 C
+14:50:29  CatchRobot-1 发送抓取机器人动作 C
+14:50:30  CatchRobot-1 发送抓取机器人动作 C
+14:50:30  CatchRobot-1 发送抓取机器人动作 C
+14:50:31  CatchRobot-1 发送抓取机器人动作 C
+14:50:31  CatchRobot-1 发送抓取机器人动作 C
+14:50:32  CatchRobot-1 发送抓取机器人动作 C
+14:50:32  CatchRobot-1 发送抓取机器人动作 C
+14:50:33  CatchRobot-1 发送抓取机器人动作 C
+14:50:33  CatchRobot-1 发送抓取机器人动作 C
+14:50:34  CatchRobot-1 发送抓取机器人动作 C
+14:50:34  CatchRobot-1 发送抓取机器人动作 C
+14:50:35  CatchRobot-1 发送抓取机器人动作 C
+14:50:35  CatchRobot-1 发送抓取机器人动作 C
+14:50:36  CatchRobot-1 发送抓取机器人动作 C
+14:50:36  CatchRobot-1 发送抓取机器人动作 C
+14:50:37  CatchRobot-1 发送抓取机器人动作 C
+14:50:37  CatchRobot-1 发送抓取机器人动作 C
+14:50:38  CatchRobot-1 发送抓取机器人动作 C
+14:50:38  CatchRobot-1 发送抓取机器人动作 C
+14:50:39  CatchRobot-1 发送抓取机器人动作 C
+14:50:39  CatchRobot-1 发送抓取机器人动作 C
+14:50:40  CatchRobot-1 发送抓取机器人动作 C
+14:50:40  CatchRobot-1 发送抓取机器人动作 C
+14:50:41  CatchRobot-1 发送抓取机器人动作 C
+14:50:41  CatchRobot-1 发送抓取机器人动作 C
+14:50:42  CatchRobot-1 发送抓取机器人动作 C
+14:50:42  CatchRobot-1 发送抓取机器人动作 C
+14:50:43  CatchRobot-1 发送抓取机器人动作 C
+14:50:43  CatchRobot-1 发送抓取机器人动作 C
+14:50:44  CatchRobot-1 发送抓取机器人动作 C
+14:50:44  CatchRobot-1 发送抓取机器人动作 C
+14:50:45  CatchRobot-1 发送抓取机器人动作 C
+14:50:45  CatchRobot-1 发送抓取机器人动作 C
+14:50:46  CatchRobot-1 发送抓取机器人动作 C
+14:50:46  CatchRobot-1 发送抓取机器人动作 C
+14:50:47  CatchRobot-1 发送抓取机器人动作 C
+14:50:47  CatchRobot-1 发送抓取机器人动作 C
+14:50:48  CatchRobot-1 发送抓取机器人动作 C
+14:50:48  CatchRobot-1 发送抓取机器人动作 C
+14:50:49  CatchRobot-1 发送抓取机器人动作 C
+14:50:49  CatchRobot-1 发送抓取机器人动作 C
+14:50:50  CatchRobot-1 发送抓取机器人动作 C
+14:50:50  CatchRobot-1 发送抓取机器人动作 C
+14:50:51  CatchRobot-1 发送抓取机器人动作 C
+14:50:51  CatchRobot-1 发送抓取机器人动作 C
+14:50:52  CatchRobot-1 发送抓取机器人动作 C
+14:50:52  CatchRobot-1 发送抓取机器人动作 C
+14:50:53  CatchRobot-1 发送抓取机器人动作 C
+14:50:53  CatchRobot-1 发送抓取机器人动作 C
+14:50:54  CatchRobot-1 发送抓取机器人动作 C
+14:50:54  CatchRobot-1 发送抓取机器人动作 C
+14:50:55  CatchRobot-1 发送抓取机器人动作 C
+14:50:55  CatchRobot-1 发送抓取机器人动作 C
+14:50:56  CatchRobot-1 发送抓取机器人动作 C
+14:50:56  CatchRobot-1 发送抓取机器人动作 C
+14:50:57  CatchRobot-1 发送抓取机器人动作 C
+14:50:57  CatchRobot-1 发送抓取机器人动作 C
+14:50:58  CatchRobot-1 发送抓取机器人动作 C
+14:50:58  CatchRobot-1 发送抓取机器人动作 C
+14:50:59  CatchRobot-1 发送抓取机器人动作 C
+14:50:59  CatchRobot-1 发送抓取机器人动作 C
+14:51:0   CatchRobot-1 发送抓取机器人动作 C
+14:51:0   CatchRobot-1 发送抓取机器人动作 C
+14:51:1   CatchRobot-1 发送抓取机器人动作 C
+14:51:1   CatchRobot-1 发送抓取机器人动作 C
+14:51:2   CatchRobot-1 发送抓取机器人动作 C
+14:51:2   CatchRobot-1 发送抓取机器人动作 C
+14:51:3   CatchRobot-1 发送抓取机器人动作 C
+14:51:3   CatchRobot-1 发送抓取机器人动作 C
+14:51:4   CatchRobot-1 发送抓取机器人动作 C
+14:51:4   CatchRobot-1 发送抓取机器人动作 C
+14:51:5   CatchRobot-1 发送抓取机器人动作 C
+14:51:5   CatchRobot-1 发送抓取机器人动作 C
+14:51:6   CatchRobot-1 发送抓取机器人动作 C
+14:51:6   CatchRobot-1 发送抓取机器人动作 C
+14:51:7   CatchRobot-1 发送抓取机器人动作 C
+14:51:7   CatchRobot-1 发送抓取机器人动作 C
+14:51:8   CatchRobot-1 发送抓取机器人动作 C
+14:51:8   CatchRobot-1 发送抓取机器人动作 C
+14:51:9   CatchRobot-1 发送抓取机器人动作 C
+14:51:9   CatchRobot-1 发送抓取机器人动作 C
+14:51:10  CatchRobot-1 发送抓取机器人动作 C
+14:51:10  CatchRobot-1 发送抓取机器人动作 C
+14:51:11  CatchRobot-1 发送抓取机器人动作 C
+14:51:11  CatchRobot-1 发送抓取机器人动作 C
+14:51:12  CatchRobot-1 发送抓取机器人动作 C
+14:51:12  CatchRobot-1 发送抓取机器人动作 C
+14:51:13  CatchRobot-1 发送抓取机器人动作 C
+14:51:13  CatchRobot-1 发送抓取机器人动作 C
+14:51:14  CatchRobot-1 发送抓取机器人动作 C
+14:51:14  CatchRobot-1 发送抓取机器人动作 C
+14:51:15  CatchRobot-1 发送抓取机器人动作 C
+14:51:15  CatchRobot-1 发送抓取机器人动作 C
+14:51:19  屏蔽箱-1 未连接
+14:51:19  屏蔽箱-2 连接
+14:51:20  屏蔽箱-1 连接
+14:51:20  屏蔽箱-2 连接
+14:51:22  Com拔插 FW更新
+14:55:49  Com拔插 FW更新
+14:55:57  屏蔽箱-1 连接
+14:55:57  屏蔽箱-2 未连接
+14:55:58  屏蔽箱-1 连接
+14:55:58  屏蔽箱-2 连接
+14:55:58  屏蔽箱-1 未连接
+14:55:58  屏蔽箱-2 连接
+14:56:0   屏蔽箱-1 连接
+14:56:0   屏蔽箱-2 连接
+14:56:12  屏蔽箱-1 连接
+14:56:12  屏蔽箱-2 未连接
+14:56:12  屏蔽箱-1 连接
+14:56:12  屏蔽箱-2 连接
+14:56:14  Com拔插 FW更新
+14:56:18  Box-1 打开箱子
+14:56:18  初始化测试
+14:56:20  Box-1 收到箱子命令 1
+14:56:23  停止测试
+14:56:24  重置测试
+14:58:8   补料机器手 连接
+14:58:16  补料机器手 未连接
+14:58:16  补料机器手 连接
+14:58:57  抓取机器手 连接
+14:59:2   Box-1 打开箱子
+14:59:2   初始化测试
+14:59:3   开始自动测试
+14:59:4   CatchRobot-1 发送抓取机器人动作 S
+14:59:4   CatchRobot-1 收到抓取机器人命令 L
+14:59:4   Box-1 收到箱子命令 1
+14:59:30  CatchRobot-1 收到抓取机器人命令 Q
+14:59:30  CatchRobot-1 发送抓取机器人动作 A
+14:59:30  CatchRobot-1 收到抓取机器人命令 W
+15:0:15   CatchRobot-1 收到抓取机器人命令 L
+15:0:15   CatchRobot-1 收到抓取机器人命令 B
+15:0:15   Box-1 关闭箱子
+15:0:15   CatchRobot-1 收到抓取机器人命令 Q
+15:0:20   Box-1 收到箱子命令 3
+15:0:20   FW-1 准备测试
+15:0:20   FW-1 通知开始测试
+15:0:39   FW-1 通知完成测试
+15:0:39   Box-1 打开箱子
+15:0:42   Box-1 收到箱子命令 1
+15:0:42   CatchRobot-1 发送抓取机器人动作 C
+15:0:42   CatchRobot-1 收到抓取机器人命令 W
+15:0:58   CatchRobot-1 收到抓取机器人命令 L
+15:0:58   CatchRobot-1 收到抓取机器人命令 D
+15:2:17   SupplementRobot-1 收到分料机器人命令 
+15:2:17   SupplementRobot-1 发送分料机器人数据 00001111110000111011
+15:2:34   CatchRobot-1 收到抓取机器人命令 Q
+15:2:34   CatchRobot-1 发送抓取机器人动作 A
+15:2:34   CatchRobot-1 收到抓取机器人命令 W
+15:2:57   CatchRobot-1 收到抓取机器人命令 L
+15:2:57   CatchRobot-1 收到抓取机器人命令 B
+15:2:57   Box-1 关闭箱子
+15:2:57   CatchRobot-1 收到抓取机器人命令 Q
+15:3:2    Box-1 收到箱子命令 3
+15:3:2    FW-1 准备测试
+15:3:2    FW-1 通知开始测试
+15:7:44   屏蔽箱-1 连接
+15:7:44   屏蔽箱-2 未连接
+15:7:44   屏蔽箱-1 连接
+15:7:44   屏蔽箱-2 连接
+15:7:44   补料机器手 连接
+15:7:46   Com拔插 FW更新
+15:7:54   抓取机器手 连接
+15:8:5    补料机器手 未连接
+15:8:5    补料机器手 连接
+15:8:9    Box-1 打开箱子
+15:8:10   初始化测试
+15:8:10   开始自动测试
+15:8:11   CatchRobot-1 发送抓取机器人动作 S
+15:8:11   CatchRobot-1 收到抓取机器人命令 L
+15:8:11   Box-1 收到箱子命令 1
+15:8:37   CatchRobot-1 收到抓取机器人命令 Q
+15:8:37   CatchRobot-1 发送抓取机器人动作 A
+15:8:37   CatchRobot-1 收到抓取机器人命令 W
+15:9:12   屏蔽箱-1 连接
+15:9:12   屏蔽箱-2 未连接
+15:9:15   屏蔽箱-1 连接
+15:9:15   屏蔽箱-2 连接
+15:9:16   CatchRobot-1 收到抓取机器人命令 L
+15:9:16   CatchRobot-1 收到抓取机器人命令 B
+15:9:16   Box-1 关闭箱子
+15:9:16   CatchRobot-1 收到抓取机器人命令 Q
+15:9:21   Box-1 收到箱子命令 3
+15:9:21   FW-1 准备测试
+15:9:21   FW-1 通知开始测试
+15:9:39   FW-1 通知完成测试
+15:9:39   Box-1 打开箱子
+15:9:42   Box-1 收到箱子命令 1
+15:9:42   CatchRobot-1 发送抓取机器人动作 C
+15:9:42   CatchRobot-1 收到抓取机器人命令 W
+15:9:58   CatchRobot-1 收到抓取机器人命令 L
+15:9:58   CatchRobot-1 收到抓取机器人命令 D
+15:10:25  SupplementRobot-1 收到分料机器人命令 
+15:10:25  SupplementRobot-1 发送分料机器人数据 00001111110000110111
+15:10:43  CatchRobot-1 收到抓取机器人命令 Q
+15:10:43  CatchRobot-1 发送抓取机器人动作 A
+15:10:43  CatchRobot-1 收到抓取机器人命令 W
+15:11:5   CatchRobot-1 收到抓取机器人命令 L
+15:11:6   CatchRobot-1 收到抓取机器人命令 B
+15:11:6   Box-1 关闭箱子
+15:11:6   CatchRobot-1 收到抓取机器人命令 Q
+15:11:11  Box-1 收到箱子命令 3
+15:11:11  FW-1 准备测试
+15:11:11  FW-1 通知开始测试
+15:11:29  FW-1 通知完成测试
+15:11:29  Box-1 打开箱子
+15:11:32  Box-1 收到箱子命令 1
+15:11:33  CatchRobot-1 发送抓取机器人动作 C
+15:11:33  CatchRobot-1 收到抓取机器人命令 W
+15:11:48  CatchRobot-1 收到抓取机器人命令 L
+15:11:48  CatchRobot-1 收到抓取机器人命令 D
+15:12:25  SupplementRobot-1 收到分料机器人命令 
+15:12:25  SupplementRobot-1 发送分料机器人数据 00001111110000111010
+15:12:53  CatchRobot-1 收到抓取机器人命令 Q
+15:12:54  CatchRobot-1 发送抓取机器人动作 A
+15:12:54  CatchRobot-1 收到抓取机器人命令 W
+15:13:23  CatchRobot-1 收到抓取机器人命令 L
+15:13:23  CatchRobot-1 收到抓取机器人命令 B
+15:13:23  Box-1 关闭箱子
+15:13:23  CatchRobot-1 收到抓取机器人命令 Q
+15:13:28  Box-1 收到箱子命令 3
+15:13:28  FW-1 准备测试
+15:13:28  FW-1 通知开始测试
+15:13:46  FW-1 通知完成测试
+15:13:46  Box-1 打开箱子
+15:13:50  Box-1 收到箱子命令 1
+15:13:50  CatchRobot-1 发送抓取机器人动作 C
+15:13:50  CatchRobot-1 收到抓取机器人命令 W
+15:14:5   CatchRobot-1 收到抓取机器人命令 L
+15:14:5   CatchRobot-1 收到抓取机器人命令 D
+15:14:39  SupplementRobot-1 收到分料机器人命令 
+15:14:39  SupplementRobot-1 发送分料机器人数据 00000111010000110010
+15:15:7   CatchRobot-1 收到抓取机器人命令 Q
+15:15:8   CatchRobot-1 发送抓取机器人动作 A
+15:15:8   CatchRobot-1 收到抓取机器人命令 W
+15:15:30  CatchRobot-1 收到抓取机器人命令 L
+15:15:31  CatchRobot-1 收到抓取机器人命令 B
+15:15:31  Box-1 关闭箱子
+15:15:31  CatchRobot-1 收到抓取机器人命令 Q
+15:15:36  Box-1 收到箱子命令 3
+15:15:36  FW-1 准备测试
+15:15:36  FW-1 通知开始测试
+15:15:52  FW-1 通知完成测试
+15:15:52  Box-1 打开箱子
+15:15:55  Box-1 收到箱子命令 1
+15:15:56  CatchRobot-1 发送抓取机器人动作 C
+15:15:56  CatchRobot-1 收到抓取机器人命令 W
+15:16:11  CatchRobot-1 收到抓取机器人命令 L
+15:16:11  CatchRobot-1 收到抓取机器人命令 D
+15:16:54  SupplementRobot-1 收到分料机器人命令 
+15:16:54  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+15:17:23  CatchRobot-1 收到抓取机器人命令 Q
+15:17:23  CatchRobot-1 发送抓取机器人动作 A
+15:17:23  CatchRobot-1 收到抓取机器人命令 W
+15:17:45  CatchRobot-1 收到抓取机器人命令 L
+15:17:46  CatchRobot-1 收到抓取机器人命令 B
+15:17:46  Box-1 关闭箱子
+15:17:46  CatchRobot-1 收到抓取机器人命令 Q
+15:17:51  Box-1 收到箱子命令 3
+15:17:51  FW-1 准备测试
+15:17:51  FW-1 通知开始测试
+15:18:9   FW-1 通知完成测试
+15:18:9   Box-1 打开箱子
+15:18:12  Box-1 收到箱子命令 1
+15:18:12  CatchRobot-1 发送抓取机器人动作 C
+15:18:12  CatchRobot-1 收到抓取机器人命令 W
+15:18:28  CatchRobot-1 收到抓取机器人命令 L
+15:18:28  CatchRobot-1 收到抓取机器人命令 D
+15:19:58  SupplementRobot-1 收到分料机器人命令 
+15:19:58  SupplementRobot-1 发送分料机器人数据 00000101110000111100
+15:20:26  CatchRobot-1 收到抓取机器人命令 Q
+15:20:26  CatchRobot-1 发送抓取机器人动作 A
+15:20:26  CatchRobot-1 收到抓取机器人命令 W
+15:20:49  CatchRobot-1 收到抓取机器人命令 L
+15:20:49  CatchRobot-1 收到抓取机器人命令 B
+15:20:49  Box-1 关闭箱子
+15:20:49  CatchRobot-1 收到抓取机器人命令 Q
+15:20:54  Box-1 收到箱子命令 3
+15:20:54  FW-1 准备测试
+15:20:54  FW-1 通知开始测试
+15:21:11  FW-1 通知完成测试
+15:21:11  Box-1 打开箱子
+15:21:15  Box-1 收到箱子命令 1
+15:21:15  CatchRobot-1 发送抓取机器人动作 C
+15:21:15  CatchRobot-1 收到抓取机器人命令 W
+15:21:30  CatchRobot-1 收到抓取机器人命令 L
+15:21:30  CatchRobot-1 收到抓取机器人命令 D
+15:22:4   SupplementRobot-1 收到分料机器人命令 
+15:22:4   SupplementRobot-1 发送分料机器人数据 00000000110000000000
+15:22:32  CatchRobot-1 收到抓取机器人命令 Q
+15:22:32  CatchRobot-1 发送抓取机器人动作 A
+15:22:32  CatchRobot-1 收到抓取机器人命令 W
+15:22:55  CatchRobot-1 收到抓取机器人命令 L
+15:22:55  CatchRobot-1 收到抓取机器人命令 B
+15:22:55  Box-1 关闭箱子
+15:22:55  CatchRobot-1 收到抓取机器人命令 Q
+15:23:0   Box-1 收到箱子命令 3
+15:23:0   FW-1 准备测试
+15:23:0   FW-1 通知开始测试
+15:23:17  FW-1 通知完成测试
+15:23:17  Box-1 打开箱子
+15:23:20  Box-1 收到箱子命令 1
+15:23:20  CatchRobot-1 发送抓取机器人动作 C
+15:23:20  CatchRobot-1 收到抓取机器人命令 W
+15:23:36  CatchRobot-1 收到抓取机器人命令 L
+15:23:36  CatchRobot-1 收到抓取机器人命令 D
+15:24:57  SupplementRobot-1 收到分料机器人命令 
+15:24:57  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+15:25:25  CatchRobot-1 收到抓取机器人命令 Q
+15:25:25  CatchRobot-1 发送抓取机器人动作 A
+15:25:25  CatchRobot-1 收到抓取机器人命令 W
+15:25:48  CatchRobot-1 收到抓取机器人命令 L
+15:25:48  CatchRobot-1 收到抓取机器人命令 B
+15:25:48  Box-1 关闭箱子
+15:25:48  CatchRobot-1 收到抓取机器人命令 Q
+15:25:53  Box-1 收到箱子命令 3
+15:25:53  FW-1 准备测试
+15:25:53  FW-1 通知开始测试
+15:26:10  FW-1 通知完成测试
+15:26:10  Box-1 打开箱子
+15:26:13  Box-1 收到箱子命令 1
+15:26:13  CatchRobot-1 发送抓取机器人动作 C
+15:26:13  CatchRobot-1 收到抓取机器人命令 W
+15:26:29  CatchRobot-1 收到抓取机器人命令 L
+15:26:29  CatchRobot-1 收到抓取机器人命令 D
+15:27:34  SupplementRobot-1 收到分料机器人命令 
+15:27:34  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+15:28:2   CatchRobot-1 收到抓取机器人命令 Q
+15:28:2   CatchRobot-1 发送抓取机器人动作 A
+15:28:2   CatchRobot-1 收到抓取机器人命令 W
+15:28:24  CatchRobot-1 收到抓取机器人命令 L
+15:28:25  CatchRobot-1 收到抓取机器人命令 B
+15:28:25  Box-1 关闭箱子
+15:28:25  CatchRobot-1 收到抓取机器人命令 Q
+15:28:30  Box-1 收到箱子命令 3
+15:28:30  FW-1 准备测试
+15:28:30  FW-1 通知开始测试
+15:28:46  FW-1 通知完成测试
+15:28:46  Box-1 打开箱子
+15:28:49  Box-1 收到箱子命令 1
+15:28:50  CatchRobot-1 发送抓取机器人动作 C
+15:28:50  CatchRobot-1 收到抓取机器人命令 W
+15:29:5   CatchRobot-1 收到抓取机器人命令 L
+15:29:5   CatchRobot-1 收到抓取机器人命令 D
+15:30:36  SupplementRobot-1 收到分料机器人命令 
+15:30:36  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+15:30:56  CatchRobot-1 收到抓取机器人命令 Q
+15:30:56  CatchRobot-1 发送抓取机器人动作 A
+15:30:56  CatchRobot-1 收到抓取机器人命令 W
+15:31:18  CatchRobot-1 收到抓取机器人命令 L
+15:31:19  CatchRobot-1 收到抓取机器人命令 B
+15:31:19  Box-1 关闭箱子
+15:31:19  CatchRobot-1 收到抓取机器人命令 Q
+15:31:24  Box-1 收到箱子命令 3
+15:31:24  FW-1 准备测试
+15:31:24  FW-1 通知开始测试
+15:31:40  FW-1 通知完成测试
+15:31:40  Box-1 打开箱子
+15:32:43  屏蔽箱-1 未连接
+15:32:43  屏蔽箱-2 连接
+15:32:44  屏蔽箱-1 未连接,屏蔽箱-2 未连接
+15:32:46  屏蔽箱-1 连接
+15:32:46  屏蔽箱-2 未连接
+15:32:46  屏蔽箱-1 连接
+15:32:46  屏蔽箱-2 连接
+15:35:22  补料机器手 未连接
+15:35:22  补料机器手 连接
+15:35:25  停止测试
+15:35:26  重置测试
+15:35:43  Com拔插 FW更新
+15:35:46  Com拔插 FW更新
+15:35:50  Com拔插 FW更新
+15:36:44  补料机器手 未连接
+15:36:44  补料机器手 连接
+15:43:43  Com拔插 FW更新
+15:44:50  屏蔽箱-1 连接
+15:44:50  屏蔽箱-2 未连接
+15:44:50  屏蔽箱-1 连接
+15:44:50  屏蔽箱-2 连接
+15:44:51  Com拔插 FW更新
+15:44:52  Com拔插 FW更新
+15:54:15  抓取机器手 连接
+15:54:26  Send CatchRobot 
+A1
+15:54:26  Receiver CatchRobot 
+L1
+15:54:35  抓取机器手 未连接
+15:54:37  抓取机器手 连接
+15:54:38  Send CatchRobot 
+C1
+15:54:38  Receiver CatchRobot 
+L1
+15:54:40  抓取机器手 未连接
+15:59:24  屏蔽箱-1 连接
+15:59:24  屏蔽箱-2 未连接
+15:59:24  屏蔽箱-1 连接
+15:59:24  屏蔽箱-2 连接
+15:59:26  Com拔插 FW更新
+15:59:26  抓取机器手 连接
+15:59:31  Send CatchRobot 
+S1
+15:59:31  Receiver CatchRobot 
+L1
+15:59:36  抓取机器手 未连接
+15:59:44  抓取机器手 连接
+15:59:45  抓取机器手 未连接
+15:59:47  抓取机器手 连接
+15:59:48  Send CatchRobot 
+S1
+15:59:48  Receiver CatchRobot 
+L1
+15:59:53  Receiver CatchRobot 
+Q1
+15:59:54  抓取机器手 未连接
+16:0:14   抓取机器手 连接
+16:0:16   Send CatchRobot 
+S1
+16:0:16   Receiver CatchRobot 
+L1
+16:0:21   Receiver CatchRobot 
+Q1
+16:0:23   抓取机器手 未连接
+16:0:42   抓取机器手 连接
+16:0:42   Send CatchRobot 
+S1
+16:0:42   Receiver CatchRobot 
+L1
+16:0:47   Receiver CatchRobot 
+Q1
+16:0:49   抓取机器手 未连接
+16:1:8    抓取机器手 连接
+16:1:10   Send CatchRobot 
+S1
+16:1:10   Receiver CatchRobot 
+L1
+16:1:16   Receiver CatchRobot 
+Q1
+16:1:16   抓取机器手 未连接
+16:2:9    Receiver Box-1
+OPENBOX_OK
+16:9:15   屏蔽箱-1 连接
+16:9:15   屏蔽箱-2 未连接
+16:9:18   屏蔽箱-1 连接
+16:9:18   屏蔽箱-2 连接
+16:10:25  重置测试
+16:15:19  Com拔插 FW更新
+16:15:21  Com拔插 FW更新
+16:15:24  Com拔插 FW更新
+16:15:25  Com拔插 FW更新
+16:15:27  Com拔插 FW更新
+16:15:27  Com拔插 FW更新
+16:15:30  Com拔插 FW更新
+16:15:31  Com拔插 FW更新
+16:15:31  Com拔插 FW更新
+16:15:33  Com拔插 FW更新
+16:15:33  Com拔插 FW更新
+16:15:33  Com拔插 FW更新
+16:15:36  Com拔插 FW更新
+16:15:37  Com拔插 FW更新
+16:15:37  Com拔插 FW更新
+16:16:6   补料机器手 连接
+16:16:20  抓取机器手 连接
+16:16:21  Box-1 打开箱子
+16:16:21  初始化测试
+16:16:22  开始自动测试
+16:16:22  CatchRobot-1 发送抓取机器人动作 S
+16:16:22  CatchRobot-1 收到抓取机器人命令 L
+16:16:23  Box-1 收到箱子命令 1
+16:16:28  CatchRobot-1 收到抓取机器人命令 Q
+16:16:28  CatchRobot-1 发送抓取机器人动作 A
+16:16:28  CatchRobot-1 收到抓取机器人命令 W
+16:16:34  CatchRobot-1 收到抓取机器人命令 L
+16:16:34  CatchRobot-1 收到抓取机器人命令 B
+16:16:34  Box-1 关闭箱子
+16:16:34  CatchRobot-1 收到抓取机器人命令 Q
+16:16:39  Box-1 收到箱子命令 3
+16:16:39  FW-1 准备测试
+16:16:39  FW-1 通知开始测试
+16:16:57  FW-1 通知完成测试
+16:16:57  Box-1 打开箱子
+16:17:0   Box-1 收到箱子命令 1
+16:17:1   CatchRobot-1 发送抓取机器人动作 C
+16:17:1   CatchRobot-1 收到抓取机器人命令 W
+16:17:6   抓取机器手 未连接
+16:17:30  停止测试
+16:17:31  重置测试
+16:17:35  Box-1 打开箱子
+16:17:35  初始化测试
+16:17:37  Box-1 收到箱子命令 1
+16:17:39  FW-1 通知开始测试
+16:17:57  FW-1 通知完成测试
+16:17:57  Box-1 打开箱子
+16:17:59  Box-1 收到箱子命令 1
+16:18:0   FW-1 通知开始测试
+16:18:19  FW-1 通知完成测试
+16:18:19  Box-1 打开箱子
+16:18:20  Box-1 收到箱子命令 1
+16:18:23  FW-1 通知开始测试
+16:18:41  FW-1 通知完成测试
+16:18:41  Box-1 打开箱子
+16:18:43  Box-1 收到箱子命令 1
+16:19:0   屏蔽箱-1 未连接
+16:19:0   屏蔽箱-2 连接
+16:19:0   屏蔽箱-1 连接
+16:19:0   屏蔽箱-2 连接
+16:19:2   Com拔插 FW更新
+16:19:50  Box-1 打开箱子
+16:19:50  初始化测试
+16:19:50  开始自动测试
+16:19:50  CatchRobot-1 发送抓取机器人动作 S
+16:19:51  抓取机器手 连接
+16:19:51  CatchRobot-1 发送抓取机器人动作 S
+16:19:51  CatchRobot-1 收到抓取机器人命令 L
+16:19:51  Box-1 收到箱子命令 1
+16:19:56  CatchRobot-1 收到抓取机器人命令 Q
+16:19:56  CatchRobot-1 发送抓取机器人动作 A
+16:19:56  CatchRobot-1 收到抓取机器人命令 W
+16:20:2   CatchRobot-1 收到抓取机器人命令 L
+16:20:2   CatchRobot-1 收到抓取机器人命令 B
+16:20:2   Box-1 关闭箱子
+16:20:2   CatchRobot-1 收到抓取机器人命令 Q
+16:20:7   Box-1 收到箱子命令 3
+16:20:7   FW-1 准备测试
+16:20:7   FW-1 通知开始测试
+16:20:26  FW-1 通知完成测试
+16:20:26  Box-1 打开箱子
+16:20:29  Box-1 收到箱子命令 1
+16:20:29  CatchRobot-1 发送抓取机器人动作 C
+16:20:29  CatchRobot-1 收到抓取机器人命令 W
+16:20:33  CatchRobot-1 收到抓取机器人命令 L
+16:20:33  CatchRobot-1 收到抓取机器人命令 D
+16:20:43  CatchRobot-1 收到抓取机器人命令 Q
+16:20:44  CatchRobot-1 发送抓取机器人动作 A
+16:20:44  CatchRobot-1 收到抓取机器人命令 W
+16:20:45  补料机器手 连接
+16:20:50  CatchRobot-1 收到抓取机器人命令 L
+16:20:50  CatchRobot-1 收到抓取机器人命令 B
+16:20:50  Box-1 关闭箱子
+16:20:50  CatchRobot-1 收到抓取机器人命令 Q
+16:20:55  Box-1 收到箱子命令 3
+16:20:55  FW-1 准备测试
+16:20:55  FW-1 通知开始测试
+16:21:5   SupplementRobot-1 收到分料机器人命令 
+16:21:5   SupplementRobot-1 发送分料机器人数据 00001111110000111111
+16:21:13  FW-1 通知完成测试
+16:21:13  Box-1 打开箱子
+16:21:17  Box-1 收到箱子命令 1
+16:21:17  CatchRobot-1 发送抓取机器人动作 C
+16:21:17  CatchRobot-1 收到抓取机器人命令 W
+16:21:21  CatchRobot-1 收到抓取机器人命令 L
+16:21:21  CatchRobot-1 收到抓取机器人命令 D
+16:21:34  抓取机器手 未连接
+16:21:59  停止测试
+16:22:1   重置测试
+16:30:13  抓取机器手 连接
+16:30:13  屏蔽箱-1 连接
+16:30:13  屏蔽箱-2 未连接
+16:30:13  屏蔽箱-1 连接
+16:30:13  屏蔽箱-2 连接
+16:30:15  Com拔插 FW更新
+16:30:22  Box-1 打开箱子
+16:30:22  初始化测试
+16:30:24  Box-1 收到箱子命令 1
+16:30:31  补料机器手 连接
+16:30:45  开始自动测试
+16:30:45  CatchRobot-1 发送抓取机器人动作 S
+16:30:45  CatchRobot-1 收到抓取机器人命令 L
+16:30:49  CatchRobot-1 收到抓取机器人命令 Q
+16:30:49  CatchRobot-1 发送抓取机器人动作 A
+16:30:49  CatchRobot-1 收到抓取机器人命令 W
+16:30:55  CatchRobot-1 收到抓取机器人命令 L
+16:30:55  CatchRobot-1 收到抓取机器人命令 B
+16:30:55  Box-1 关闭箱子
+16:30:55  CatchRobot-1 收到抓取机器人命令 Q
+16:31:0   Box-1 收到箱子命令 3
+16:31:0   FW-1 准备测试
+16:31:0   FW-1 通知开始测试
+16:31:19  FW-1 通知完成测试
+16:31:19  Box-1 打开箱子
+16:31:22  Box-1 收到箱子命令 1
+16:31:22  CatchRobot-1 发送抓取机器人动作 C
+16:31:22  CatchRobot-1 收到抓取机器人命令 W
+16:31:40  CatchRobot-1 收到抓取机器人命令 L
+16:31:40  CatchRobot-1 收到抓取机器人命令 D
+16:31:46  SupplementRobot-1 收到分料机器人命令 
+16:31:46  SupplementRobot-1 发送分料机器人数据 00001111100000111110
+16:31:50  CatchRobot-1 收到抓取机器人命令 Q
+16:31:51  CatchRobot-1 发送抓取机器人动作 A
+16:31:51  CatchRobot-1 收到抓取机器人命令 W
+16:31:57  CatchRobot-1 收到抓取机器人命令 L
+16:31:57  CatchRobot-1 收到抓取机器人命令 B
+16:31:57  Box-1 关闭箱子
+16:31:57  CatchRobot-1 收到抓取机器人命令 Q
+16:32:2   Box-1 收到箱子命令 3
+16:32:2   FW-1 准备测试
+16:32:2   FW-1 通知开始测试
+16:32:20  FW-1 通知完成测试
+16:32:20  Box-1 打开箱子
+16:32:24  Box-1 收到箱子命令 1
+16:32:24  CatchRobot-1 发送抓取机器人动作 C
+16:32:24  CatchRobot-1 收到抓取机器人命令 W
+16:32:28  CatchRobot-1 收到抓取机器人命令 L
+16:32:28  CatchRobot-1 收到抓取机器人命令 D
+16:33:25  SupplementRobot-1 收到分料机器人命令 
+16:33:25  SupplementRobot-1 发送分料机器人数据 00001111110000111111
+16:33:32  CatchRobot-1 收到抓取机器人命令 Q
+16:33:32  CatchRobot-1 发送抓取机器人动作 A
+16:33:32  CatchRobot-1 收到抓取机器人命令 W
+16:33:38  CatchRobot-1 收到抓取机器人命令 L
+16:33:38  CatchRobot-1 收到抓取机器人命令 B
+16:33:38  Box-1 关闭箱子
+16:33:38  CatchRobot-1 收到抓取机器人命令 Q
+16:33:43  Box-1 收到箱子命令 3
+16:33:43  FW-1 准备测试
+16:33:43  FW-1 通知开始测试
+16:34:0   FW-1 通知完成测试
+16:34:0   Box-1 打开箱子
+16:34:3   Box-1 收到箱子命令 1
+16:34:3   CatchRobot-1 发送抓取机器人动作 C
+16:34:3   CatchRobot-1 收到抓取机器人命令 W
+16:34:7   CatchRobot-1 收到抓取机器人命令 L
+16:34:7   CatchRobot-1 收到抓取机器人命令 D
+16:34:47  SupplementRobot-1 收到分料机器人命令 
+16:34:47  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+16:34:54  CatchRobot-1 收到抓取机器人命令 Q
+16:34:54  CatchRobot-1 发送抓取机器人动作 A
+16:34:54  CatchRobot-1 收到抓取机器人命令 W
+16:35:0   CatchRobot-1 收到抓取机器人命令 L
+16:35:0   CatchRobot-1 收到抓取机器人命令 B
+16:35:0   Box-1 关闭箱子
+16:35:0   CatchRobot-1 收到抓取机器人命令 Q
+16:35:5   Box-1 收到箱子命令 3
+16:35:5   FW-1 准备测试
+16:35:5   FW-1 通知开始测试
+16:35:23  FW-1 通知完成测试
+16:35:23  Box-1 打开箱子
+16:35:26  Box-1 收到箱子命令 1
+16:35:27  CatchRobot-1 发送抓取机器人动作 C
+16:35:27  CatchRobot-1 收到抓取机器人命令 W
+16:35:31  CatchRobot-1 收到抓取机器人命令 L
+16:35:31  CatchRobot-1 收到抓取机器人命令 D
+16:37:50  SupplementRobot-1 收到分料机器人命令 
+16:37:50  SupplementRobot-1 发送分料机器人数据 00001111100000110101
+16:37:57  CatchRobot-1 收到抓取机器人命令 Q
+16:37:57  CatchRobot-1 发送抓取机器人动作 A
+16:37:57  CatchRobot-1 收到抓取机器人命令 W
+16:38:3   CatchRobot-1 收到抓取机器人命令 L
+16:38:3   CatchRobot-1 收到抓取机器人命令 B
+16:38:3   Box-1 关闭箱子
+16:38:3   CatchRobot-1 收到抓取机器人命令 Q
+16:38:8   Box-1 收到箱子命令 3
+16:38:8   FW-1 准备测试
+16:38:8   FW-1 通知开始测试
+16:38:26  FW-1 通知完成测试
+16:38:26  Box-1 打开箱子
+16:38:29  Box-1 收到箱子命令 1
+16:38:30  CatchRobot-1 发送抓取机器人动作 C
+16:38:30  CatchRobot-1 收到抓取机器人命令 W
+16:38:34  CatchRobot-1 收到抓取机器人命令 L
+16:38:34  CatchRobot-1 收到抓取机器人命令 D
+16:39:43  SupplementRobot-1 收到分料机器人命令 
+16:39:43  SupplementRobot-1 发送分料机器人数据 00001101110000111010
+16:39:49  CatchRobot-1 收到抓取机器人命令 Q
+16:39:50  CatchRobot-1 发送抓取机器人动作 A
+16:39:50  CatchRobot-1 收到抓取机器人命令 W
+16:39:56  CatchRobot-1 收到抓取机器人命令 L
+16:39:56  CatchRobot-1 收到抓取机器人命令 B
+16:39:56  Box-1 关闭箱子
+16:39:56  CatchRobot-1 收到抓取机器人命令 Q
+16:40:1   Box-1 收到箱子命令 3
+16:40:1   FW-1 准备测试
+16:40:1   FW-1 通知开始测试
+16:40:17  FW-1 通知完成测试
+16:40:17  Box-1 打开箱子
+16:40:20  Box-1 收到箱子命令 1
+16:40:21  CatchRobot-1 发送抓取机器人动作 C
+16:40:21  CatchRobot-1 收到抓取机器人命令 W
+16:40:24  抓取机器手 未连接
+16:40:47  补料机器手 未连接
+16:40:47  补料机器手 连接
+16:40:48  SupplementRobot-1 收到分料机器人命令 
+16:40:48  SupplementRobot-1 发送分料机器人数据 00000000000000000000
+18:57:13  Com拔插 FW更新
+18:59:16  重置测试
+18:59:17  初始化测试
+18:59:18  FW-1 准备测试
+18:59:18  开始一次测试
+18:59:22  停止测试
+18:59:23  重置测试
+18:59:28  Com拔插 FW更新
+18:59:29  初始化测试
+18:59:30  FW-1 准备测试
+18:59:30  开始一次测试
+18:59:31  FW-1 通知开始测试
+18:59:44  FW-1 通知完成测试
+18:59:48  停止测试
+18:59:49  重置测试
+18:59:50  初始化测试
+19:0:26   停止测试
+19:0:28   重置测试
+19:0:33   初始化测试
+19:0:37   FW-1 通知开始测试
+19:0:50   FW-1 通知完成测试
+19:0:59   FW-1 通知开始测试
+19:1:12   FW-1 通知完成测试
+19:1:15   FW-1 通知开始测试
+19:1:28   FW-1 通知完成测试
+19:1:33   FW-1 通知开始测试
+19:1:46   FW-1 通知完成测试
+19:2:1    停止测试
+19:2:2    重置测试
+19:2:3    初始化测试
+19:2:5    FW-1 准备测试
+19:2:5    开始一次测试
+19:2:5    FW-1 通知开始测试
+19:2:18   FW-1 通知完成测试
+19:2:42   停止测试
+19:2:43   重置测试
+19:2:46   Com拔插 FW更新
+19:2:52   Com拔插 FW更新
+19:3:22   初始化测试
+19:3:25   FW-2 通知开始测试
+19:3:41   FW-2 通知完成测试
+19:3:50   停止测试
+19:3:52   重置测试
+19:3:59   重置测试
+19:4:1    初始化测试
+19:4:20   停止测试
+19:4:23   重置测试
+19:4:26   初始化测试
+19:4:30   FW-2 通知开始测试
+19:4:43   FW-2 通知完成测试
+19:4:46   FW-2 通知开始测试
+19:4:59   FW-2 通知完成测试
+19:5:2    FW-2 通知开始测试
+19:5:15   FW-2 通知完成测试
+19:5:26   FW-2 通知开始测试
+19:5:38   FW-2 通知完成测试
+19:6:15   停止测试
+19:6:16   重置测试
+19:6:19   初始化测试
+19:6:22   FW-2 准备测试
+19:6:22   开始一次测试
+19:6:22   FW-2 通知开始测试
+19:6:35   FW-2 通知完成测试
+19:6:42   停止测试
+19:6:43   重置测试
